@@ -16,7 +16,6 @@
         <div style="width: 1100px;" class="container-fluid">
             <a class="navbar-brand" href="{{ route('main') }}" style="font-size: 20px;">Мой словарь</a>
 
-
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" style="padding-bottom: 5px;" href="{{ route('exercises') }}" >Упражнения</a>
@@ -24,7 +23,12 @@
             </ul>
 
             <span class="navbar-text" style="color: white;font-size: 20px;">
-                    Привет, Kirill | Ваш опыт: 708 |<a href="/users/logout">Выйти</a>
+                @auth
+                    Привет, {{ $user->name }} | Ваш опыт: 708 | <a href="{{ route('get-logout') }}">Выйти</a>
+                @endauth
+                @guest
+                    <a href="{{ route('login') }}">Войти</a> | <a href="{{ route('register') }}">Регистрация</a>
+                @endguest
             </span>
         </div>
     </nav>

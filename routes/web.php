@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,12 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', [ MainController::class, 'main' ])->name('main');
+Auth::routes([
+    'reset'=>false,
+    'confirm'=>false
+]);
+Route::get('/logout', [ LoginController::class, 'logout' ])->name('get-logout');
 
+Route::get('/', [ MainController::class, 'main' ])->name('main');
 Route::get('/exercises', [ MainController::class, 'exercises' ])->name('exercises');
+
