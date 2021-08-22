@@ -40,4 +40,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function words()
+    {
+        return $this->hasMany(Word::class)->orderByDesc('id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
+    }
 }

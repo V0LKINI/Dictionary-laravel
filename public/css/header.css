@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Huntsman;
+    src: url('./fonts/Huntsman.otf');
+}
+
+header {
+    min-width: 800px;
+}

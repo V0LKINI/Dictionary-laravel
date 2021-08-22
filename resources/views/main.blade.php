@@ -1,27 +1,35 @@
-@extends('master')
+@extends('layouts.master')
 
 @section('title', 'Словарик')
 
 @section('content')
-<br>
-<h4 id="formName">Добавить слово</h4>
-<form id="addWordForm" method="post" style="margin-bottom: 10px" action="">
-    <input type="text" placeholder="Введите слово" name="word" id="word" value="">
-    <input type="text" placeholder="Введите перевод" size="50"
-           name="translate" id="translate" value="">
-    <input type="button" class="btn btn-success" style="margin-bottom: 4px;"
-           id="submitWordButton" onclick="addWord()" value="Добавить">
-    <input type="reset" class="btn btn-danger" style="margin-bottom: 4px;"
-           id="resetButton" onclick="add()" value="Сбросить">
-</form>
+    <br>
+    @if (session()->has('warning'))
+        <div class="alert alert-warning" role="alert">{{ session()->get('warning') }}</div>
+    @endif
+    <h4 id="formName">Добавить слово</h4>
+    <form id="addWordForm" method="post" style="margin-bottom: 10px" action="{{ route('word-add') }}">
+        @csrf
+        <input type="text" placeholder="Введите слово" name="english" id="english" value="">
+        <input type="text" placeholder="Введите перевод" size="50" name="russian" id="russian" value="">
+{{--        <input type="submit" class="btn btn-success" style="margin-bottom: 4px;" value="Добавить">--}}
+            <input type="button" class="btn btn-success" style="margin-bottom: 4px;"
+                   id="submitWordButton" onclick="addWord()" value="Добавить">
+        <input type="reset" class="btn btn-danger" style="margin-bottom: 4px;"
+               id="resetButton" onclick="add()" value="Сбросить">
+    </form>
 
-<p id="errorMessage"></p>
+    <p id="errorMessage"></p>
 
-<table id="mainTable" class="simple-little-table">
-    <tr id="tableHead"><th  style="width: 20%;" >Слово</th><th  style="width: 45%;" >Перевод</th>
-        <th style="width: 20%;">Взаимодействие</th><th style="width: 15%;">Прогресс</th></tr>
-        @foreach($words as $word)
-            <tr class="tableRow" id="tableRow-234">
+    <table id="mainTable" class="simple-little-table">
+        <tr id="tableHead">
+            <th style="width: 20%;">Слово</th>
+            <th style="width: 45%;">Перевод</th>
+            <th style="width: 20%;">Взаимодействие</th>
+            <th style="width: 15%;">Прогресс</th>
+        </tr>
+        @foreach($user->words as $word)
+            <tr class="tableRow" id="tableRow-{{ $word->id }}">
                 <td class="tableColumn">{{ $word->english }}</td>
                 <td class="tableColumn">{{ $word->russian }}</td>
                 <td class="tableColumn">
@@ -32,5 +40,5 @@
                 <td class="tableColumn" id="wordProgress">{{ $word->progress }}%</td>
             </tr>
         @endforeach
-</table>
+    </table>
 @endsection

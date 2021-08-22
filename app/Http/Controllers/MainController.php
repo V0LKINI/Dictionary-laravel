@@ -3,25 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Word;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
-    public function main(Request $request)
+    public function main()
     {
         $user = Auth::user();
-        if ($user){
-            $words = Word::where('user_id',$user->id)->get();
-            return view('main', compact('words', 'user'));
-        } else{
-            return redirect('/login');
-        }
-
+        return view('main', compact( 'user'));
     }
 
-    public function exercises()
+    public function adminPanel()
     {
-        return view('exercises');
+        $allUsers = User::get();
+        $user = Auth::user();
+        return view('adminPanel', compact( 'allUsers', 'user'));
     }
 }

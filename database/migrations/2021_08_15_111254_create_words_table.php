@@ -18,7 +18,7 @@ class CreateWordsTable extends Migration
             $table->integer('user_id');
             $table->string('english');
             $table->string('russian');
-            $table->integer('progress');
+            $table->tinyInteger('progress')->default(0);
             $table->timestamps();
         });
     }
