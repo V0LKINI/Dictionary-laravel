@@ -8,7 +8,7 @@
         <div class="alert alert-warning" role="alert">{{ session()->get('warning') }}</div>
     @endif
     <h4 id="formName">Добавить слово</h4>
-    <form id="addWordForm" method="post" style="margin-bottom: 10px" action="{{ route('word-add') }}">
+    <form id="addWordForm" style="margin-bottom: 10px">
         @csrf
         <input type="text" placeholder="Введите слово" name="english" id="english" value="">
         <input type="text" placeholder="Введите перевод" size="50" name="russian" id="russian" value="">
@@ -33,6 +33,7 @@
                 <td class="tableColumn">{{ $word->english }}</td>
                 <td class="tableColumn">{{ $word->russian }}</td>
                 <td class="tableColumn">
+
                     <span class="penIcon material-icons" onclick="edit({{ $word->id }})">edit</span>
                     <span class="binIcon material-icons" onclick="deleteWord({{ $word->id }})">delete</span>
                     <span class="resetIcon material-icons" onclick="resetWordProgress({{ $word->id }})">cached</span>

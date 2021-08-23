@@ -43,7 +43,7 @@ class User extends Authenticatable
 
     public function words()
     {
-        return $this->hasMany(Word::class)->orderByDesc('id');
+        return $this->hasMany(Word::class)->orderByDesc('updated_at');
     }
 
     public function isAdmin()

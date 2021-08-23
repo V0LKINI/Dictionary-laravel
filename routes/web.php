@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\LeaderboardController;
-use App\Http\Controllers\WordsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/exercises', [ExerciseController::class, 'main'])->name('exercises');
     Route::get('/leaderboard', [LeaderboardController::class, 'main'])->name('leaderboard');
 
-    Route::group(['prefix' => 'words'], function () {
-        Route::post('/add', [WordsController::class, 'add'])->name('word-add');
-        Route::get('/{id}/delete', [WordsController::class, 'delete'])->name('word-delete');
-        Route::post('/{id}/edit', [WordsController::class, 'edit'])->name('word-edit');
-
-    });
+    Route::resource('words', 'App\Http\Controllers\WordsController', [
+        'only' => ['create', 'destroy', 'edit']
+    ]);
 
     Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/admin-panel', [MainController::class, 'adminPanel'])->name('admin-panel');
