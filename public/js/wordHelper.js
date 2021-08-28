@@ -26,5 +26,3 @@ function edit(id) {
     $('#submitWordButton').attr('onclick', 'editWord(' + id + ')');
     $("#submitWordButton").val('Изменить');
 }
-
-

@@ -21,6 +21,11 @@ class Word extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function exercise()
+    {
+        return $this->hasOne(Exercise::class);
+    }
+
     public static function addWord($user_id, $english, $russian)
     {
         if ($english === null) {
@@ -38,6 +43,11 @@ class Word extends Model
                 'english' => $english,
                 'russian' => $russian
             ]);
+
+            $exercise = new Exercise;
+            $exercise->word_id = $word->id;
+            $word->exercise()->save($exercise);
+
             return $word;
         } else {
             throw new BadRequestException('Слово уже существует');
@@ -46,7 +56,7 @@ class Word extends Model
 
     public static function editWord(Request $request)
     {
-        $word = Word::where('id', $request->id)->first();
+        $word = self::where('id', $request->id)->first();
         if ($word === null) {
             throw new BadRequestException('Слово не существует');
         }
@@ -67,4 +77,5 @@ class Word extends Model
         $word->save();
         return $word;
     }
+
 }

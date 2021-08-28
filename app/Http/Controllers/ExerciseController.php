@@ -12,4 +12,19 @@ class ExerciseController extends Controller
         $user = Auth::user();
         return view('exercises', compact('user'));
     }
+
+    public function englishRussian()
+    {
+
+    }
+
+    public function russianEnglish()
+    {
+
+    }
+
+    public function repetition()
+    {
+
+    }
 }

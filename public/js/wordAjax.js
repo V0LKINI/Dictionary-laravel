@@ -38,8 +38,8 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
 function addWord() {
     $.ajax({
-        url: '/words/create',
-        type: "get",
+        url: '/words/add',
+        type: "post",
         dataType: "html",
         data: $("#addWordForm").serialize(),
         success: function (data) { //Слово добавлено в словарь
@@ -48,9 +48,15 @@ function addWord() {
             $(selected_word).detach();
             $(selected_word).detach();
             addRowInTable(data);
+
+            Toast.add({
+                text: "Слово добавлено в словарь",
+                color: "#28a745",
+                autohide: true,
+                delay: 3000
+            });
         },
         error: function (xhr) { //Слово не добавлено
-            console.log(xhr);
             $("#errorMessage").html(xhr.responseText);
         }
     });
@@ -59,8 +65,9 @@ function addWord() {
 
 function deleteWord(word_id) {
 
-    let url = '/words/' + word_id;
+    let url = '/words/delete/' + word_id;
     let selected_word = '#tableRow-' + word_id;
+
     $(selected_word).detach();
 
     $.ajax({
@@ -69,6 +76,9 @@ function deleteWord(word_id) {
         dataType: 'html',
         headers: {
             'X-CSRF-TOKEN': csrf_token
+        },
+        error: function (xhr) { //Слово не удалилось
+            $("#errorMessage").html(xhr.responseText);
         }
     });
 }
@@ -76,19 +86,46 @@ function deleteWord(word_id) {
 
 function editWord(word_id) {
     $.ajax({
-        url: '/words/' + word_id +'/edit',
-        type: "get",
+        url: '/words/edit/' + word_id,
+        type: "put",
         dataType: "html",
         data: $("#addWordForm").serialize() + "&id=" + word_id,
-        success: function (data) { //Слово добавлено в словарь
+        success: function (data) { //Слово отредактировалось
             let selected_word = '#tableRow-' + word_id;
             $(selected_word).detach();
             addRowInTable(data);
+
+            Toast.add({
+                text: "Слово успешно изменено",
+                color: "#28a745",
+                autohide: true,
+                delay: 3000
+            });
+
             $("#formName").text('Добавить слово');
             $('#submitWordButton').attr('onclick', 'addWord()');
             $("#submitWordButton").val('Добавить');
         },
-        error: function (xhr) { //Слово не добавлено
+        error: function (xhr) { //Слово не отредактировалось
+            $("#errorMessage").html(xhr.responseText);
+        }
+    });
+}
+
+function resetWordProgress (word_id){
+    let url = '/words/reset/' + word_id;
+    let selected_word = '#tableRow-' + word_id;
+    $(selected_word + " #wordProgress").text('0%');
+
+    $.ajax({
+        url: url,
+        method: 'put',
+        dataType: 'html',
+        data: {word_id: word_id},
+        headers: {
+            'X-CSRF-TOKEN': csrf_token
+        },
+        error: function (xhr) { //Прогресс не сбросился
             $("#errorMessage").html(xhr.responseText);
         }
     });
@@ -114,15 +151,4 @@ function addRowInTable(data) {
     $("#errorMessage").text('');
 }
 
-// function resetWordProgress (word_id){
-//     let url = '/words/reset';
-//     let selected_word = '#tableRow-' + word_id;
-//     $(selected_word + " #wordProgress").text('0%');
-//
-//     $.ajax({
-//         url: url,
-//         method: 'post',
-//         dataType: 'html',
-//         data: {word_id: word_id},
-//     });
-// }
+

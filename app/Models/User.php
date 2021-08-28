@@ -33,6 +33,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Аттрибуты, которые запрещено заполнять
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'is_admin'
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array

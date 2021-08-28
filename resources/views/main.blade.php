@@ -15,6 +15,7 @@
 {{--        <input type="submit" class="btn btn-success" style="margin-bottom: 4px;" value="Добавить">--}}
             <input type="button" class="btn btn-success" style="margin-bottom: 4px;"
                    id="submitWordButton" onclick="addWord()" value="Добавить">
+
         <input type="reset" class="btn btn-danger" style="margin-bottom: 4px;"
                id="resetButton" onclick="add()" value="Сбросить">
     </form>
@@ -38,7 +39,7 @@
                     <span class="binIcon material-icons" onclick="deleteWord({{ $word->id }})">delete</span>
                     <span class="resetIcon material-icons" onclick="resetWordProgress({{ $word->id }})">cached</span>
                 </td>
-                <td class="tableColumn" id="wordProgress">{{ $word->progress }}%</td>
+                <td class="tableColumn" id="wordProgress">{{ $word->exercise->getProgress() }}%</td>
             </tr>
         @endforeach
     </table>

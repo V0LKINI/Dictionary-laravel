@@ -15,10 +15,10 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('english');
             $table->string('russian');
-            $table->tinyInteger('progress')->default(0);
             $table->timestamps();
         });
     }
