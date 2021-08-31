@@ -38,9 +38,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'exercises'], function () {
         Route::get('/', [ExerciseController::class, 'main'])->name('exercises');
-        Route::get('/english-russian', [ExerciseController::class, 'russianEnglish'])->name('english-russian');
-        Route::get('/russian-english', [ExerciseController::class, 'englishRussian'])->name('russian-english');
+        Route::get('/english-russian', [ExerciseController::class, 'englishRussian'])->name('english-russian');
+        Route::get( '/russian-english', [ExerciseController::class, 'russianEnglish'])->name('russian-english');
         Route::get('/repetition', [ExerciseController::class, 'repetition'])->name('repetition');
+        Route::post('/checkAnswer', [ExerciseController::class, 'checkAnswer'])->name('checkAnswer');
+        Route::post('/getResults', [ExerciseController::class, 'getResults'])->name('getResults');
     });
 
     Route::group(['middleware' => 'is_admin'], function () {

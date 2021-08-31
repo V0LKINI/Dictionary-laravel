@@ -67,7 +67,11 @@ class WordsController extends Controller
     public function resetProgress($word_id)
     {
         try {
-            Exercise::resetProgress($word_id);
+            $exercise = Exercise::where('word_id', $word_id)->first();
+            if ($exercise === null){
+                throw new BadRequestException('Слово не найдено');
+            }
+            $exercise->resetProgress();
         } catch (AccessDeniedException $e) {
             http_response_code(403);
             echo $e->getMessage();
@@ -75,6 +79,5 @@ class WordsController extends Controller
             http_response_code(400);
             echo $e->getMessage();
         }
-
     }
 }

@@ -57,7 +57,10 @@ function addWord() {
             });
         },
         error: function (xhr) { //Слово не добавлено
-            $("#errorMessage").html(xhr.responseText);
+            if (xhr.status === 400){
+                $("#errorMessage").html(xhr.responseText);
+            }
+
         }
     });
 }
@@ -78,7 +81,9 @@ function deleteWord(word_id) {
             'X-CSRF-TOKEN': csrf_token
         },
         error: function (xhr) { //Слово не удалилось
-            $("#errorMessage").html(xhr.responseText);
+            if (xhr.status === 403 || xhr.status === 400){
+                $("#errorMessage").html(xhr.responseText);
+            }
         }
     });
 }
@@ -107,7 +112,9 @@ function editWord(word_id) {
             $("#submitWordButton").val('Добавить');
         },
         error: function (xhr) { //Слово не отредактировалось
-            $("#errorMessage").html(xhr.responseText);
+            if (xhr.status === 403 || xhr.status === 400){
+                $("#errorMessage").html(xhr.responseText);
+            }
         }
     });
 }
@@ -126,7 +133,9 @@ function resetWordProgress (word_id){
             'X-CSRF-TOKEN': csrf_token
         },
         error: function (xhr) { //Прогресс не сбросился
-            $("#errorMessage").html(xhr.responseText);
+            if (xhr.status === 403 || xhr.status === 400){
+                $("#errorMessage").html(xhr.responseText);
+            }
         }
     });
 }

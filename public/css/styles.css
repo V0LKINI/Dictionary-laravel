@@ -174,12 +174,15 @@
 
 .exerciseForm {
     position: center;
-    width: 50%;
+    width: 40%;
+    min-width: 400px;
     text-align: center;
     border: 3px solid #666;
     border-radius: 10px;
     padding: 10px;
     margin: 100px auto;
+    margin-bottom: 0;
+    background-color: #ececec;
 }
 
 .exerciseForm h1 {
@@ -215,4 +218,96 @@
 .exerciseWordButton {
     margin-bottom: 10px;
     width: 250px;
+}
+
+#nextWordDiv {
+    position: center;
+    width: 50%;
+    text-align: center;
+    margin: 100px auto;
+    margin-top: 10px;
+}
+
+#nextWordButton  {
+    width: 250px;
+}
+
+/*-------------- ТАБЛИЦА С РЕЗУЛЬТАТАМИ УПРАЖНЕНИЯМ ----------------*/
+.features-table
+{
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 0;
+    color: #2a2a2a;
+    background: #fafafa;
+    background-image: -moz-linear-gradient(top, #fff, #eaeaea, #fff); /* Firefox 3.6 */
+    background-image: -webkit-gradient(linear,center bottom,center top,from(#fff),color-stop(0.5, #eaeaea),to(#fff));
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.features-table td
+{
+    height: 50px;
+    padding: 0 20px;
+    border-bottom: 1px solid #cdcdcd;
+    box-shadow: 0 1px 0 white;
+    -moz-box-shadow: 0 1px 0 white;
+    -webkit-box-shadow: 0 1px 0 white;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.features-table tbody td
+{
+    text-align: center;
+    width: 150px;
+}
+
+
+.features-table td.grey
+{
+    background: rgba(144,144,144,0.15);
+    border-right: 1px solid white;
+}
+
+.features-table td.green
+{
+    background: rgba(21, 159, 92, 0.4);
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.features-table td.red
+{
+    background: rgba(188, 71, 57, 0.4);
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+
+.features-table thead td
+{
+    font-size: 120%;
+    font-weight: bold;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top: 1px solid #eaeaea;
+}
+
+.features-table tfoot td
+{
+    font-size: 120%;
+    font-weight: bold;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }

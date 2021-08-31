@@ -40,7 +40,7 @@
 
                 <span class="navbar-text" style="color: white;font-size: 18px;padding-bottom: 10px;">
                     @auth
-                        {{ $user->name }} | Опыт: {{ $user->experience }} | <a href="{{ route('get-logout') }}">ВЫЙТИ</a>
+                        {{ $user->name }} | Опыт: <span id="userExperience">{{ $user->experience }}</span>  | <a href="{{ route('get-logout') }}">ВЫЙТИ</a>
                     @endauth
                     @guest
                         <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
@@ -60,7 +60,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script  src="/js/toast.js"></script>
-<script  src="/js/wordAjax.js"></script>
-<script  src="/js/wordHelper.js"></script>
+<script  src="/js/words/wordAjax.js"></script>
+<script  src="/js/words/wordHelper.js"></script>
+<script  src="/js/exercises/ruEng-engRu.js"></script>
 </body>
 </html>
