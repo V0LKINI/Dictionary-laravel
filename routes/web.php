@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get( '/russian-english', [ExerciseController::class, 'russianEnglish'])->name('russian-english');
         Route::get('/repetition', [ExerciseController::class, 'repetition'])->name('repetition');
         Route::post('/checkAnswer', [ExerciseController::class, 'checkAnswer'])->name('checkAnswer');
+        Route::post('/checkAnswerRepetition', [ExerciseController::class, 'checkAnswerRepetition'])
+            ->name('checkAnswerRepetition');
         Route::post('/getResults', [ExerciseController::class, 'getResults'])->name('getResults');
     });
 

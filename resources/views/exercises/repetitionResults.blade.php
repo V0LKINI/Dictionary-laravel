@@ -23,15 +23,8 @@
     @endforeach
     </tbody>
 
-    <tfoot>
-    <tr>
-        <td>Слов изучено:</td>
-        <td>{{ $experience }}</td>
-    </tr>
-    </tfoot>
 </table>
 
 <form action="{{ route('exercises') }}">
     <button class="btn btn-primary fs-5">Вернуться к упражнениям</button>
 </form>
-

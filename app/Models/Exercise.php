@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class Exercise extends Model
@@ -42,46 +43,39 @@ class Exercise extends Model
 
     public static function getRussianEnglishWordsCount($user_id)
     {
-        $words = Word::where('user_id', $user_id)->whereHas('exercise', function($q){
-            $q->where('russian_english','=','0');
-        })->get();
-        $count = $words->count();
+        $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('russian_english', '=', '0')->count();
         return $count;
     }
 
     public static function getEnglishRussianWordsCount($user_id)
     {
-        $words = Word::where('user_id', $user_id)->whereHas('exercise', function($q){
-            $q->where('english_russian','=','0');
-        })->get();
-        $count = $words->count();
+        $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('english_russian', '=', '0')->count();
         return $count;
     }
 
     public static function getRepetitionWordsCount($user_id)
     {
-        $words = Word::where('user_id', $user_id)->whereHas('exercise', function($q){
-            $q->where('english_russian','=', 100)->where('russian_english','=', 100);
-        })->get();
-        $count = $words->count();
+        $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('english_russian', '=', 100)->where('russian_english', '=', 100)
+            ->whereDate('repeated_at', '<', date('Y-m-d'))->count();
         return $count;
     }
 
     public static function getRussianEnglishWords($user_id)
     {
-        $words = Word::where('user_id', $user_id)->whereHas('exercise', function($q){
-            $q->where('russian_english', 0);
-        })->inRandomOrder()->take(10)->get();
+        $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('russian_english', 0)->inRandomOrder()->take(10)->get();
 
         $count = $words->count();
 
-        $extraWords = Word::where('user_id', 1)->whereHas('exercise', function($q){
-            $q->where('russian_english', 100);
-        })->inRandomOrder()->take($count*3)->get();
+        $extraWords = Word::where('user_id', 1)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('russian_english', 100)->inRandomOrder()->take($count * 3)->get();
 
         $wordsArray = [];
         $i = 0;
-        foreach ($words as $word){
+        foreach ($words as $word) {
             $wordsArray[$i] = [
                 0 => $word->english,
                 1 => $extraWords[$i * 3 + 0]->english,
@@ -92,7 +86,6 @@ class Exercise extends Model
             $wordsArray[$i]['correct_translation'] = $word->english;
             $wordsArray[$i]['word'] = $word->russian;
             $wordsArray[$i]['id'] = $word->id;
-            $wordsArray[$i]['index'] = $i+1;
             $i++;
         }
         return $wordsArray;
@@ -100,19 +93,17 @@ class Exercise extends Model
 
     public static function getEnglishRussianWords($user_id)
     {
-        $words = Word::where('user_id', $user_id)->whereHas('exercise', function($q){
-            $q->where('english_russian', 0);
-        })->inRandomOrder()->take(10)->get();
+        $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('english_russian', 0)->inRandomOrder()->take(10)->get();
 
         $count = $words->count();
 
-        $extraWords = Word::where('user_id', 1)->whereHas('exercise', function($q){
-            $q->where('english_russian', 100);
-        })->inRandomOrder()->take($count*3)->get();
+        $extraWords = Word::where('user_id', 1)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('english_russian', 100)->inRandomOrder()->take($count * 3)->get();
 
         $wordsArray = [];
         $i = 0;
-        foreach ($words as $word){
+        foreach ($words as $word) {
             $wordsArray[$i] = [
                 0 => $word->russian,
                 1 => $extraWords[$i * 3 + 0]->russian,
@@ -123,7 +114,6 @@ class Exercise extends Model
             $wordsArray[$i]['correct_translation'] = $word->russian;
             $wordsArray[$i]['word'] = $word->english;
             $wordsArray[$i]['id'] = $word->id;
-            $wordsArray[$i]['index'] = $i+1;
             $i++;
         }
         return $wordsArray;
@@ -131,7 +121,11 @@ class Exercise extends Model
 
     public static function getRepetitionWords($user_id)
     {
-        $words = Word::where('user_id', $user_id)->get();
+        $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('english_russian', 100)->where('russian_english', 100)
+            ->whereDate('repeated_at', '<', date('Y-m-d'))
+            ->orderBy('repeated_at', 'desc')->take(10)->get();
+        return $words;
     }
 
 }

@@ -229,7 +229,13 @@
 }
 
 #nextWordButton  {
-    width: 250px;
+    width: 200px;
+    margin: 5px;
+}
+
+#dontRemember {
+    width: 200px;
+    margin: 5px;
 }
 
 /*-------------- ТАБЛИЦА С РЕЗУЛЬТАТАМИ УПРАЖНЕНИЯМ ----------------*/
@@ -276,7 +282,7 @@
 
 .features-table td.green
 {
-    background: rgba(21, 159, 92, 0.4);
+    background: rgba(21, 159, 92, 0.5);
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;
@@ -284,7 +290,7 @@
 
 .features-table td.red
 {
-    background: rgba(188, 71, 57, 0.4);
+    background: rgba(233, 95, 81, 0.5);;
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;

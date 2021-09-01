@@ -60,6 +60,9 @@ function viewExerciseResult(exercise_name){
             $('.exerciseForm').detach();
             $('#nextWordDiv').detach();
             $('#content').append(data);
+        },
+        error: function (xhr) { //Слово не удалилось
+            $('body').html(xhr.responseText);
         }
     });
 }

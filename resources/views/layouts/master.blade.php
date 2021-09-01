@@ -63,5 +63,6 @@
 <script  src="/js/words/wordAjax.js"></script>
 <script  src="/js/words/wordHelper.js"></script>
 <script  src="/js/exercises/ruEng-engRu.js"></script>
+<script  src="/js/exercises/repetition.js"></script>
 </body>
 </html>
