@@ -3,10 +3,10 @@ function submitAnswer(correct_translation, chosen_translation, word_id, word_ind
     let result = false;
 
     $('.exerciseWordButton-' + word_index).prop("onclick", null).off("click");
-    if (word_index === count){
+    if (word_index === count) {
         $('#nextWordDiv').append('<input type="button" class="btn btn-primary fs-5" ' +
-            'onclick="viewExerciseResult(\'' + exercise_name + '\')"' +
-            'id="nextWordButton" name="chosenWord" value="Завершить">');
+            'onclick="viewExerciseResult(\'' + exercise_name + '\',' + count + ')"' +
+            'id="completeExerciseButton" name="chosenWord" value="Завершить">');
     } else {
         $('#nextWordDiv').append('<input type="button" class="btn btn-primary fs-5"' +
             'onclick="nextWord(' + word_index + ')"' +
@@ -39,30 +39,9 @@ function submitAnswer(correct_translation, chosen_translation, word_id, word_ind
     });
 }
 
-function nextWord(word_index){
+function nextWord(word_index) {
     $('#word-' + word_index).attr('hidden', true);
-    $('#word-' + (word_index+ 1)).attr('hidden', false);
+    $('#word-' + (word_index + 1)).attr('hidden', false);
     $('#nextWordButton').detach();
 }
 
-function viewExerciseResult(exercise_name){
-    $.ajax({
-        url: 'getResults',
-        method: 'post',
-        dataType: 'html',
-        data: {
-            "exerciseName": exercise_name
-        },
-        headers: {
-            'X-CSRF-TOKEN': csrf_token
-        },
-        success: function(data){
-            $('.exerciseForm').detach();
-            $('#nextWordDiv').detach();
-            $('#content').append(data);
-        },
-        error: function (xhr) { //Слово не удалилось
-            $('body').html(xhr.responseText);
-        }
-    });
-}

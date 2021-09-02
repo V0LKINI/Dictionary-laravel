@@ -23,6 +23,13 @@
     @endforeach
     </tbody>
 
+    <tfoot>
+    <tr>
+        <td>Слов повторено:</td>
+        <td>{{ $repeated }}</td>
+    </tr>
+    </tfoot>
+
 </table>
 
 <form action="{{ route('exercises') }}">

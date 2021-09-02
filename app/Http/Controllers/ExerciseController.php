@@ -80,14 +80,15 @@ class ExerciseController extends Controller
         $word = Exercise::where('word_id', $request->word_id)->first();
 
         if ($request->result === 'true') {
-            $word->$exerciseName = 100;
-            $user = Auth::user();
-            $user->experience++;
-            $word->save();
-            $user->save();
-
             session([$exerciseName . '.results.' . $word->word->russian => [$word->word->english, true]]);
             session()->increment($exerciseName . '.experience');
+
+            $word->$exerciseName = 100;
+            $word->repeated_at = date("Y-m-d H:i:s");
+            $word->save();
+            $user = Auth::user();
+            $user->experience++;
+            $user->save();
         } else {
             session([$exerciseName . '.results.' . $word->word->russian => [$word->word->english, false]]);
         }
@@ -100,8 +101,12 @@ class ExerciseController extends Controller
         if ($request->result === 'false') {
             $word->russian_english = 0;
             $word->english_russian = 0;
+            $word->repeated_at = date("Y-m-d H:i:s");
             session(['repetition.results.' . $word->word->russian => [$word->word->english, false]]);
         } else {
+            $user = Auth::user();
+            $user->experience++;
+            $user->save();
             $word->repeated_at = date("Y-m-d H:i:s");
             session(['repetition.results.' . $word->word->russian => [$word->word->english, true]]);
         }
@@ -112,20 +117,36 @@ class ExerciseController extends Controller
     {
         $exerciseName = $request->exerciseName;
         $results = session()->get($exerciseName . '.results');
+        $count = $request->count;
+
+        if (session()->has($exerciseName . '.results')) {
+            $currentCount = count(session()->get($exerciseName . '.results'));
+        } else {
+            $currentCount = 0;
+        }
+
+        if ($count != $currentCount) {
+            header('HTTP/1.1 500 Internal Server Booboo');
+            exit();
+        }
 
         if ($exerciseName != 'repetition') {
             $experience = session()->get($exerciseName . '.experience');
-
-        } else {
-            $count = session()->get($exerciseName . '.count');
         }
 
-        session()->forget($exerciseName);
+        if ($exerciseName == 'repetition') {
+            $repeated = 0;
+            foreach ($results as $result){
+                if ($result[1] === true){
+                    $repeated++;
+                }
+            }
+        }
 
-        if ($exerciseName == 'russian_english' or $exerciseName == 'english_russian')
+        if ($exerciseName == 'russian_english' or $exerciseName == 'english_russian') {
             return view('exercises.exerciseResults', compact('results', 'experience'));
-        else if ($exerciseName == 'repetition') {
-            return view('exercises.repetitionResults', compact( 'results'));
+        } else if ($exerciseName == 'repetition') {
+            return view('exercises.repetitionResults', compact('results', 'repeated'));
         }
     }
 }

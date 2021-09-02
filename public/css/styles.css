@@ -228,7 +228,12 @@
     margin-top: 10px;
 }
 
-#nextWordButton  {
+#nextWordButton {
+    width: 200px;
+    margin: 5px;
+}
+
+#completeExerciseButton {
     width: 200px;
     margin: 5px;
 }
