@@ -12,8 +12,8 @@ php 7.4, MySQL 8.0
 
 ![Main page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/main.PNG)
 
-##Страница с упражнением
+## Страница с упражнением
 ![Exercise page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercise.PNG)
 
-##Результат упражнения
+## Результат упражнения
 ![Exercise results page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercise_results.PNG)
