@@ -10,10 +10,10 @@ php 7.4, MySQL 8.0
 
 ## Главная страница
 
-![Main page](public/img/main.png?raw=true "Optional Title")
+![Main page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/main.PNG)
 
 ##Страница с упражнением
-![Exercise page](public/img/exercise.png?raw=true "Optional Title")
+![Exercise page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercise.PNG)
 
 ##Результат упражнения
-![Exercise results page](public/img/exercise_results.png?raw=true "Optional Title")
+![Exercise results page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercise_results.PNG)
