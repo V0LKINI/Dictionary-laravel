@@ -28,13 +28,7 @@ class Word extends Model
 
     public static function addWord($user_id, $english, $russian)
     {
-        if ($english === null) {
-            throw new ValidationException('Не передано слово');
-        }
-
-        if ($russian === null) {
-            throw new ValidationException('Не передан перевод слова');
-        }
+        self::checkValidation($english, $russian);
 
         $word = self::where([['user_id', $user_id], ['english', $english]])->first();
         if ($word === null) {
@@ -65,17 +59,39 @@ class Word extends Model
             throw new AccessDeniedException('Вы не можете редактировать чужие слова!');
         }
 
-        if ($request->english === null) {
-            throw new ValidationException('Не передано слово');
-        }
+        self::checkValidation($request->english, $request->russian);
 
-        if ($request->russian === null) {
-            throw new ValidationException('Не передан перевод слова');
-        }
         $word->russian = $request->russian;
         $word->english = $request->english;
         $word->save();
         return $word;
+    }
+
+    public static function checkValidation($english, $russian)
+    {
+        if ($english === null) {
+            throw new ValidationException('Не передано слово');
+        }
+
+        if ($russian === null) {
+            throw new ValidationException('Не передан перевод слова');
+        }
+
+        if (mb_strlen($english) >= 25) {
+            throw new ValidationException('Слово слишком длинное');
+        }
+
+        if (mb_strlen($russian) >= 25) {
+            throw new ValidationException('Перевод слишком длинный');
+        }
+
+        if (!preg_match('/^[a-zA-Z,.\-\s]+$/u', $english)) {
+            throw new ValidationException('Слово должно состоять из букв латиницы');
+        }
+
+        if (!preg_match('/^[а-яА-ЯёЁ,.\-\s]+$/u', $russian)) {
+            throw new ValidationException('Перевод должен состоять из букв кириллицы');
+        }
     }
 
 }

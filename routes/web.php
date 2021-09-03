@@ -27,7 +27,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [MainController::class, 'main'])->name('main');
-    Route::get('/leaderboard', [LeaderboardController::class, 'main'])->name('leaderboard');
+
+    Route::group(['prefix' => 'leaderboard'], function () {
+        Route::get('/', [LeaderboardController::class, 'main'])->name('leaderboard');
+    });
 
     Route::group(['prefix' => 'words'], function () {
         Route::post('/add', [WordsController::class, 'add'])->name('words-add');

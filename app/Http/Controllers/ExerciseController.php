@@ -87,8 +87,7 @@ class ExerciseController extends Controller
             $word->repeated_at = date("Y-m-d H:i:s");
             $word->save();
             $user = Auth::user();
-            $user->experience++;
-            $user->save();
+            $user->incrementExperience();
         } else {
             session([$exerciseName . '.results.' . $word->word->russian => [$word->word->english, false]]);
         }
@@ -105,8 +104,7 @@ class ExerciseController extends Controller
             session(['repetition.results.' . $word->word->russian => [$word->word->english, false]]);
         } else {
             $user = Auth::user();
-            $user->experience++;
-            $user->save();
+            $user->incrementExperience();
             $word->repeated_at = date("Y-m-d H:i:s");
             session(['repetition.results.' . $word->word->russian => [$word->word->english, true]]);
         }

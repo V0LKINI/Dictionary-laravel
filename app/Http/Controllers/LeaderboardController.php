@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Experience;
 use Illuminate\Support\Facades\Auth;
+
 
 class LeaderboardController extends Controller
 {
     public function main()
     {
         $user = Auth::user();
-        return view('leaderboard', compact('user'));
+        $userRatingList = Experience::orderByDesc('total_experience')->get()->take(100);
+        return view('leaderboard.leaderboard', compact('user', 'userRatingList'));
     }
 }

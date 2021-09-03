@@ -40,7 +40,9 @@
 
                 <span class="navbar-text" style="color: white;font-size: 18px;padding-bottom: 10px;">
                     @auth
-                        {{ $user->name }} | Опыт: <span id="userExperience">{{ $user->experience }}</span>  | <a href="{{ route('get-logout') }}">ВЫЙТИ</a>
+                        {{ $user->name }}
+                        | Опыт: <span id="userExperience">{{ $user->experience->total_experience }}</span>
+                        | <a href="{{ route('get-logout') }}">ВЫЙТИ</a>
                     @endauth
                     @guest
                         <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
@@ -65,5 +67,6 @@
 <script  src="/js/exercises/ruEng-engRu.js"></script>
 <script  src="/js/exercises/repetition.js"></script>
 <script  src="/js/exercises/exerciseHelper.js"></script>
+<script  src="/js/leaderboard/tableSort.js"></script>
 </body>
 </html>

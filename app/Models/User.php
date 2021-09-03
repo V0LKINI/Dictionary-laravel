@@ -55,6 +55,20 @@ class User extends Authenticatable
         return $this->hasMany(Word::class)->orderByDesc('updated_at');
     }
 
+    public function experience()
+    {
+        return $this->hasOne(Experience::class);
+    }
+
+    public function incrementExperience()
+    {
+        $this->experience->daily_experience+=1;
+        $this->experience->weekly_experience+=1;
+        $this->experience->monthly_experience+=1;
+        $this->experience->total_experience+=1;
+        $this->experience->save();
+    }
+
     public function isAdmin()
     {
         return $this->is_admin === 1;
