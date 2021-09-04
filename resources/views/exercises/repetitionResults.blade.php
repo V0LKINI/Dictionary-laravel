@@ -1,4 +1,3 @@
-
 <table class="features-table">
     <thead>
     <tr>
@@ -11,13 +10,13 @@
     @foreach($results as $key=>$value)
         @if ($value[1] == 1)
             <tr>
-                <td  class="green">{{ $key }}</td>
-                <td  class="green">{{ $value[0] }}</td>
+                <td class="green">{{ $key }}</td>
+                <td class="green">{{ $value[0] }}</td>
             </tr>
         @else
             <tr>
-                <td  class="red">{{ $key }}</td>
-                <td  class="red">{{ $value[0] }}</td>
+                <td class="red">{{ $key }}</td>
+                <td class="red">{{ $value[0] }}</td>
             </tr>
         @endif
     @endforeach

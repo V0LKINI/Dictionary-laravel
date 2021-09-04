@@ -12,9 +12,9 @@
         @csrf
         <input type="text" placeholder="Введите слово" name="english" id="english" value="">
         <input type="text" placeholder="Введите перевод" size="50" name="russian" id="russian" value="">
-{{--        <input type="submit" class="btn btn-success" style="margin-bottom: 4px;" value="Добавить">--}}
-            <input type="button" class="btn btn-success" style="margin-bottom: 4px;"
-                   id="submitWordButton" onclick="addWord()" value="Добавить">
+        {{--        <input type="submit" class="btn btn-success" style="margin-bottom: 4px;" value="Добавить">--}}
+        <input type="button" class="btn btn-success" style="margin-bottom: 4px;"
+               id="submitWordButton" onclick="addWord()" value="Добавить">
 
         <input type="reset" class="btn btn-danger" style="margin-bottom: 4px;"
                id="resetButton" onclick="add()" value="Сбросить">

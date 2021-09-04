@@ -13,7 +13,7 @@
                 <td class="tableColumn">{{ $oneUser->id }}</td>
                 <td class="tableColumn">{{ $oneUser->name }}</td>
                 <td class="tableColumn">{{ $oneUser->email }}</td>
-                <td class="tableColumn" >{{ $oneUser->created_at }}</td>
+                <td class="tableColumn">{{ $oneUser->created_at }}</td>
             </tr>
         @endforeach
     </table>

@@ -25,7 +25,7 @@ class WordRequest extends FormRequest
     {
         return [
             'english' => ['required', 'max:25', 'regex:/^[a-zA-Z,.\-\s]+$/u'],
-            'russian' => ['required', 'max:25', 'regex:/^[а-яА-ЯёЁ,.\-\s]+$/u']
+            'russian' => ['required', 'max:25', 'regex:/^[а-яА-ЯёЁ,.\-\s]+$/u'],
         ];
     }
 
@@ -42,7 +42,7 @@ class WordRequest extends FormRequest
             'english.max' => 'Слово слишком длинное',
             'russian.max' => 'Перевод слишком длинный',
             'english.regex' => 'Слово должно состоять из букв латиницы',
-            'russian.regex' => 'Перевод должен состоять из букв кириллицы'
+            'russian.regex' => 'Перевод должен состоять из букв кириллицы',
         ];
     }
 }

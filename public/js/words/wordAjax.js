@@ -58,10 +58,10 @@ function addWord() {
             });
 
         }, error: function (xhr) {
-            if (xhr.status === 422 ){
+            if (xhr.status === 422) {
                 let errors = Object.entries(xhr.responseJSON.errors);
                 $("#errorMessage").html(errors[0][1]);
-            } else if (xhr.status === 400 ){
+            } else if (xhr.status === 400) {
                 $("#errorMessage").html(xhr.responseText);
             }
         }
@@ -115,7 +115,7 @@ function editWord(word_id) {
             $("#submitWordButton").val('Добавить');
         },
         error: function (xhr) { //Слово НЕ отредактировалось
-            if (xhr.status === 422 ){
+            if (xhr.status === 422) {
                 let errors = Object.entries(xhr.responseJSON.errors);
                 $("#errorMessage").html(errors[0][1]);
             } else if (xhr.status === 403 || xhr.status === 400) {

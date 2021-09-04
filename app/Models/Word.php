@@ -33,7 +33,7 @@ class Word extends Model
             $word = self::create([
                 'user_id' => $user_id,
                 'english' => $english,
-                'russian' => $russian
+                'russian' => $russian,
             ]);
             $exercise = new Exercise;
             $exercise->word_id = $word->id;
@@ -81,7 +81,7 @@ class Word extends Model
             throw new BadRequestException('Слово не найдено');
         }
 
-        if ($exercise->word->user->id !== $user_id){
+        if ($exercise->word->user->id !== $user_id) {
             throw new AccessDeniedException('Вы не можете сбросить прогресс у чужого слова!');
         }
         $exercise->resetProgress();

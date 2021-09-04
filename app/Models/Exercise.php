@@ -79,7 +79,7 @@ class Exercise extends Model
                 0 => $word->english,
                 1 => $extraWords[$i * 3 + 0]->english,
                 2 => $extraWords[$i * 3 + 1]->english,
-                3 => $extraWords[$i * 3 + 2]->english
+                3 => $extraWords[$i * 3 + 2]->english,
             ];
             shuffle($wordsArray[$i]);
             $wordsArray[$i]['correct_translation'] = $word->english;
@@ -107,7 +107,7 @@ class Exercise extends Model
                 0 => $word->russian,
                 1 => $extraWords[$i * 3 + 0]->russian,
                 2 => $extraWords[$i * 3 + 1]->russian,
-                3 => $extraWords[$i * 3 + 2]->russian
+                3 => $extraWords[$i * 3 + 2]->russian,
             ];
             shuffle($wordsArray[$i]);
             $wordsArray[$i]['correct_translation'] = $word->russian;

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes([
     'reset' => false,
-    'confirm' => false
+    'confirm' => false,
 ]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'words'], function () {
         Route::post('/add', [WordsController::class, 'add'])->name('words-add');
-        Route::post('/load', [WordsController::class, 'laod'])->name('words-load');
+        Route::post('/load', [WordsController::class, 'load'])->name('words-load');
         Route::delete('/delete/{id}', [WordsController::class, 'delete'])->name('words-delete');
         Route::put('/edit/{id}', [WordsController::class, 'edit'])->name('words-edit');
         Route::put('/reset/{id}', [WordsController::class, 'resetProgress'])->name('words-reset');
@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'exercises'], function () {
         Route::get('/', [ExerciseController::class, 'main'])->name('exercises');
         Route::get('/english-russian', [ExerciseController::class, 'englishRussian'])->name('english-russian');
-        Route::get( '/russian-english', [ExerciseController::class, 'russianEnglish'])->name('russian-english');
+        Route::get('/russian-english', [ExerciseController::class, 'russianEnglish'])->name('russian-english');
         Route::get('/repetition', [ExerciseController::class, 'repetition'])->name('repetition');
         Route::post('/checkAnswer', [ExerciseController::class, 'checkAnswer'])->name('checkAnswer');
         Route::post('/checkAnswerRepetition', [ExerciseController::class, 'checkAnswerRepetition'])

@@ -80,7 +80,7 @@ Toast.add = function (params) {
     }
     document.querySelector('.toasts').appendChild(Toast.create(config.text, config.color));
     var toasts = document.querySelectorAll('.toast_message');
-    var toast = new Toast(toasts[toasts.length - 1], { autohide: config.autohide, delay: config.delay });
+    var toast = new Toast(toasts[toasts.length - 1], {autohide: config.autohide, delay: config.delay});
     toast.show();
     return toast;
 }

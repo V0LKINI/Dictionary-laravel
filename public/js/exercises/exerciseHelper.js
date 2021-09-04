@@ -1,4 +1,4 @@
-function viewExerciseResult(exercise_name, count){
+function viewExerciseResult(exercise_name, count) {
     $('#completeExerciseButton').attr('disabled', true);
 
     $.ajax({
@@ -12,20 +12,20 @@ function viewExerciseResult(exercise_name, count){
         headers: {
             'X-CSRF-TOKEN': csrf_token
         },
-        success: function(data){
+        success: function (data) {
             $('.exerciseForm').detach();
             $('#nextWordDiv').detach();
             $('#content').append(data);
-        }, error: function(xhr){
-            if (xhr.status === 500){
-                viewExerciseResult(exercise_name,count);
+        }, error: function (xhr) {
+            if (xhr.status === 500) {
+                viewExerciseResult(exercise_name, count);
             }
         }
     });
 }
 
 $(document).keyup(function (event) {
-    if(event.keyCode == 13){
+    if (event.keyCode == 13) {
         $("#completeExerciseButton").click();
         $("#nextWordButton").click();
     }

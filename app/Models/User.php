@@ -38,7 +38,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [
-        'is_admin'
+        'is_admin',
     ];
 
     /**
@@ -62,10 +62,10 @@ class User extends Authenticatable
 
     public function incrementExperience()
     {
-        $this->experience->daily_experience+=1;
-        $this->experience->weekly_experience+=1;
-        $this->experience->monthly_experience+=1;
-        $this->experience->total_experience+=1;
+        $this->experience->daily_experience += 1;
+        $this->experience->weekly_experience += 1;
+        $this->experience->monthly_experience += 1;
+        $this->experience->total_experience += 1;
         $this->experience->save();
     }
 

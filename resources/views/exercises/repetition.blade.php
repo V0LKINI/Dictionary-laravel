@@ -5,8 +5,10 @@
 
 @section('content')
     @foreach($words as $word)
-        <div class="exerciseForm" id="word-{{ $loop->iteration }}"  @if ($loop->iteration !== 1) hidden @endif>
-            <h1> {{ $word['english'] }} <span hidden id="translation-{{ $loop->iteration }}">= {{ $word['russian'] }}</span></h1><br>
+        <div class="exerciseForm" id="word-{{ $loop->iteration }}" @if ($loop->iteration !== 1) hidden @endif>
+            <h1> {{ $word['english'] }} <span hidden
+                                              id="translation-{{ $loop->iteration }}">= {{ $word['russian'] }}</span>
+            </h1><br>
 
             <input class="btn btn-success fs-5 exerciseWordButton exerciseWordButton-{{ $loop->iteration }}"
                    type="button" name="chosenWord" value="Помню"
