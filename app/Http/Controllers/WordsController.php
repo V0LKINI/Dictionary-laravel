@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Exercise;
+use App\Http\Requests\WordRequest;
 use App\Models\Word;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class WordsController extends Controller
 {
-    public function add(Request $request)
+    public function add(WordRequest $request)
     {
         try {
             $word = Word::addWord(Auth::id(), $request->english, $request->russian);
-            return view('layouts.oneTableWord', compact('word'));
-        } catch (ValidationException $e) {
-            http_response_code(400);
-            echo $e->validator;
+            return response()->json(view('layouts.oneTableWord', compact('word'))->render());
         } catch (BadRequestException $e) {
             http_response_code(400);
             echo $e->getMessage();
@@ -29,15 +24,7 @@ class WordsController extends Controller
     public function delete($word_id)
     {
         try {
-            $word = Word::where('id', $word_id)->first();
-            if ($word === null) {
-                throw new BadRequestException('Слово не существует');
-            }
-
-            if ($word->user->id !== Auth::id()) {
-                throw new AccessDeniedException('Вы не можете удалять чужие слова!');
-            }
-            $word->delete();
+            Word::deleteWord(Auth::id(), $word_id);
         } catch (BadRequestException $e) {
             http_response_code(400);
             echo $e->getMessage();
@@ -47,14 +34,11 @@ class WordsController extends Controller
         }
     }
 
-    public function edit(Request $request)
+    public function edit(WordRequest $request)
     {
         try {
             $word = Word::editWord($request);
-            return view('layouts.oneTableWord', compact('word'));
-        } catch (ValidationException $e) {
-            http_response_code(400);
-            echo $e->validator;
+            return response()->json(view('layouts.oneTableWord', compact('word'))->render());
         } catch (AccessDeniedException $e) {
             http_response_code(403);
             echo $e->getMessage();
@@ -67,11 +51,7 @@ class WordsController extends Controller
     public function resetProgress($word_id)
     {
         try {
-            $exercise = Exercise::where('word_id', $word_id)->first();
-            if ($exercise === null){
-                throw new BadRequestException('Слово не найдено');
-            }
-            $exercise->resetProgress();
+            Word::resetWord(Auth::id(), $word_id);
         } catch (AccessDeniedException $e) {
             http_response_code(403);
             echo $e->getMessage();

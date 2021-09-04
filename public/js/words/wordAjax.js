@@ -3,9 +3,9 @@
 //
 // var page = 1;
 // var block_show = false;
-
+//
 var csrf_token = $('meta[name="csrf-token"]').attr('content');
-
+//
 // function scrolling(){
 //     if (block_show) {
 //         return false;
@@ -40,9 +40,10 @@ function addWord() {
     $.ajax({
         url: '/words/add',
         type: "post",
-        dataType: "html",
+        dataType: "json",
         data: $("#addWordForm").serialize(),
         success: function (data) { //Слово добавлено в словарь
+
             addRowInTable(data);
             let selected_word = '#' + $('tr').eq(1).attr('id');
             $(selected_word).detach();
@@ -55,12 +56,14 @@ function addWord() {
                 autohide: true,
                 delay: 3000
             });
-        },
-        error: function (xhr) { //Слово не добавлено
-            if (xhr.status === 400){
+
+        }, error: function (xhr) {
+            if (xhr.status === 422 ){
+                let errors = Object.entries(xhr.responseJSON.errors);
+                $("#errorMessage").html(errors[0][1]);
+            } else if (xhr.status === 400 ){
                 $("#errorMessage").html(xhr.responseText);
             }
-
         }
     });
 }
@@ -80,8 +83,8 @@ function deleteWord(word_id) {
         headers: {
             'X-CSRF-TOKEN': csrf_token
         },
-        error: function (xhr) { //Слово не удалилось
-            if (xhr.status === 403 || xhr.status === 400){
+        error: function (xhr) { //Слово НЕ удалилось
+            if (xhr.status === 403 || xhr.status === 400) {
                 $("#errorMessage").html(xhr.responseText);
             }
         }
@@ -93,7 +96,7 @@ function editWord(word_id) {
     $.ajax({
         url: '/words/edit/' + word_id,
         type: "put",
-        dataType: "html",
+        dataType: "json",
         data: $("#addWordForm").serialize() + "&id=" + word_id,
         success: function (data) { //Слово отредактировалось
             let selected_word = '#tableRow-' + word_id;
@@ -111,15 +114,18 @@ function editWord(word_id) {
             $('#submitWordButton').attr('onclick', 'addWord()');
             $("#submitWordButton").val('Добавить');
         },
-        error: function (xhr) { //Слово не отредактировалось
-            if (xhr.status === 403 || xhr.status === 400){
+        error: function (xhr) { //Слово НЕ отредактировалось
+            if (xhr.status === 422 ){
+                let errors = Object.entries(xhr.responseJSON.errors);
+                $("#errorMessage").html(errors[0][1]);
+            } else if (xhr.status === 403 || xhr.status === 400) {
                 $("#errorMessage").html(xhr.responseText);
             }
         }
     });
 }
 
-function resetWordProgress (word_id){
+function resetWordProgress(word_id) {
     let url = '/words/reset/' + word_id;
     let selected_word = '#tableRow-' + word_id;
     $(selected_word + " #wordProgress").text('0%');
@@ -133,7 +139,7 @@ function resetWordProgress (word_id){
             'X-CSRF-TOKEN': csrf_token
         },
         error: function (xhr) { //Прогресс не сбросился
-            if (xhr.status === 403 || xhr.status === 400){
+            if (xhr.status === 403 || xhr.status === 400) {
                 $("#errorMessage").html(xhr.responseText);
             }
         }
@@ -146,6 +152,7 @@ function addRowInTable(data) {
     let tableHead = document.getElementById('tableHead');
     let newRow = document.createElement('tr');
     newRow.innerHTML = data;
+
     tableHead.parentNode.insertBefore(newRow, tableHead.nextElementSibling);
 
     //Добавляем class и id только что добавленной строке

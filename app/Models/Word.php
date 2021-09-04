@@ -28,8 +28,6 @@ class Word extends Model
 
     public static function addWord($user_id, $english, $russian)
     {
-        self::checkValidation($english, $russian);
-
         $word = self::where([['user_id', $user_id], ['english', $english]])->first();
         if ($word === null) {
             $word = self::create([
@@ -37,15 +35,26 @@ class Word extends Model
                 'english' => $english,
                 'russian' => $russian
             ]);
-
             $exercise = new Exercise;
             $exercise->word_id = $word->id;
             $word->exercise()->save($exercise);
-
             return $word;
         } else {
             throw new BadRequestException('Слово уже существует');
         }
+    }
+
+    public static function deleteWord($user_id, $word_id)
+    {
+        $word = Word::where('id', $word_id)->first();
+        if ($word === null) {
+            throw new BadRequestException('Слово не существует');
+        }
+
+        if ($word->user->id !== $user_id) {
+            throw new AccessDeniedException('Вы не можете удалять чужие слова!');
+        }
+        $word->delete();
     }
 
     public static function editWord(Request $request)
@@ -59,39 +68,23 @@ class Word extends Model
             throw new AccessDeniedException('Вы не можете редактировать чужие слова!');
         }
 
-        self::checkValidation($request->english, $request->russian);
-
         $word->russian = $request->russian;
         $word->english = $request->english;
         $word->save();
         return $word;
     }
 
-    public static function checkValidation($english, $russian)
+    public static function resetWord($user_id, $word_id)
     {
-        if ($english === null) {
-            throw new ValidationException('Не передано слово');
+        $exercise = Exercise::where('word_id', $word_id)->first();
+        if ($exercise === null) {
+            throw new BadRequestException('Слово не найдено');
         }
 
-        if ($russian === null) {
-            throw new ValidationException('Не передан перевод слова');
+        if ($exercise->word->user->id !== $user_id){
+            throw new AccessDeniedException('Вы не можете сбросить прогресс у чужого слова!');
         }
-
-        if (mb_strlen($english) >= 25) {
-            throw new ValidationException('Слово слишком длинное');
-        }
-
-        if (mb_strlen($russian) >= 25) {
-            throw new ValidationException('Перевод слишком длинный');
-        }
-
-        if (!preg_match('/^[a-zA-Z,.\-\s]+$/u', $english)) {
-            throw new ValidationException('Слово должно состоять из букв латиницы');
-        }
-
-        if (!preg_match('/^[а-яА-ЯёЁ,.\-\s]+$/u', $russian)) {
-            throw new ValidationException('Перевод должен состоять из букв кириллицы');
-        }
+        $exercise->resetProgress();
     }
 
 }

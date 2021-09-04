@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'words'], function () {
         Route::post('/add', [WordsController::class, 'add'])->name('words-add');
+        Route::post('/load', [WordsController::class, 'laod'])->name('words-load');
         Route::delete('/delete/{id}', [WordsController::class, 'delete'])->name('words-delete');
         Route::put('/edit/{id}', [WordsController::class, 'edit'])->name('words-edit');
         Route::put('/reset/{id}', [WordsController::class, 'resetProgress'])->name('words-reset');

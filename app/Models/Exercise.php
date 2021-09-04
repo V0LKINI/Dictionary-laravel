@@ -123,7 +123,7 @@ class Exercise extends Model
         $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', 100)->where('russian_english', 100)
             ->whereDate('repeated_at', '<', date('Y-m-d'))
-            ->orderBy('repeated_at', 'desc')->take(10)->get();
+            ->inRandomOrder()->take(10)->get();
         return $words;
     }
 
