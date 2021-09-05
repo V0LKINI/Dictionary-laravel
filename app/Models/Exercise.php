@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -11,21 +12,44 @@ class Exercise extends Model
 {
     use HasFactory;
 
+    /**
+     * Атрибуты, которым можно массово присваивать значения.
+     *
+     * @var array
+     */
     protected $fillable = ['word_id', 'english_russian', 'russian_english', 'repeated_at'];
 
+    /**
+     * Убираем поля created_at и updated_at из БД, так как они нам не нужны.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * Каждая строчка в таблице упражнений принадлежит какому-то одному слову.
+     */
     public function word()
     {
         return $this->belongsTo(Word::class);
     }
 
-    public function getProgress()
+    /**
+     * Получить прогресс слова.
+     *
+     * @return int
+     */
+    public function getProgress(): int
     {
         return ($this->russian_english + $this->english_russian) / 2;
     }
 
-    public function resetProgress()
+    /**
+     * Сбросить прогресс слова.
+     *
+     * @return void
+     */
+    public function resetProgress(): void
     {
         if ($this->getProgress() === 0) {
             exit;
@@ -40,21 +64,42 @@ class Exercise extends Model
         $this->save();
     }
 
-    public static function getRussianEnglishWordsCount($user_id)
+    /**
+     * Получить количество слов для изучения в упражнении Russian-English.
+     *
+     * param int $user_id
+     *
+     * @return int
+     */
+    public static function getRussianEnglishWordsCount(int $user_id): int
     {
         $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('russian_english', '=', '0')->count();
         return $count;
     }
 
-    public static function getEnglishRussianWordsCount($user_id)
+    /**
+     * Получить количество слов для изучения в упражнении English-Russian.
+     *
+     * param int $user_id
+     *
+     * @return int
+     */
+    public static function getEnglishRussianWordsCount(int $user_id): int
     {
         $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', '=', '0')->count();
         return $count;
     }
 
-    public static function getRepetitionWordsCount($user_id)
+    /**
+     * Получить количество слов для повторения.
+     *
+     * param int $user_id
+     *
+     * @return int
+     */
+    public static function getRepetitionWordsCount(int $user_id): int
     {
         $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', '=', 100)->where('russian_english', '=', 100)
@@ -62,7 +107,14 @@ class Exercise extends Model
         return $count;
     }
 
-    public static function getRussianEnglishWords($user_id)
+    /**
+     * Получить массив слов для изучения в упражнении Russian-English.
+     *
+     * param int $user_id
+     *
+     * @return array
+     */
+    public static function getRussianEnglishWords(int $user_id): array
     {
         $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('russian_english', 0)->inRandomOrder()->take(10)->get();
@@ -90,7 +142,14 @@ class Exercise extends Model
         return $wordsArray;
     }
 
-    public static function getEnglishRussianWords($user_id)
+    /**
+     * Получить массив слов для изучения в упражнении English-Russian.
+     *
+     * param int $user_id
+     *
+     * @return array
+     */
+    public static function getEnglishRussianWords(int $user_id): array
     {
         $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', 0)->inRandomOrder()->take(10)->get();
@@ -118,7 +177,14 @@ class Exercise extends Model
         return $wordsArray;
     }
 
-    public static function getRepetitionWords($user_id)
+    /**
+     * Получить коллекцию слов для повторения.
+     *
+     * param int $user_id
+     *
+     * @return Collection
+     */
+    public static function getRepetitionWords(int $user_id): Collection
     {
         $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', 100)->where('russian_english', 100)

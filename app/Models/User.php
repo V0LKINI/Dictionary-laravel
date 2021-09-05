@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Атрибуты, которым можно массово присваивать значения.
      *
      * @var array
      */
@@ -23,7 +23,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * Атрибуты, которые должны быть скрыты для массивов.
      *
      * @var array
      */
@@ -33,7 +33,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Аттрибуты, которые запрещено заполнять
+     * Аттрибуты, которые запрещено заполнять.
      *
      * @var array
      */
@@ -42,7 +42,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Атрибуты, которые должны быть приведены к собственным типам.
      *
      * @var array
      */
@@ -50,17 +50,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Каждый пользователь имеет сколько угодно слов.
+     */
     public function words()
     {
         return $this->hasMany(Word::class)->orderByDesc('updated_at');
     }
 
+    /**
+     * Каждый пользователь имеет строчку в таблице упражнений.
+     */
     public function experience()
     {
         return $this->hasOne(Experience::class);
     }
 
-    public function incrementExperience()
+    /**
+     * Увеличить опыт пользователя в БД.
+     *
+     * @return void
+     */
+    public function incrementExperience(): void
     {
         $this->experience->daily_experience += 1;
         $this->experience->weekly_experience += 1;
@@ -69,7 +80,12 @@ class User extends Authenticatable
         $this->experience->save();
     }
 
-    public function isAdmin()
+    /**
+     * Проверить, является ли пользователь администратором.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
     {
         return $this->is_admin === 1;
     }

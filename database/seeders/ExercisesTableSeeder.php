@@ -19,7 +19,7 @@ class ExercisesTableSeeder extends Seeder
             ['word_id' => 2, 'english_russian' => 100, 'russian_english' => 100,],
             ['word_id' => 3, 'english_russian' => 100, 'russian_english' => 100,],
             ['word_id' => 4, 'english_russian' => 100, 'russian_english' => 100,],
-            ['word_id' => 5, 'english_russian' => 100, 'russian_english' => 100],
+            ['word_id' => 5, 'english_russian' => 100, 'russian_english' => 100,],
             ['word_id' => 6, 'english_russian' => 100, 'russian_english' => 100,],
             ['word_id' => 7, 'english_russian' => 100, 'russian_english' => 100,],
             ['word_id' => 8, 'english_russian' => 100, 'russian_english' => 100,],

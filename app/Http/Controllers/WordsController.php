@@ -37,7 +37,7 @@ class WordsController extends Controller
     public function edit(WordRequest $request)
     {
         try {
-            $word = Word::editWord($request);
+            $word = Word::editWord($request->id, $request-> english, $request->russian );
             return response()->json(view('layouts.oneTableWord', compact('word'))->render());
         } catch (AccessDeniedException $e) {
             http_response_code(403);
