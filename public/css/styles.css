@@ -174,7 +174,7 @@
 
 .exerciseForm {
     position: center;
-    width: 40%;
+    width: 50%;
     min-width: 400px;
     text-align: center;
     border: 3px solid #666;
@@ -244,8 +244,7 @@
 }
 
 /*-------------- ТАБЛИЦА С РЕЗУЛЬТАТАМИ УПРАЖНЕНИЯ ----------------*/
-.features-table
-{
+.features-table {
     width: 100%;
     margin: 0 auto;
     border-collapse: separate;
@@ -254,13 +253,12 @@
     color: #2a2a2a;
     background: #fafafa;
     background-image: -moz-linear-gradient(top, #fff, #eaeaea, #fff); /* Firefox 3.6 */
-    background-image: -webkit-gradient(linear,center bottom,center top,from(#fff),color-stop(0.5, #eaeaea),to(#fff));
-    margin-top:20px;
-    margin-bottom:20px;
+    background-image: -webkit-gradient(linear, center bottom, center top, from(#fff), color-stop(0.5, #eaeaea), to(#fff));
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.features-table td
-{
+.features-table td {
     height: 50px;
     padding: 0 20px;
     border-bottom: 1px solid #cdcdcd;
@@ -272,29 +270,25 @@
     display: table-cell;
 }
 
-.features-table tbody td
-{
+.features-table tbody td {
     text-align: center;
     width: 150px;
 }
 
 
-.features-table td.grey
-{
-    background: rgba(144,144,144,0.15);
+.features-table td.grey {
+    background: rgba(144, 144, 144, 0.15);
     border-right: 1px solid white;
 }
 
-.features-table td.green
-{
+.features-table td.green {
     background: rgba(21, 159, 92, 0.5);
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;
 }
 
-.features-table td.red
-{
+.features-table td.red {
     background: rgba(233, 95, 81, 0.5);;
     font-size: 20px;
     text-transform: uppercase;
@@ -302,8 +296,7 @@
 }
 
 
-.features-table thead td
-{
+.features-table thead td {
     font-size: 120%;
     font-weight: bold;
     -moz-border-radius-topright: 10px;
@@ -313,8 +306,7 @@
     border-top: 1px solid #eaeaea;
 }
 
-.features-table tfoot td
-{
+.features-table tfoot td {
     font-size: 120%;
     font-weight: bold;
     -moz-border-radius-bottomright: 10px;
@@ -325,11 +317,12 @@
 
 /*-------------- ТАБЛИЦА ЛИДЕРОВ ----------------*/
 
-.table_sort{
+.table_sort {
     width: 100%;
     margin: 0 auto;
     margin-top: 20px;
 }
+
 .table_sort table {
     border-collapse: collapse;
 }
@@ -368,4 +361,20 @@ th.sorted[data-order="-1"]::after {
 
 th.sorted[data-order="1"]::after {
     content: "▲"
+}
+
+/*-------------- СТРАНИЦА АДМИНИСМТРАТОРА ----------------*/
+
+#resetExperienceButtons {
+    display: flex;
+    justify-content: space-between;
+}
+#resetExperienceButtons form {
+    width: 33.3%;
+    margin: 10px;
+    text-align: center;
+}
+
+#resetExperienceButtons form input{
+    width: 250px;
 }

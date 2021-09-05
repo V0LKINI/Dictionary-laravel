@@ -37,7 +37,7 @@
                     @if ($user->isAdmin())
                         <li class="nav-item">
                             <a class="nav-link active" style="font-size: 16px; padding-bottom: 12px;"
-                               href="{{ route('admin-panel') }}">ПАНЕЛЬ АДМИНИСТРАТОРА</a>
+                               href="{{ route('admin') }}">ПАНЕЛЬ АДМИНИСТРАТОРА</a>
                         </li>
                     @endif
                 </ul>

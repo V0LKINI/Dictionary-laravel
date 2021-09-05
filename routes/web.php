@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'leaderboard'], function () {
         Route::get('/', [LeaderboardController::class, 'main'])->name('leaderboard');
+        Route::put('/reset/daily', [LeaderboardController::class, 'resetDaily'])->name('resetDaily');
+        Route::put('/reset/weekly', [LeaderboardController::class, 'resetWeekly'])->name('resetWeekly');
+        Route::put('/reset/monthly', [LeaderboardController::class, 'resetMonthly'])->name('resetMonthly');
     });
 
     Route::group(['prefix' => 'words'], function () {
@@ -52,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['middleware' => 'is_admin'], function () {
-        Route::get('/admin-panel', [MainController::class, 'adminPanel'])->name('admin-panel');
+        Route::get('/admin', [MainController::class, 'admin'])->name('admin');
     });
 });
 

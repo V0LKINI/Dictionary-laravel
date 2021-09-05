@@ -14,13 +14,13 @@ function submitAnswer(correct_translation, chosen_translation, word_id, word_ind
     }
 
     if (correct_translation === chosen_translation) {
-        $('[value = ' + chosen_translation + ']').attr("class", "btn btn-success fs-5 exerciseWordButton");
+        $('[value="' + chosen_translation + '"]').attr("class", "btn btn-success fs-5 exerciseWordButton");
         let span = $("#userExperience");
         span.text(Number(span.text()) + 1);
         result = true;
     } else {
-        $('[value = ' + chosen_translation + ']').attr("class", "btn btn-danger fs-5 exerciseWordButton");
-        $('[value = ' + correct_translation + ']').attr("class", "btn btn-success fs-5 exerciseWordButton");
+        $('[value="' + chosen_translation + '"]').attr("class", "btn btn-danger fs-5 exerciseWordButton");
+        $('[value="' + correct_translation + '"]').attr("class", "btn btn-success fs-5 exerciseWordButton");
         result = false;
     }
 

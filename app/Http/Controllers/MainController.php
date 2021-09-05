@@ -14,7 +14,7 @@ class MainController extends Controller
         return view('main', compact('user'));
     }
 
-    public function adminPanel()
+    public function admin()
     {
         $allUsers = User::get();
         $user = Auth::user();

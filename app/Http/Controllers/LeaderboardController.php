@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Experience;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class LeaderboardController extends Controller
@@ -13,5 +14,26 @@ class LeaderboardController extends Controller
         $user = Auth::user();
         $userRatingList = Experience::orderByDesc('total_experience')->get()->take(100);
         return view('leaderboard.leaderboard', compact('user', 'userRatingList'));
+    }
+
+    public function resetDaily()
+    {
+        DB::table('experiences')->update(['daily_experience' => 0]);
+        session()->flash('success', 'Дневной опыт сброшен');
+        return redirect()->route('admin');
+    }
+
+    public function resetWeekly()
+    {
+        DB::table('experiences')->update(['weekly_experience' => 0]);
+        session()->flash('success', 'Недельный опыт сброшен');
+        return redirect()->route('admin');
+    }
+
+    public function resetMonthly()
+    {
+        DB::table('experiences')->update(['monthly_experience' => 0]);
+        session()->flash('success', 'Месячный опыт сброшен');
+        return redirect()->route('admin');
     }
 }
