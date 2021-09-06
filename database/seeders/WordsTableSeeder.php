@@ -18,7 +18,7 @@ class WordsTableSeeder extends Seeder
             ['user_id' => 1, 'english' => 'Exaggregated', 'russian' => 'Преувеличенные',],
             ['user_id' => 1, 'english' => 'Gal', 'russian' => 'Девчонка',],
             ['user_id' => 1, 'english' => 'Flabby', 'russian' => 'Дряблый',],
-            ['user_id' => 1, 'english' => 'Gal', 'russian' => 'Девчонка',],
+            ['user_id' => 1, 'english' => 'Incantation', 'russian' => 'Заклинание',],
             ['user_id' => 1, 'english' => 'Retractable', 'russian' => 'Выдвижной',],
             ['user_id' => 1, 'english' => 'Wuss', 'russian' => 'Слабак',],
             ['user_id' => 1, 'english' => 'Hesitate', 'russian' => 'Колебаться',],

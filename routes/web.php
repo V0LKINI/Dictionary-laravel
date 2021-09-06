@@ -27,6 +27,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [MainController::class, 'main'])->name('main');
+    Route::post('/load', [MainController::class, 'load'])->name('words-load');
 
     Route::group(['prefix' => 'leaderboard'], function () {
         Route::get('/', [LeaderboardController::class, 'main'])->name('leaderboard');
@@ -37,7 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'words'], function () {
         Route::post('/add', [WordsController::class, 'add'])->name('words-add');
-        Route::post('/load', [WordsController::class, 'load'])->name('words-load');
         Route::delete('/delete/{id}', [WordsController::class, 'delete'])->name('words-delete');
         Route::put('/edit/{id}', [WordsController::class, 'edit'])->name('words-edit');
         Route::put('/reset/{id}', [WordsController::class, 'resetProgress'])->name('words-reset');

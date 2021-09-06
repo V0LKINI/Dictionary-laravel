@@ -1,40 +1,41 @@
 //запуск функции scrolling при прокрутке
-// $(window).on("scroll", scrolling);
-//
-// var page = 1;
-// var block_show = false;
-//
-var csrf_token = $('meta[name="csrf-token"]').attr('content');
-//
-// function scrolling(){
-//     if (block_show) {
-//         return false;
-//     }
-//     let currentHeight = $("#content").height();
-//
-//     //проверка достижения конца прокрутки
-//     if($(this).scrollTop() >= (currentHeight - $(this).height()-2000)){
-//         //функция реализующая загрузку контента
-//         loadWords();
-//         block_show = true;
-//         page++;
-//     }
-// }
-//
-// function loadWords(){
-//     $.ajax({
-//         url: 'words/load',
-//         method: 'post',
-//         dataType: 'html',
-//         data: {page: page},
-//         success: function(data){
-//             //Добавляем слова в таблицу
-//             $('#mainTable tr:last').after(data);
-//             block_show = false;
-//         }
-//     });
-// }
+$(window).on("scroll", scrolling);
 
+var page = 1;
+var block_show = false;
+var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+function scrolling() {
+    if (block_show) {
+        return false;
+    }
+    let currentHeight = $("#content").height();
+
+    //проверка достижения конца прокрутки
+    if ($(this).scrollTop() >= (currentHeight - $(this).height() - 2000)) {
+        //функция реализующая загрузку контента
+        loadWords();
+        block_show = true;
+        page++;
+    }
+}
+
+function loadWords() {
+    $.ajax({
+        url: 'load',
+        method: 'post',
+        dataType: 'html',
+        data: {page: page},
+        headers: {
+            'X-CSRF-TOKEN': csrf_token
+        },
+        success: function (data) {
+            //Добавляем слова в таблицу
+            $('#mainTable tr:last').after(data);
+            block_show = false;
+        }
+    });
+}
 
 function addWord() {
     $.ajax({
@@ -42,6 +43,7 @@ function addWord() {
         type: "post",
         dataType: "json",
         data: $("#addWordForm").serialize(),
+
         success: function (data) { //Слово добавлено в словарь
 
             addRowInTable(data);

@@ -15,7 +15,6 @@
         {{--        <input type="submit" class="btn btn-success" style="margin-bottom: 4px;" value="Добавить">--}}
         <input type="button" class="btn btn-success" style="margin-bottom: 4px;"
                id="submitWordButton" onclick="addWord()" value="Добавить">
-
         <input type="reset" class="btn btn-danger" style="margin-bottom: 4px;"
                id="resetButton" onclick="add()" value="Сбросить">
     </form>
@@ -29,7 +28,7 @@
             <th style="width: 20%;">Взаимодействие</th>
             <th style="width: 15%;">Прогресс</th>
         </tr>
-        @foreach($user->words as $word)
+        @foreach($words as $word)
             <tr class="tableRow" id="tableRow-{{ $word->id }}">
                 <td class="tableColumn">{{ $word->english }}</td>
                 <td class="tableColumn">{{ $word->russian }}</td>
