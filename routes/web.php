@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WordsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -41,6 +42,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/delete/{id}', [WordsController::class, 'delete'])->name('words-delete');
         Route::put('/edit/{id}', [WordsController::class, 'edit'])->name('words-edit');
         Route::put('/reset/{id}', [WordsController::class, 'resetProgress'])->name('words-reset');
+    });
+
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [ProfileController::class, 'main'])->name('profile.main');
+        Route::put('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     });
 
     Route::group(['prefix' => 'exercises'], function () {

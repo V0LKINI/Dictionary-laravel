@@ -42,14 +42,30 @@
                     @endif
                 </ul>
 
-                <span class="navbar-text" style="color: white;font-size: 18px;padding-bottom: 10px;">
                     @auth
-                        {{ $user->name }}
-                        | Опыт: <span id="userExperience">{{ $user->experience->total_experience }}</span>
-                        | <a href="{{ route('get-logout') }}">ВЫЙТИ</a>
+                        <span id="nameAndExperienceSpan" class="navbar-text">
+                            {{ $user->name}} | Опыт: <span id="userExperience">{{ $user->experience->total_experience }}</span>
+                        </span>
+                        <div class="dropdown">
+                            @if ($user->image)
+                                <img src="/storage{{ $user->image }}"
+                                     alt="Avatar" class="avatar dropbtn" onclick="myFunction()">
+                            @else
+                                <img src="{{ asset('storage/avatar.png') }}"
+                                     alt="Avatar" class="avatar dropbtn" onclick="myFunction()">
+                            @endif
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="{{ route('profile.main') }}">Профиль</a>
+                                <a href="">Друзья</a>
+                                <a href="{{ route('get-logout') }}">Выйти</a>
+                            </div>
+                        </div>
+
                     @endauth
                     @guest
-                        <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
+                        <span class="navbar-text" style="color: white;font-size: 18px;padding-bottom: 10px;">
+                            <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
+                        </span>
                     @endguest
                 </span>
             </div>
@@ -67,6 +83,7 @@
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
 <script src="/js/toast.js"></script>
+<script src="/js/dropDownMenu.js"></script>
 <script src="/js/words/wordAjax.js"></script>
 <script src="/js/words/wordHelper.js"></script>
 <script src="/js/exercises/ruEng-engRu.js"></script>

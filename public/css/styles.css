@@ -15,7 +15,6 @@
     user-select: none;
 }
 
-
 .penIcon:hover, .binIcon:hover, .resetIcon:hover {
     color: #BD5A35;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -26,13 +25,59 @@
     outline: 0px !important;
 }
 
-#loadWordsButton {
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0);
+#nameAndExperienceSpan {
+    color: white;
+    font-size: 18px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+}
 
-    box-shadow: none !important;
-    outline: 0px !important;
+.avatar {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.avatar:hover {
+    cursor: pointer;
+}
+
+/*----------------------DROPDOWN------------------------*/
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    margin-top: 11px;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
 }
 
 /*-------------- ТАБЛИЦА НА ГЛАВНОЙ СТРАНИЦЕ ----------------*/
@@ -363,18 +408,25 @@ th.sorted[data-order="1"]::after {
     content: "▲"
 }
 
-/*-------------- СТРАНИЦА АДМИНИСМТРАТОРА ----------------*/
+/*-------------- СТРАНИЦА АДМИНИСТРАТОРА ----------------*/
 
 #resetExperienceButtons {
     display: flex;
     justify-content: space-between;
 }
+
 #resetExperienceButtons form {
     width: 33.3%;
     margin: 10px;
     text-align: center;
 }
 
-#resetExperienceButtons form input{
+#resetExperienceButtons form input {
     width: 250px;
+}
+
+/*-------------- СТРАНИЦА ПРОфИЛЯ ----------------*/
+
+#editProfileForm{
+    margin:10px auto;
 }
