@@ -12,7 +12,8 @@ class LeaderboardController extends Controller
     public function main()
     {
         $user = Auth::user();
-        $userRatingList = Experience::orderByDesc('total_experience')->get()->take(100);
+        $userRatingList = Experience::with('user')->orderByDesc('total_experience')
+            ->take(100)->get();
         return view('leaderboard.leaderboard', compact('user', 'userRatingList'));
     }
 

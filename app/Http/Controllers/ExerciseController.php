@@ -141,6 +141,8 @@ class ExerciseController extends Controller
             }
         }
 
+        session()->forget($exerciseName);
+
         if ($exerciseName == 'russian_english' or $exerciseName == 'english_russian') {
             return view('exercises.exerciseResults', compact('results', 'experience'));
         } elseif ($exerciseName == 'repetition') {

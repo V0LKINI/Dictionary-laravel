@@ -12,7 +12,8 @@ class MainController extends Controller
     public function main()
     {
         $user = Auth::user();
-        $words = Word::where('user_id', '=', $user->id)->orderByDesc('updated_at')->take(50)->get();
+        $words = Word::with('exercise')->where('user_id', '=', $user->id)
+            ->orderByDesc('updated_at')->take(50)->get();
         return view('main', compact('user', 'words'));
     }
 
