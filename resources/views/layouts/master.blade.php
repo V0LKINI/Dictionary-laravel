@@ -84,6 +84,7 @@
         crossorigin="anonymous"></script>
 <script src="/js/toast.js"></script>
 <script src="/js/dropDownMenu.js"></script>
+<script src="/js/dragAndDrop.js"></script>
 <script src="/js/words/wordAjax.js"></script>
 <script src="/js/words/wordHelper.js"></script>
 <script src="/js/exercises/ruEng-engRu.js"></script>
