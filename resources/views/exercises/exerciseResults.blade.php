@@ -1,3 +1,8 @@
+@extends('layouts.master')
+
+@section('title', 'Russian-English')
+
+@section('content')
 <table class="features-table">
     <thead>
     <tr>
@@ -7,8 +12,10 @@
     </thead>
 
     <tbody>
-    @foreach($results as $key=>$value)
-        @if ($value[1] == 1)
+
+    @foreach($results['words'] as $key=>$value)
+
+        @if ($value[1] == true)
             <tr>
                 <td class="green">{{ $key }}</td>
                 <td class="green">{{ $value[0] }}</td>
@@ -24,8 +31,8 @@
 
     <tfoot>
     <tr>
-        <td>Слов изучено:</td>
-        <td>{{ $experience }}</td>
+        <td>{{ $exerciseName === 'repetition' ? 'Слов повторено:' : 'Слов изучено:' }}</td>
+        <td>{{ $results['rightAnsersCount'] }}</td>
     </tr>
     </tfoot>
 </table>
@@ -33,4 +40,6 @@
 <form action="{{ route('exercises') }}">
     <button class="btn btn-primary fs-5">Вернуться к упражнениям</button>
 </form>
+
+@endsection
 

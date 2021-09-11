@@ -193,7 +193,7 @@ class Exercise extends Model
             ->where('english_russian', '=', 100)
             ->where('russian_english', '=', 100)
             ->whereDate('repeated_at', '<', date('Y-m-d'))
-            ->inRandomOrder()->take(10)->get();
+            ->inRandomOrder()->take(3)->get();
         return $words;
     }
 

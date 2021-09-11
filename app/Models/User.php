@@ -69,14 +69,16 @@ class User extends Authenticatable
     /**
      * Увеличить опыт пользователя в БД.
      *
+     * param int $experience
+     *
      * @return void
      */
-    public function incrementExperience(): void
+    public function increaseExperience(int $experience): void
     {
-        $this->experience->daily_experience += 1;
-        $this->experience->weekly_experience += 1;
-        $this->experience->monthly_experience += 1;
-        $this->experience->total_experience += 1;
+        $this->experience->daily_experience += $experience;
+        $this->experience->weekly_experience += $experience;
+        $this->experience->monthly_experience += $experience;
+        $this->experience->total_experience += $experience;
         $this->experience->save();
     }
 

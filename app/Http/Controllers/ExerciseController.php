@@ -28,14 +28,17 @@ class ExerciseController extends Controller
         $user = Auth::user();
         $wordsArray = Exercise::getRussianEnglishWords($user->id);
         $count = count($wordsArray);
+        $exerciseName = 'russian_english';
 
         if ($count == 0) {
             session()->flash('error', 'У вас нет слов для изучения');
             return redirect()->route('exercises');
         }
 
-        session(['russian_english.experience' => 0]);
-        return view('exercises.russian-english', compact('user', 'wordsArray', 'count'));
+        session(['russian_english.words' => $wordsArray]);
+
+        return view('exercises.exercise',
+            compact('user', 'wordsArray', 'count', 'exerciseName'));
     }
 
     public function englishRussian()
@@ -46,14 +49,16 @@ class ExerciseController extends Controller
         $user = Auth::user();
         $wordsArray = Exercise::getEnglishRussianWords($user->id);
         $count = count($wordsArray);
+        $exerciseName = 'english_russian';
 
         if ($count == 0) {
             session()->flash('error', 'У вас нет слов для изучения');
             return redirect()->route('exercises');
         }
 
-        session(['english_russian.experience' => 0]);
-        return view('exercises.english-russian', compact('user', 'wordsArray', 'count'));
+        session(['english_russian.words' => $wordsArray]);
+
+        return view('exercises.exercise', compact('user', 'wordsArray', 'count', 'exerciseName'));
     }
 
     public function repetition()
@@ -70,83 +75,71 @@ class ExerciseController extends Controller
             return redirect()->route('exercises');
         }
 
-        session(['repetition.count' => $count]);
+        session(['repetition.words' => $words]);
+
         return view('exercises.repetition', compact('user', 'words', 'count'));
     }
 
-    public function checkAnswer(Request $request)
+    public function getResultsExercise(Request $request)
     {
+        $userAswers = $request->word;
         $exerciseName = $request->exerciseName;
-        $word = Exercise::where('word_id', $request->word_id)->first();
+        $results = ['rightAnsersCount' => 0];
+        $words = session()->get($exerciseName.'.words');
+        $rightWordsId = [];
+        $index = 1;
 
-        if ($request->result === 'true') {
-            session([$exerciseName.'.results.'.$word->word->russian => [$word->word->english, true]]);
-            session()->increment($exerciseName.'.experience');
-
-            $word->$exerciseName = 100;
-            $word->repeated_at = date("Y-m-d H:i:s");
-            $word->save();
-            $user = Auth::user();
-            $user->incrementExperience();
-        } else {
-            session([$exerciseName.'.results.'.$word->word->russian => [$word->word->english, false]]);
-        }
-    }
-
-    public function checkAnswerRepetition(Request $request)
-    {
-        $word = Exercise::where('word_id', $request->word_id)->first();
-
-        if ($request->result === 'false') {
-            $word->russian_english = 0;
-            $word->english_russian = 0;
-            $word->repeated_at = date("Y-m-d H:i:s");
-            session(['repetition.results.'.$word->word->russian => [$word->word->english, false]]);
-        } else {
-            $user = Auth::user();
-            $user->incrementExperience();
-            $word->repeated_at = date("Y-m-d H:i:s");
-            session(['repetition.results.'.$word->word->russian => [$word->word->english, true]]);
-        }
-        $word->save();
-    }
-
-    public function getResults(Request $request)
-    {
-        $exerciseName = $request->exerciseName;
-        $results = session()->get($exerciseName.'.results');
-        $count = $request->count;
-
-        if (session()->has($exerciseName.'.results')) {
-            $currentCount = count(session()->get($exerciseName.'.results'));
-        } else {
-            $currentCount = 0;
-        }
-
-        if ($count != $currentCount) {
-            header('HTTP/1.1 500 Internal Server Booboo');
-            exit();
-        }
-
-        if ($exerciseName != 'repetition') {
-            $experience = session()->get($exerciseName.'.experience');
-        }
-
-        if ($exerciseName == 'repetition') {
-            $repeated = 0;
-            foreach ($results as $result) {
-                if ($result[1] === true) {
-                    $repeated++;
-                }
+        foreach ($words as $word) {
+            if ($word['correct_translation'] == $userAswers[$index]) {
+                $rightWordsId[] = $word['id'];
+                $results['words'][$word['word']] = [$word['correct_translation'], true];
+                $results['rightAnsersCount']++;
+            } else {
+                $results['words'][$word['word']] = [$word['correct_translation'], false];
             }
+            $index++;
         }
 
         session()->forget($exerciseName);
 
-        if ($exerciseName == 'russian_english' or $exerciseName == 'english_russian') {
-            return view('exercises.exerciseResults', compact('results', 'experience'));
-        } elseif ($exerciseName == 'repetition') {
-            return view('exercises.repetitionResults', compact('results', 'repeated'));
+        $user = Auth::user();
+        $user->increaseExperience($results['rightAnsersCount']);
+        Exercise::whereIn('word_id', $rightWordsId)->update([$exerciseName => 100]);
+
+        return view('exercises.exerciseResults', compact('user', 'results', 'exerciseName'));
+    }
+
+    public function getResultsRepetition(Request $request)
+    {
+
+        $userAswers = $request->word;
+        $exerciseName = 'repetition';
+        $toRepeatWordsId = [];
+        $dontRepeatWordsId = [];
+        $results = ['rightAnsersCount' => 0];
+
+        foreach (session()->get('repetition.words') as $index => $word) {
+            if ($userAswers[$index + 1] === 'Не помню') {
+                $results['words'][$word->english] = [$word->russian, false];
+                $toRepeatWordsId[] = $word->id;
+            } else {
+                $results['words'][$word->english] = [$word->russian, true];
+                $dontRepeatWordsId[] = $word->id;
+                $results['rightAnsersCount']++;
+            }
         }
+
+        $user = Auth::user();
+        $user->increaseExperience($results['rightAnsersCount']);
+        Exercise::whereIn('word_id', $toRepeatWordsId)->update([
+            'russian_english' => 0,
+            'english_russian' => 0,
+            'repeated_at' => date("Y-m-d H:i:s"),
+        ]);
+        Exercise::whereIn('word_id', $dontRepeatWordsId)->update([
+            'repeated_at' => date("Y-m-d H:i:s"),
+        ]);
+
+        return view('exercises.exerciseResults', compact('user', 'results', 'exerciseName'));
     }
 }

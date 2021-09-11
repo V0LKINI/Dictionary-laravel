@@ -35,8 +35,8 @@
         <div id="gallery"></div>
     </div><br>
 
-
     <input type="submit"  class="btn btn-dark" value="Сохранить">
 </form>
 
+<script src="/js/dragAndDrop.js"></script>
 @endsection

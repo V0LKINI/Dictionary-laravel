@@ -42,32 +42,33 @@
                     @endif
                 </ul>
 
-                    @auth
-                        <span id="nameAndExperienceSpan" class="navbar-text">
-                            {{ $user->name}} | Опыт: <span id="userExperience">{{ $user->experience->total_experience }}</span>
-                        </span>
-                        <div class="dropdown">
-                            @if ($user->image)
-                                <img src="/storage{{ $user->image }}"
-                                     alt="Avatar" class="avatar dropbtn" onclick="myFunction()">
-                            @else
-                                <img src="{{ asset('storage/avatar.png') }}"
-                                     alt="Avatar" class="avatar dropbtn" onclick="myFunction()">
-                            @endif
-                            <div id="myDropdown" class="dropdown-content">
-                                <a href="{{ route('profile.main') }}">Профиль</a>
-                                <a href="">Друзья</a>
-                                <a href="{{ route('get-logout') }}">Выйти</a>
-                            </div>
-                        </div>
+                @auth
+                    <span id="nameAndExperienceSpan" class="navbar-text">
+                        {{ $user->name}} | Опыт: <span id="userExperience">{{ $user->experience->total_experience }}</span>
+                    </span>
+                    <div class="dropdown">
+                        @if ($user->image)
+                            <img src="/storage{{ $user->image }}"
+                                 alt="Avatar" class="avatar dropbtn" onclick="dropDownFunction()">
+                        @else
+                            <img src="{{ asset('storage/avatar.png') }}"
+                                 alt="Avatar" class="avatar dropbtn" onclick="dropDownFunction()">
+                        @endif
 
-                    @endauth
-                    @guest
-                        <span class="navbar-text" style="color: white;font-size: 18px;padding-bottom: 10px;">
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="{{ route('profile.main') }}">Профиль</a>
+                            <a href="">Друзья</a>
+                            <a href="{{ route('get-logout') }}">Выйти</a>
+                        </div>
+                    </div>
+                    <span style="color:#c4c4c4;" class="material-icons dropbtn" onclick="dropDownFunction()">arrow_drop_down</span>
+
+                @endauth
+                @guest
+                    <span class="navbar-text" style="color: white;font-size: 18px;padding-bottom: 10px;">
                             <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
-                        </span>
-                    @endguest
-                </span>
+                    </span>
+                @endguest
             </div>
 
         </div>
@@ -84,10 +85,9 @@
         crossorigin="anonymous"></script>
 <script src="/js/toast.js"></script>
 <script src="/js/dropDownMenu.js"></script>
-<script src="/js/dragAndDrop.js"></script>
 <script src="/js/words/wordAjax.js"></script>
 <script src="/js/words/wordHelper.js"></script>
-<script src="/js/exercises/ruEng-engRu.js"></script>
+<script src="/js/exercises/exercises.js"></script>
 <script src="/js/exercises/repetition.js"></script>
 <script src="/js/exercises/exerciseHelper.js"></script>
 <script src="/js/leaderboard/tableSort.js"></script>
