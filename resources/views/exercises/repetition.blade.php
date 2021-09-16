@@ -29,3 +29,7 @@
         <div id="nextWordDiv"></div>
     </form>
 @endsection
+
+@section('scripts')
+    <script src="/js/exercises/repetition.js"></script>
+@endsection

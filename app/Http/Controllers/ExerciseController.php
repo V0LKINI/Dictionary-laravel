@@ -111,7 +111,6 @@ class ExerciseController extends Controller
 
     public function getResultsRepetition(Request $request)
     {
-
         $userAswers = $request->word;
         $exerciseName = 'repetition';
         $toRepeatWordsId = [];

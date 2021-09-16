@@ -2,41 +2,96 @@
 
 @section('title', 'Профиль')
 
-
 @section('content')
 
-@if ($errors->any())
-    <div style="margin-top: 10px; margin-bottom: 0; padding-bottom: 0;" class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+
+<div id="profileInfo">
+    <div id="profileImage">
+        @if ($userProfile->image)
+            <img src="/storage{{ $userProfile->image }}" alt="Avatar">
+        @else
+            <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+        @endif
     </div>
+    <div id="profileContent">
+        <h1>
+            {{ $userProfile->name }}
+        </h1>
+        @if ($user->isFriendWithMe($userProfile))
+            <p>Пользователь у вас в друзьях</p>
+        @elseif($user->hasFriendRequestPending($userProfile))
+            <p>Заявка в друзья отправлена</p>
+        @elseif ($user->hasFriendRequestReceived($userProfile))
+            <p>Пользователь отправил вам заявку в друзья</p>
+        @endif
+    </div>
+
+
+</div>
+
+<h1 class="friends-title">Друзья</h1>
+
+<div class="Friends-List">
+    <div class="UserItemList">
+        @if(!$friends->count())
+            <p>У вас нет друзей</p>
+        @else
+            @foreach($friends as $friend)
+                <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
+                    <div class="UserAvatar">
+                        @if ($friend->image)
+                            <img src="/storage{{ $friend->image }}" alt="Avatar">
+                        @else
+                            <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                        @endif
+                    </div>
+                    <div class="UserItem-info">
+                        <div class="UserItem-name">
+                           {{ $friend->name }}
+                            @if($user->id === $userProfile->id)
+                                <span onclick="deleteFriend(event, {{ $friend->id }})"
+                                      class="material-icons md-24 delete-user-icon">clear</span>
+                            @endif
+                        </div>
+                        <div class="UserItem-experience">
+                            <p>Опыт: {{ $friend->experience->total_experience }}</p>
+                        </div>
+                    </div>
+
+                </a>
+            @endforeach
+        @endif
+    </div>
+</div>
+
+@if($user->id === $userProfile->id AND $friendRequests->count())
+    <h1 class="friends-title">Заявки в друзья</h1>
+
+    @foreach($friendRequests as $friend)
+        <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
+            <div class="UserAvatar">
+                @if ($friend->image)
+                    <img src="/storage{{ $friend->image }}" alt="Avatar">
+                @else
+                    <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                @endif
+            </div>
+            <div class="UserItem-info">
+                <div class="UserItem-name">
+                    {{ $friend->name }}
+                    @if($user->id === $userProfile->id)
+                        <span onclick="deleteFriend(event, {{ $friend->id }})"
+                              class="material-icons md-24 delete-user-icon">clear</span>
+                    @endif
+
+                </div>
+                <div class="UserItem-experience">
+                    <p>Опыт: {{ $friend->experience->total_experience }}</p>
+                </div>
+            </div>
+        </a>
+    @endforeach
 @endif
 
-@if (session()->has('success'))
-    <div style="margin-top: 10px; margin-bottom: 0;" class="alert alert-success"
-         role="alert">{{ session()->get('success') }}</div>
-@endif
 
-<form class="my-form" id="editProfileForm" action="{{ route('profile.edit') }}" method="POST" enctype="multipart/form-data">
-    <input name="_method" type="hidden" value="PUT">
-    @csrf
-    Ваше имя:<br>
-    <input name="name" type="text" value="{{ $user->name }}" required><br>
-    Ваш email:<br>
-    <input name="email" type="email" value="{{ $user->email }}" required><br><br>
-
-    <div id="drop-area">
-        <p>Загрузите изображение с помощью кнопки или перетащив его в выделенную область</p>
-        <input type="file" id="fileElem" name="image" accept="image/*" onchange="handleFiles(this.files)">
-        <label class="button" for="fileElem">Выбрать фото</label>
-        <div id="gallery"></div>
-    </div><br>
-
-    <input type="submit"  class="btn btn-dark" value="Сохранить">
-</form>
-
-<script src="/js/dragAndDrop.js"></script>
 @endsection

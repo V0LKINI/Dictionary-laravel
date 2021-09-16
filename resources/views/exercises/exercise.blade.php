@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Russian-English')
+@section('title', $exerciseName)
 
 @section('content')
     <form action="{{ route('getResultsExercise') }}" method="post" id="exerciseForm">
@@ -27,4 +27,8 @@
         <div id="nextWordDiv"></div>
     </form>
 
+@endsection
+
+@section('scripts')
+    <script src="/js/exercises/exercises.js"></script>
 @endsection

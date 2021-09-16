@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WordsController;
@@ -9,16 +10,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Auth::routes([
     'reset' => false,
@@ -45,8 +36,13 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'profile'], function () {
-        Route::get('/', [ProfileController::class, 'main'])->name('profile.main');
-        Route::put('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::get('/id{id}', [ProfileController::class, 'main'])->name('profile.main');
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/save', [ProfileController::class, 'save'])->name('profile.save');
+    });
+
+    Route::group(['prefix' => 'friends'], function () {
+        Route::delete('/id{id}', [FriendsController::class, 'delete'])->name('friends.delete');
     });
 
     Route::group(['prefix' => 'exercises'], function () {

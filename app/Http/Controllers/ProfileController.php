@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\UploadTrait;
 
@@ -10,13 +11,26 @@ class ProfileController extends Controller
 {
     use UploadTrait;
 
-    public function main()
+    public function main(int $id)
     {
         $user = Auth::user();
-        return view('profile.main', compact('user'));
+        if ($user->id !==$id){
+            $userProfile = User::where('id', $id)->first();
+        } else {
+            $userProfile = $user;
+        }
+        $friends = $userProfile->friends()->load('experience');
+        $friendRequests = $userProfile->friendRequests()->load('experience');
+        return view('profile.main', compact('user','userProfile', 'friends', 'friendRequests'));
     }
 
-    public function edit(ProfileRequest $request)
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('profile.editProfile', compact('user'));
+    }
+
+    public function save(ProfileRequest $request)
     {
         $user = Auth::user();
         $user->name = $request->name;
@@ -34,6 +48,6 @@ class ProfileController extends Controller
         $user->save();
         session()->flash('success', 'Настройки профиля сохранены');
 
-        return redirect()->route('profile.main');
+        return redirect()->route('profile.edit');
     }
 }

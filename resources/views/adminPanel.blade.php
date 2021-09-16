@@ -1,4 +1,7 @@
 @extends('layouts.master')
+
+@section('title', 'Панель администратора')
+
 @section('content')
 
 @if (session()->has('success'))

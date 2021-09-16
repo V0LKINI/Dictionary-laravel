@@ -3,7 +3,6 @@
 @section('title', 'Словарик')
 
 @section('content')
-    <br>
     @if (session()->has('warning'))
         <div class="alert alert-warning" role="alert">{{ session()->get('warning') }}</div>
     @endif
@@ -42,4 +41,9 @@
             </tr>
         @endforeach
     </table>
+@endsection
+
+@section('scripts')
+    <script src="/js/words/wordAjax.js"></script>
+    <script src="/js/words/wordHelper.js"></script>
 @endsection

@@ -56,8 +56,8 @@
                         @endif
 
                         <div id="myDropdown" class="dropdown-content">
-                            <a href="{{ route('profile.main') }}">Профиль</a>
-                            <a href="">Друзья</a>
+                            <a href="{{ route('profile.main', $user->id) }}">Профиль</a>
+                            <a href="{{ route('profile.edit') }}">Редактировать</a>
                             <a href="{{ route('get-logout') }}">Выйти</a>
                         </div>
                     </div>
@@ -85,11 +85,9 @@
         crossorigin="anonymous"></script>
 <script src="/js/toast.js"></script>
 <script src="/js/dropDownMenu.js"></script>
-<script src="/js/words/wordAjax.js"></script>
-<script src="/js/words/wordHelper.js"></script>
-<script src="/js/exercises/exercises.js"></script>
-<script src="/js/exercises/repetition.js"></script>
-<script src="/js/exercises/exerciseHelper.js"></script>
-<script src="/js/leaderboard/tableSort.js"></script>
+<script src="/js/friends/friends.js"></script>
+
+@yield('scripts')
+
 </body>
 </html>

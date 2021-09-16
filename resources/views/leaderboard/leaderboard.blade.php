@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Словарик')
+@section('title', 'Лидеры')
 
 @section('content')
 
@@ -29,4 +29,8 @@
     </tbody>
 </table>
 
+@endsection
+
+@section('scripts')
+    <script src="/js/leaderboard/tableSort.js"></script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Russian-English')
+@section('title', 'Результаты')
 
 @section('content')
 <table class="features-table">
