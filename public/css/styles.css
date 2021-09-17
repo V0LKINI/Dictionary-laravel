@@ -568,6 +568,14 @@ th.sorted[data-order="1"]::after {
     color: black;
 }
 
+.accept-or-reject {
+    text-decoration: none;
+}
+
+.accept-or-reject:hover {
+    text-decoration: underline;
+}
+
 /*-------------- СТРАНИЦА РЕДАКТИРОВАНИЯ ПРОфИЛЯ ----------------*/
 
 #editProfileForm {

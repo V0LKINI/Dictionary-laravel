@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Ramsey\Collection\Collection;
 
 class User extends Authenticatable
@@ -167,15 +168,39 @@ class User extends Authenticatable
     }
 
     /**
+     * Удалить друга и отправить его в подписчики
+     *
+     * @param User $user
+     */
+    public function deleteFriend(User $user)
+    {
+        $this->friends()->where('id', $user->id)->first()->pivot->update([
+            'user_id' => $user->id,
+            'friend_id' => Auth::id(),
+            'accepted' => false
+        ]);
+    }
+
+    /**
      * Принять заявку в друзья
      *
      * @param User $user
      */
     public function acceptFriendRequest(User $user)
     {
-        $this->friendRequests()->where('id', $user->id)->first()->pivot()->update([
+        $this->friendRequests()->where('id', $user->id)->first()->pivot->update([
             'accepted' => true
         ]);
+    }
+
+    /**
+     * Отклонить заявку в друзья
+     *
+     * @param User $user
+     */
+    public function rejectFriendRequest(User $user)
+    {
+        $this->friendOf()->detach($user->id);
     }
 
     /**

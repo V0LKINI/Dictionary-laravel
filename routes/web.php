@@ -42,7 +42,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'friends'], function () {
-        Route::delete('/id{id}', [FriendsController::class, 'delete'])->name('friends.delete');
+        Route::get('add/id{id}', [FriendsController::class, 'getAdd'])->name('friends.add');
+        Route::get('accept/id{id}', [FriendsController::class, 'getAccept'])->name('friends.accept');
+        Route::get('reject/id{id}', [FriendsController::class, 'getReject'])->name('friends.reject');
+        Route::delete('delete/id{id}', [FriendsController::class, 'getDelete'])->name('friends.delete');
     });
 
     Route::group(['prefix' => 'exercises'], function () {
