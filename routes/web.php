@@ -39,13 +39,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/id{id}', [ProfileController::class, 'main'])->name('profile.main');
         Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/save', [ProfileController::class, 'save'])->name('profile.save');
+        Route::get('/search', [ProfileController::class, 'getSearch'])->name('profile.search');
     });
 
     Route::group(['prefix' => 'friends'], function () {
         Route::get('add/id{id}', [FriendsController::class, 'getAdd'])->name('friends.add');
         Route::get('accept/id{id}', [FriendsController::class, 'getAccept'])->name('friends.accept');
         Route::get('reject/id{id}', [FriendsController::class, 'getReject'])->name('friends.reject');
-        Route::delete('delete/id{id}', [FriendsController::class, 'getDelete'])->name('friends.delete');
+        Route::get('cancel/id{id}', [FriendsController::class, 'getCancel'])->name('friends.cancel');
+        Route::delete('delete/id{id}', [FriendsController::class, 'delete'])->name('friends.delete');
     });
 
     Route::group(['prefix' => 'exercises'], function () {

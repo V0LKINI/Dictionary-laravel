@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FriendsController extends Controller
 {
-    public function getDelete($user_id)
+    public function delete($user_id)
     {
         $user = User::where('id', $user_id)->first();
 
@@ -24,7 +24,7 @@ class FriendsController extends Controller
 
         Auth::user()->deleteFriend($user);
 
-        session()->flash('success', 'Друг удалён');
+        session()->flash('success', 'Пользователь удалён из друзей');
         return redirect()->route('profile.main', Auth::user()->id);
     }
 
@@ -100,6 +100,26 @@ class FriendsController extends Controller
         Auth::user()->rejectFriendRequest($user);
 
         session()->flash('success', 'Заявка в друзья отклонена');
+        return redirect()->route('profile.main', Auth::user()->id);
+    }
+
+    public function getCancel($user_id)
+    {
+        $user = User::where('id', $user_id)->first();
+
+        if (!$user){
+            session()->flash('warning', 'Пользователя не существует');
+            return redirect()->route('profile.main', Auth::user()->id);
+        }
+
+        if (!Auth::user()->hasFriendRequestPending($user)){
+            session()->flash('warning', 'Невозможно отменить несуществующую заявку в друзья');
+            return redirect()->route('profile.main', Auth::user()->id);
+        }
+
+        Auth::user()->cancelFriendRequest($user);
+
+        session()->flash('success', 'Заявка в друзья отменена');
         return redirect()->route('profile.main', Auth::user()->id);
     }
 }

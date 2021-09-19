@@ -204,6 +204,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Отменить отправку заявки в друзья
+     *
+     * @param User $user
+     */
+    public function cancelFriendRequest(User $user)
+    {
+        $this->friendsOfMine()->detach($user->id);
+    }
+
+    /**
      * Проверка, является ли пользователь другом.
      *
      * @param User $user

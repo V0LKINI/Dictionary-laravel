@@ -42,6 +42,13 @@
 
 <h1 class="friends-title">Друзья</h1>
 
+<form action="{{ route('profile.search') }}" method='GET'>
+    <input type="search" name="query"0 placeholder="Кого ищем?">
+    <input type="submit" value="Найти">
+</form>
+
+<br>
+
 <div class="Friends-List">
     <div class="UserItemList">
         @if(!$friends->count() && $user->id === $userProfile->id)
@@ -86,40 +93,74 @@
     </div>
 </div>
 
-@if($user->id === $userProfile->id AND $friendRequests->count())
-    <h1 class="friends-title">Заявки в друзья</h1>
+@if($user->id === $userProfile->id AND ($friendRequests->count() OR $friendsPending->count()))
+    <h1 class="friends-requests">Заявки в друзья</h1>
 
-    <div class="Friends-List">
-        <div class="UserItemList">
+    @if($friendRequests->count())
+        <p class="friends-requests-title">Входящие</p>
+        <div class="Friends-List">
+            <div class="UserItemList">
 
-            @foreach($friendRequests as $friend)
-                <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
-                    <div class="UserAvatar">
-                        @if ($friend->image)
-                            <img src="/storage{{ $friend->image }}" alt="Avatar">
-                        @else
-                            <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
-                        @endif
-                    </div>
-                    <div class="UserItem-info">
-                        <div class="UserItem-name">
-                            {{ $friend->name }}
+                @foreach($friendRequests as $friend)
+                    <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
+                        <div class="UserAvatar">
+                            @if ($friend->image)
+                                <img src="/storage{{ $friend->image }}" alt="Avatar">
+                            @else
+                                <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                            @endif
                         </div>
-                        <div class="UserItem-experience">
-                            Опыт: {{ $friend->experience->total_experience }}
+                        <div class="UserItem-info">
+                            <div class="UserItem-name">
+                                {{ $friend->name }}
+                            </div>
+                            <div class="UserItem-experience">
+                                Опыт: {{ $friend->experience->total_experience }}
+                            </div>
+                            <object>
+                                <a class="accept-or-reject"
+                                   href="{{ route('friends.accept', $friend->id) }}">Принять</a>
+                                <a class="accept-or-reject"
+                                   href="{{ route('friends.reject', $friend->id) }}">Отклонить</a>
+                            </object>
                         </div>
-                        <object>
-                            <a class="accept-or-reject"
-                               href="{{ route('friends.accept', $friend->id) }}">Принять</a>
-                            <a class="accept-or-reject"
-                               href="{{ route('friends.reject', $friend->id) }}">Отклонить</a>
-                        </object>
-                    </div>
-                </a>
-            @endforeach
+                    </a>
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
 
+    @if($friendsPending->count())
+        <p class="friends-requests-title">Исходящие</p>
+        <div class="Friends-List">
+            <div class="UserItemList">
+
+                @foreach($friendsPending as $friend)
+                    <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
+                        <div class="UserAvatar">
+                            @if ($friend->image)
+                                <img src="/storage{{ $friend->image }}" alt="Avatar">
+                            @else
+                                <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                            @endif
+                        </div>
+                        <div class="UserItem-info">
+                            <div class="UserItem-name">
+                                {{ $friend->name }}
+                            </div>
+                            <div class="UserItem-experience">
+                                Опыт: {{ $friend->experience->total_experience }}
+                            </div>
+                            <object>
+                                <a class="accept-or-reject"
+                                   href="{{ route('friends.cancel', $friend->id) }}">Отменить</a>
+                            </object>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    @endif
 @endif
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\UploadTrait;
 
@@ -14,14 +15,19 @@ class ProfileController extends Controller
     public function main(int $id)
     {
         $user = Auth::user();
-        if ($user->id !==$id){
+
+        if ($user->id !== $id) {
             $userProfile = User::where('id', $id)->first();
         } else {
             $userProfile = $user;
         }
+
         $friends = $userProfile->friends()->load('experience');
         $friendRequests = $userProfile->friendRequests()->load('experience');
-        return view('profile.main', compact('user','userProfile', 'friends', 'friendRequests'));
+        $friendsPending = $userProfile->friendRequestPending()->load('experience');
+
+        return view('profile.main',
+            compact('user', 'userProfile', 'friends', 'friendRequests', 'friendsPending'));
     }
 
     public function edit()
@@ -40,7 +46,7 @@ class ProfileController extends Controller
             $image = $request->file('image');
             $name = $user->id;
             $folder = '/avatars/';
-            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $filePath = $folder.$name.'.'.$image->getClientOriginalExtension();
             $this->uploadOne($image, $folder, 'public', $name);
             $user->image = $filePath;
         }
@@ -49,5 +55,19 @@ class ProfileController extends Controller
         session()->flash('success', 'Настройки профиля сохранены');
 
         return redirect()->route('profile.edit');
+    }
+
+    public function getSearch(Request $request)
+    {
+        $user = Auth::user();
+
+        $query = $request->input('query');
+        if ( ! $query) {
+            return redirect()->route('profile.main', $user->id);
+        }
+
+        $users = User::where('name', 'LIKE', "%{$query}%")->get();
+
+        return view('profile.search', compact('user', 'users'));
     }
 }
