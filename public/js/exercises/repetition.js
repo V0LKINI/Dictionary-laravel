@@ -25,3 +25,9 @@ function nextWordRepetition(word_index){
     $('#previousWordButton').detach();
 }
 
+$(document).keyup(function (event) {
+    if (event.keyCode == 13) {
+        $("#completeExerciseButton").click();
+        $("#nextWordButton").click();
+    }
+});
