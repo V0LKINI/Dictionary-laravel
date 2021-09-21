@@ -22,16 +22,16 @@ php 7.4, MySQL 8.0
 
 ## Главная страница
 
-![Main page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/main.PNG)
+![Main page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/mainPage.PNG)
 
 ## Страница с упражнением
-![Exercise page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercise.PNG)
+![Exercise page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercisePage.PNG)
 
 ## Результат упражнения
-![Exercise results page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exercise_results.PNG)
+![Exercise results page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/exerciseResultsPage.PNG)
 
 ## Страница с профилем
-![Exercise page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/profile.PNG)
+![Exercise page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/profilePage.PNG)
 
 ## Страница с редактированием профиля
-![Exercise results page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/profile_edit.PNG)
+![Exercise results page](https://github.com/V0LKINI/Dictionary-laravel/blob/main/public/img/profileEditPage.PNG)
