@@ -5,9 +5,9 @@ use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WordsController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DictionaryController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -15,24 +15,31 @@ Auth::routes([
     'reset' => false,
     'confirm' => false,
 ]);
+
 Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/', [MainController::class, 'main'])->name('main');
-    Route::post('/load', [MainController::class, 'load'])->name('words-load');
+
+    Route::group(['middleware' => 'is_admin'], function () {
+        Route::get('/admin', [MainController::class, 'admin'])->name('admin');
+    });
+
+    Route::group(['prefix' => 'dictionary'], function () {
+        Route::get('/', [DictionaryController::class, 'main'])->name('dictionary');
+        Route::post('/load', [DictionaryController::class, 'loadWords'])->name('loadWords');
+        Route::post('/add', [DictionaryController::class, 'addWord'])->name('addWord');
+        Route::delete('/delete/{id}', [DictionaryController::class, 'deleteWord'])->name('deleteWord');
+        Route::put('/edit/{id}', [DictionaryController::class, 'editWord'])->name('editWord');
+        Route::put('/reset/{id}', [DictionaryController::class, 'resetWordProgress'])->name('resetWordProgress');
+    });
 
     Route::group(['prefix' => 'leaderboard'], function () {
         Route::get('/', [LeaderboardController::class, 'main'])->name('leaderboard');
         Route::put('/reset/daily', [LeaderboardController::class, 'resetDaily'])->name('resetDaily');
         Route::put('/reset/weekly', [LeaderboardController::class, 'resetWeekly'])->name('resetWeekly');
         Route::put('/reset/monthly', [LeaderboardController::class, 'resetMonthly'])->name('resetMonthly');
-    });
-
-    Route::group(['prefix' => 'words'], function () {
-        Route::post('/add', [WordsController::class, 'add'])->name('words-add');
-        Route::delete('/delete/{id}', [WordsController::class, 'delete'])->name('words-delete');
-        Route::put('/edit/{id}', [WordsController::class, 'edit'])->name('words-edit');
-        Route::put('/reset/{id}', [WordsController::class, 'resetProgress'])->name('words-reset');
     });
 
     Route::group(['prefix' => 'profile'], function () {
@@ -61,9 +68,6 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('getResultsRepetition');
     });
 
-    Route::group(['middleware' => 'is_admin'], function () {
-        Route::get('/admin', [MainController::class, 'admin'])->name('admin');
-    });
 });
 
 

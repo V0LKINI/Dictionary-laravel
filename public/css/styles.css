@@ -1,6 +1,5 @@
 @charset "utf-8";
 
-
 #content {
     min-height: 610px;
     max-width: 1100px;
@@ -92,7 +91,16 @@
     display: block;
 }
 
-/*-------------- ТАБЛИЦА НА ГЛАВНОЙ СТРАНИЦЕ ----------------*/
+/*-------------- ГЛАВНАЯ СТРАНИЦА ----------------*/
+
+#addWordForm {
+    margin-bottom: 10px
+}
+
+.mainFormButton{
+    margin-bottom: 4px;
+}
+
 .tableColumn {
     overflow: hidden;
 }
