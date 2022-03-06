@@ -105,7 +105,8 @@ class Exercise extends Model
             ->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', '=', 100)
             ->where('russian_english', '=', 100)
-            ->whereDate('repeated_at', '<', date('Y-m-d'))->count();
+            ->whereDate('repeated_at', '<', date('Y-m-d'))
+            ->count();
         return $count;
     }
 

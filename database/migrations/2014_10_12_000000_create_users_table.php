@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->timestamps();
             $table->tinyInteger('is_admin')->default(0);
+            $table->boolean('is_dark_theme')->default(false);
 
         });
     }

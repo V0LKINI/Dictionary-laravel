@@ -22,15 +22,15 @@
     <link rel="stylesheet" href="/css/header.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="background-color: #fcfcfc;">
+<body>
 <div id="app">
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ECECEC;">
-            <div style="width: 1100px;" class="container-fluid">
-                <a class="navbar-brand" href="{{ route('main') }}" style="font-family: Huntsman;font-size: 25px;">Cловарь</a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ route('main') }}" >Cловарь</a>
 
-                <span class="navbar-text" style="font-size: 20px;">
+                <span class="navbar-text">
                     @guest
                         <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
                     @endguest
@@ -39,6 +39,41 @@
         </nav>
 
     </header>
+
+    <div class="navigation-wrap bg-light start-header start-style">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-md">
+
+                        <a class="navbar-brand" href="/"><img src="https://assets.codepen.io/1462889/fcy.png" alt=""></a>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse navbar-auth" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto py-4 py-md-0">
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                    <a class="nav-link" href="{{ route('login') }}">ВОЙТИ</a>
+                                </li>
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                    <a class="nav-link" href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section full-height">
+        <div class="absolute-center">
+
+        </div>
+    </div>
 
     <main class="py-4">
         @yield('content')

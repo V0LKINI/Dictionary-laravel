@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_dark_theme'
     ];
 
     /**
@@ -223,5 +224,16 @@ class User extends Authenticatable
     public function isFriendWithMe(User $user)
     {
         return (bool) $this->friends()->where('id', $user->id)->count();
+    }
+
+    /**
+     * Смена темы у пользователя.
+     *
+     * @param bool $isDark
+     */
+    public function changeTheme($isDark): void
+    {
+        $this->is_dark_theme = $isDark;
+        $this->save();
     }
 }

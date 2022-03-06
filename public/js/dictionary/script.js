@@ -9,6 +9,8 @@ $(document).ready(function () {
     onClickEditPen();
     onClickDeleteBin()
     onCLickResetProgressIcon();
+
+    onChangeFormInput();
 });
 
 function onWordAddingEditing(){
@@ -65,7 +67,9 @@ function onClickAddButton() {
                 data: $("#addWordForm").serialize(),
 
                 success: function (data) { //Слово добавлено в словарь
-                    addRowInTable(data);
+
+                    $('#tableHead').after(data);
+                    resetForm();
 
                     Toast.add({
                         text: "Слово добавлено в словарь",
@@ -99,6 +103,7 @@ function onClickEditButton() {
             let serialisedData = $("#addWordForm").serialize();
 
             editRowInTable(word_id);
+            resetForm();
 
             Toast.add({
                 text: "Слово успешно изменено",
@@ -107,13 +112,14 @@ function onClickEditButton() {
                 delay: 3000
             });
 
+
             $.ajax({
                 url: '/dictionary/edit/' + word_id,
                 type: "put",
                 dataType: "json",
                 data: serialisedData + "&id=" + word_id,
                 error: function (xhr) { //Слово НЕ отредактировалось
-                    console.log('ошибка');
+
                     if (xhr.status === 422) {
                         let errors = Object.entries(xhr.responseJSON.errors);
                         $("#errorMessage").html(errors[0][1]);
@@ -137,6 +143,9 @@ function onClickResetButton() {
 }
 
 function resetForm(){
+    let wrapperEng = $('#englishInputWrapper');
+    let wrapperRu = $('#russianInputWrapper');
+
     $("#formName").text('Добавить слово');
 
     $('#addWordForm input[name="english"]').val('');
@@ -146,6 +155,15 @@ function resetForm(){
     $('#editButton').css('display', 'none').removeAttr('data-word-id');
 
     $('#errorMessage').text('');
+
+    wrapperEng.removeClass('form-has-error');
+    wrapperRu.removeClass('form-has-error');
+
+    wrapperEng.find('input').removeClass('hasValue');
+    wrapperRu.find('input').removeClass('hasValue');
+
+    wrapperEng.find('.form-element-hint').html('');
+    wrapperRu.find('.form-element-hint').html('');
 }
 
 function onClickEditPen() {
@@ -156,8 +174,8 @@ function onClickEditPen() {
         let id = $(this).closest('tr').attr('id').match(/\d+/);
 
         $("#formName").text('Изменить слово');
-        $("#addWordForm input[name='english']").val(arr.get(0).innerHTML);
-        $("#addWordForm input[name='russian']").val(arr.get(1).innerHTML).focus();
+        $("#addWordForm input[name='english']").val(arr.get(0).innerHTML).addClass('hasValue');
+        $("#addWordForm input[name='russian']").val(arr.get(1).innerHTML).addClass('hasValue').focus();
 
         $('#addButton').css('display', 'none');
         $('#editButton').attr('data-word-id', id).css('display', 'inline-block');
@@ -223,52 +241,79 @@ function onCLickResetProgressIcon() {
 }
 
 
-
-function addRowInTable(data) {
-    $('#tableHead').after(data);
-    resetForm();
-}
-
 function editRowInTable(word_id) {
 
-    let english = $('#addWordForm input[name="english"]').val();
-    let russian = $('#addWordForm input[name="russian"]').val();
+    let english = $('input[name="english"]').val();
+    let russian = $('input[name="russian"]').val();
     let td = $('#tableRow-' + word_id).find('td');
 
     td[0].innerText = english[0].toUpperCase() + english.substring(1);
     td[1].innerText = russian[0].toUpperCase() + russian.substring(1);
 
-    resetForm();
 }
 
 function validateFormDate() {
 
-    let english = $('#addWordForm input[name="english"]').val();
-    let russian = $('#addWordForm input[name="russian"]').val();
-    let errorBlock = $('#errorMessage');
+    let wrapperEng = $('#englishInputWrapper');
+    let wrapperRu = $('#russianInputWrapper');
 
-    console.log(english.match('^[a-zA-Z]+$'));
+    let englishText = wrapperEng.find('input[name="english"]').val();
+    let russianText = wrapperRu.find('input[name="russian"]').val();
 
-    if(english.length > 25){
-        errorBlock.text('Слово слишком длинное');
-        return false;
-    } else if (russian.length > 25) {
-        errorBlock.text('Перевод слишком длинный');
-        return false;
-    } else if (english.length === 0) {
-        errorBlock.text('Не передано слово');
-        return false;
-    } else if (russian.length === 0) {
-        errorBlock.text('Не передан перевод слова');
-        return false;
-    } else if (english.match('^[a-zA-Z,.-\\s]+$') == null) {
-        errorBlock.text('Слово должно состоять из букв латиницы');
-        return false;
-    } else if (russian.match('^[а-яА-ЯёЁ,.-\\s]+$') == null) {
-        errorBlock.text('Перевод должен состоять из букв кириллицы');
-        return false;
+    let errorBlockEng = wrapperEng.find('.form-element-hint');
+    let errorBlockRu = wrapperRu.find('.form-element-hint');
+
+    let isError = false;
+
+    //validate english input
+    if(englishText.length > 25){
+        wrapperEng.addClass('form-has-error');
+        errorBlockEng.html('Слово слишком длинное');
+        isError = true;
+    } else if (englishText.length === 0) {
+        wrapperEng.addClass('form-has-error');
+        errorBlockEng.html('Не передано слово');
+        isError = true;
+    } else if (englishText.match('^[a-zA-Z,.-\\s]+$') == null) {
+        wrapperEng.addClass('form-has-error');
+        errorBlockEng.html('Слово должно состоять из букв латиницы');
+        isError = true;
+    } else {
+        wrapperEng.removeClass('form-has-error');
+        errorBlockEng.html('');
     }
-    return true;
+
+    //validate russian input
+    if (russianText.length > 25) {
+        wrapperRu.addClass('form-has-error');
+        errorBlockRu.html('Перевод слишком длинный');
+        isError = true;
+    } else if (russianText.length === 0) {
+        wrapperRu.addClass('form-has-error');
+        errorBlockRu.html('Не передан перевод слова');
+        isError = true;
+    } else if (russianText.match('^[а-яА-ЯёЁ,.-\\s]+$') == null) {
+        wrapperRu.addClass('form-has-error');
+        errorBlockRu.html('Перевод должен состоять из букв кириллицы');
+        isError = true;
+    } else {
+        wrapperRu.removeClass('form-has-error');
+        errorBlockRu.html('');
+    }
+
+    return !isError;
+
 }
+
+function onChangeFormInput(){
+    $('.form-element-input').change(function() {
+        if($(this).val()) {
+            $(this).addClass('hasValue');
+        } else {
+            $(this).removeClass('hasValue');
+        }
+    });
+}
+
 
 

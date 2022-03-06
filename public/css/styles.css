@@ -1,11 +1,19 @@
 @charset "utf-8";
 
 #content {
-    min-height: 610px;
+    min-height: 80vh;
     max-width: 1100px;
-    margin: 0 auto;
-    margin-top: 10px;
-    padding: 0 12px 12px 12px;
+    margin: 15vh auto 5vh;
+}
+
+.dictionary-wrapper {
+    min-height: 80vh;
+    max-width: 1100px;
+    margin: 15vh auto 5vh;
+    padding: 20px;
+    background-color: #F5F6FC;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 50%);
 }
 
 .penIcon, .binIcon, .resetIcon {
@@ -23,13 +31,6 @@
 #submitWordButton, #resetButton {
     box-shadow: none !important;
     outline: 0px !important;
-}
-
-#nameAndExperienceSpan {
-    color: white;
-    font-size: 18px;
-    padding-bottom: 10px;
-    margin-right: 10px;
 }
 
 .avatar {
@@ -54,6 +55,10 @@
 
 .dropbtn:hover {
     cursor: pointer;
+}
+
+.dropbtn-active {
+    transform: rotate(180deg);
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -92,6 +97,124 @@
 }
 
 /*-------------- ГЛАВНАЯ СТРАНИЦА ----------------*/
+.formName{
+    margin-bottom: 30px;
+}
+
+.form-input {
+    height: auto;
+    margin: auto;
+    position: relative;
+    margin-bottom: 30px;
+}
+.form-element-input {
+    outline: none;
+    height: 1.5rem;
+    display: block;
+    background: none;
+    padding: 20px 10px;
+    font-size: 18px;
+    border: 0;
+    line-height: 1.5;
+    width: 100%;
+    color: #333;
+    box-shadow: none;
+    opacity: 0.001;
+    transition: opacity 0.28s ease;
+    will-change: opacity;
+}
+
+.form-element-input::placeholder {
+    color: #a6a6a6;
+    transform: scale(0.9);
+    transform-origin: left top;
+}
+
+.form-element-bar {
+    height: 1px;
+    background: #999;
+    position: relative;
+    display: block;
+}
+
+.form-element-bar:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #337ab7;
+    height: 2px;
+    display: block;
+    transform: rotateY(90deg);
+    transition: transform .28s ease;
+    will-change: transform;
+}
+
+.form-element-label {
+    position: absolute;
+    top: .85rem;
+    line-height: 1.5rem;
+    pointer-events: none;
+    padding-left: 0.125rem;
+    z-index: 1;
+    font-size: 1rem;
+    margin: 0;
+    color: #a6a6a6;
+    transform: translateY(-50%);
+    transform-origin: left center;
+    transition: transform .28s ease, color .28s linear, opacity .28s linear;
+    will-change: transform, color, opacity;
+    cursor: text;
+}
+
+.form-element-hint {
+    color: #aaa;
+}
+
+.form-element-input.hasValue ~ .form-element-bar::after,
+.form-element-input:focus ~ .form-element-bar::after {
+    transform: rotateY(0deg);
+}
+.form-element-input.hasValue ~ .form-element-label,
+.form-element-input:focus ~ .form-element-label {
+    color: #337ab7;
+}
+.form-element-input.hasValue,
+.form-element-input:focus {
+    opacity: 1;
+}
+.form-element-input.hasValue ~ .form-element-label,
+.form-element-input:focus ~ .form-element-label {
+    transform: translateY(-100%) translateY(-0.5em) translateY(-2px);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+
+.form-is-success .form-element-input,
+.form-is-success .form-element-label,
+.form-is-success .form-element-hint {
+    color: #259337;
+}
+
+
+.form-has-error .form-element-label.form-element-label,
+.form-has-error .form-element-hint {
+    color: #d9534f;
+}
+
+.form-has-error .form-element-bar:after {
+    background: #d9534f;
+}
+
+.form-has-error .form-element-input.hasValue ~ .form-element-label,
+.form-has-error .form-element-input:focus ~ .form-element-label {
+    transform: translateY(-100%) translateY(-0.5em) translateY(-2px);
+    color: #d9534f;
+    cursor: pointer;
+    pointer-events: auto;
+}
 
 #addWordForm {
     margin-bottom: 10px
@@ -415,19 +538,7 @@ th.sorted[data-order="-1"] {
     position: relative;
 }
 
-th.sorted[data-order="1"]::after,
-th.sorted[data-order="-1"]::after {
-    right: 8px;
-    position: absolute;
-}
 
-th.sorted[data-order="-1"]::after {
-    content: "▼"
-}
-
-th.sorted[data-order="1"]::after {
-    content: "▲"
-}
 
 /*-------------- СТРАНИЦА АДМИНИСТРАТОРА ----------------*/
 

@@ -1,5 +1,6 @@
 function dropDownFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementsByClassName("dropbtn")[1].classList.toggle("dropbtn-active");
 }
 
 window.onclick = function (event) {

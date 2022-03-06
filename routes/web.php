@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\FriendsController;
+use App\Http\Controllers\GrammarController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainController;
@@ -21,6 +22,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [MainController::class, 'main'])->name('main');
+    Route::post('/changetheme', [MainController::class, 'changeTheme'])->name('changeTheme');
 
     Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/admin', [MainController::class, 'admin'])->name('admin');
@@ -33,6 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/delete/{id}', [DictionaryController::class, 'deleteWord'])->name('deleteWord');
         Route::put('/edit/{id}', [DictionaryController::class, 'editWord'])->name('editWord');
         Route::put('/reset/{id}', [DictionaryController::class, 'resetWordProgress'])->name('resetWordProgress');
+    });
+
+    Route::group(['prefix' => 'grammar'], function () {
+        Route::get('/', [GrammarController::class, 'main'])->name('grammar');
     });
 
     Route::group(['prefix' => 'leaderboard'], function () {

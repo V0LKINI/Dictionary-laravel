@@ -75,7 +75,7 @@ Toast.add = function (params) {
     if (!document.querySelector('.toasts')) {
         var container = document.createElement('div');
         container.classList.add('toasts');
-        container.style.cssText = 'position: fixed; top: 15px; right: 15px; width: 250px;';
+        container.style.cssText = 'position: fixed; top: 50px; right: 15px; width: 250px;';
         document.body.appendChild(container);
     }
     document.querySelector('.toasts').appendChild(Toast.create(config.text, config.color));
