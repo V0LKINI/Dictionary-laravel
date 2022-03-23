@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/toasts.css">
+    <link rel="stylesheet" href="/css/swiper-bundle_min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="/js/jquery.js"></script>
@@ -40,6 +41,7 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('russian-english') }}">Russian-English</a>
                                         <a class="dropdown-item" href="{{ route('english-russian') }}">English-Russian</a>
+                                        <a class="dropdown-item" href="{{ route('puzzle') }}">Puzzle</a>
                                         <a class="dropdown-item" href="{{ route('repetition') }}">Повторение</a>
                                     </div>
                                 </li>
@@ -94,7 +96,7 @@
         </div>
     </div>
 
-    <div id="content">
+    <div class="content">
         @yield('content')
     </div>
 

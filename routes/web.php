@@ -5,17 +5,19 @@ use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\GrammarController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DictionaryController;
 use Illuminate\Support\Facades\Auth;
 
-
 Auth::routes([
     'reset' => false,
     'confirm' => false,
 ]);
+
+
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
@@ -23,10 +25,24 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [MainController::class, 'main'])->name('main');
     Route::post('/changetheme', [MainController::class, 'changeTheme'])->name('changeTheme');
+    Route::get('/test', [MainController::class, 'test'])->name('test');
 
     Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/admin', [MainController::class, 'admin'])->name('admin');
+
+        Route::group(['prefix' => 'news'], function () {
+            Route::post('/add', [NewsController::class, 'add'])->name('addNews');
+        });
+
+        Route::group(['prefix' => 'leaderboard'], function () {
+            Route::put('/reset/daily', [LeaderboardController::class, 'resetDaily'])->name('resetDaily');
+            Route::put('/reset/weekly', [LeaderboardController::class, 'resetWeekly'])->name('resetWeekly');
+            Route::put('/reset/monthly', [LeaderboardController::class, 'resetMonthly'])->name('resetMonthly');
+        });
+
     });
+
+    Route::get('leaderboard/', [LeaderboardController::class, 'main'])->name('leaderboard');
 
     Route::group(['prefix' => 'dictionary'], function () {
         Route::get('/', [DictionaryController::class, 'main'])->name('dictionary');
@@ -41,12 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [GrammarController::class, 'main'])->name('grammar');
     });
 
-    Route::group(['prefix' => 'leaderboard'], function () {
-        Route::get('/', [LeaderboardController::class, 'main'])->name('leaderboard');
-        Route::put('/reset/daily', [LeaderboardController::class, 'resetDaily'])->name('resetDaily');
-        Route::put('/reset/weekly', [LeaderboardController::class, 'resetWeekly'])->name('resetWeekly');
-        Route::put('/reset/monthly', [LeaderboardController::class, 'resetMonthly'])->name('resetMonthly');
-    });
+
 
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/id{id}', [ProfileController::class, 'main'])->name('profile.main');
@@ -68,10 +79,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/english-russian', [ExerciseController::class, 'englishRussian'])->name('english-russian');
         Route::get('/russian-english', [ExerciseController::class, 'russianEnglish'])->name('russian-english');
         Route::get('/repetition', [ExerciseController::class, 'repetition'])->name('repetition');
+        Route::get('/puzzle', [ExerciseController::class, 'puzzle'])->name('puzzle');
         Route::post('/get-results-exercise', [ExerciseController::class, 'getResultsExercise'])
             ->name('getResultsExercise');
         Route::post('/get-results-repetition', [ExerciseController::class, 'getResultsRepetition'])
             ->name('getResultsRepetition');
+        Route::post('/get-results-puzzle', [ExerciseController::class, 'getResultsPuzzle'])
+            ->name('getResultsPuzzle');
     });
 
 });

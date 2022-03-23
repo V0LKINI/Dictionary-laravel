@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\News;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
@@ -11,7 +12,8 @@ class MainController extends Controller
     public function main()
     {
         $user = Auth::user();
-        return view('main', compact('user'));
+        $news = News::orderByDesc('id')->take(5)->get();
+        return view('main', compact('user', 'news'));
     }
 
     public function admin()
@@ -26,4 +28,9 @@ class MainController extends Controller
         Auth::user()->changeTheme($request->isDark);
     }
 
+    public function test()
+    {
+        $user = Auth::user();
+        return view('test', compact('user'));
+    }
 }

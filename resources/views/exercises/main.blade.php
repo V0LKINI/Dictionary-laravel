@@ -22,6 +22,12 @@
     </div>
 
     <div class="card">
+        <h4>Puzzle</h4>
+        <p>Всего слов: {{ $wordsCount['puzzle'] }}</p>
+        <a class="exerciseLink" href="{{ route('puzzle') }}">Начать</a>
+    </div>
+
+    <div class="card">
         <h4>Повторение</h4>
         <p>Всего слов: {{ $wordsCount['repetition'] }}</p>
         <a class="exerciseLink" href="{{ route('repetition') }}">Начать</a>

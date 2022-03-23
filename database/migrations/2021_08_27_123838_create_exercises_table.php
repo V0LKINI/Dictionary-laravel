@@ -19,7 +19,9 @@ class CreateExercisesTable extends Migration
             $table->foreign('word_id')->references('id')->on('words')->onDelete('cascade');
             $table->tinyInteger('english_russian')->default(0);
             $table->tinyInteger('russian_english')->default(0);
+            $table->tinyInteger('puzzle')->default(0);
             $table->timestamp('repeated_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

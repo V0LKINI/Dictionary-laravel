@@ -17,14 +17,14 @@ class Exercise extends Model
      *
      * @var array
      */
-    protected $fillable = ['word_id', 'english_russian', 'russian_english', 'repeated_at'];
+    protected $fillable = ['word_id', 'english_russian', 'russian_english', 'puzzle', 'repeated_at'];
 
     /**
-     * Убираем поля created_at и updated_at из БД, так как они нам не нужны.
+     * Поля created_at и updated_at из БД.
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * Каждая строчка в таблице упражнений принадлежит какому-то одному слову.
@@ -41,7 +41,7 @@ class Exercise extends Model
      */
     public function getProgress(): int
     {
-        return ($this->russian_english + $this->english_russian) / 2;
+        return ($this->russian_english + $this->english_russian + $this->puzzle) / 3;
     }
 
     /**
@@ -61,6 +61,7 @@ class Exercise extends Model
 
         $this->english_russian = 0;
         $this->russian_english = 0;
+        $this->puzzle = 0;
         $this->save();
     }
 
@@ -93,6 +94,20 @@ class Exercise extends Model
     }
 
     /**
+     * Получить количество слов для изучения в упражнении puzzle.
+     *
+     * param int $user_id
+     *
+     * @return int
+     */
+    public static function getPuzzleWordsCount(int $user_id): int
+    {
+        $count = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('puzzle', '=', '0')->count();
+        return $count;
+    }
+
+    /**
      * Получить количество слов для повторения.
      *
      * param int $user_id
@@ -105,7 +120,9 @@ class Exercise extends Model
             ->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', '=', 100)
             ->where('russian_english', '=', 100)
-            ->whereDate('repeated_at', '<', date('Y-m-d'))
+            ->where('puzzle', '=', 100)
+            ->whereDate('exercises.created_at', '<', date('Y-m-d'))
+            ->whereDate('exercises.repeated_at', '<', date('Y-m-d'))
             ->count();
         return $count;
     }
@@ -180,6 +197,33 @@ class Exercise extends Model
         return $wordsArray;
     }
 
+
+    public static function getPuzzleWords(int $user_id): array
+    {
+        $words = Word::where('user_id', $user_id)->join('exercises', 'exercises.word_id', '=', 'words.id')
+            ->where('puzzle', 0)->inRandomOrder()->take(10)->get();
+
+        $wordsArray = [];
+        $i = 0;
+        foreach ($words as $word) {
+            $wordsArray[$i]['id'] = $word->id;
+            $wordsArray[$i]['word'] = $word->russian;
+            $wordsArray[$i]['translate'] = $word->english;
+            $wordsArray[$i]['length'] = strlen($word->english);
+
+            $properLettersArr = str_split(strtolower ($word->english));
+            $extraLettersArr = [];
+            for ($j=0; $j<(20-strlen($word->english)); $j++){
+                $extraLettersArr[$j] = substr('abcdefghijklmnopqrstuvwxyz,-.', rand(0,28), 1);
+            }
+            $wordsArray[$i]['letters'] =array_merge($properLettersArr, $extraLettersArr);
+            shuffle($wordsArray[$i]['letters']);
+
+            $i++;
+        }
+        return $wordsArray;
+    }
+
     /**
      * Получить коллекцию слов для повторения.
      *
@@ -193,7 +237,9 @@ class Exercise extends Model
             ->join('exercises', 'exercises.word_id', '=', 'words.id')
             ->where('english_russian', '=', 100)
             ->where('russian_english', '=', 100)
-            ->whereDate('repeated_at', '<', date('Y-m-d'))
+            ->where('puzzle', '=', 100)
+            ->whereDate('exercises.created_at', '<', date('Y-m-d'))
+            ->whereDate('exercises.repeated_at', '<', date('Y-m-d'))
             ->inRandomOrder()->take(10)->get();
         return $words;
     }

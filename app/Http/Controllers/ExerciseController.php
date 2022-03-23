@@ -15,6 +15,7 @@ class ExerciseController extends Controller
             'ruEng' => Exercise::getRussianEnglishWordsCount($user->id),
             'engRu' => Exercise::getEnglishRussianWordsCount($user->id),
             'repetition' => Exercise::getRepetitionWordsCount($user->id),
+            'puzzle' => Exercise::getPuzzleWordsCount($user->id),
         ];
         return view('exercises.main', compact('user', 'wordsCount'));
     }
@@ -61,6 +62,20 @@ class ExerciseController extends Controller
         return view('exercises.exercise', compact('user', 'wordsArray', 'count', 'exerciseName'));
     }
 
+    public function puzzle()
+    {
+        $user = Auth::user();
+        $words = Exercise::getPuzzleWords($user->id);
+        $count = count($words);
+
+        if ($count == 0) {
+            session()->flash('error', 'У вас нет слов для изучения');
+            return redirect()->route('exercises');
+        }
+
+        return view('exercises.puzzle', compact('user', 'words', 'count'));
+    }
+
     public function repetition()
     {
         if (session()->has('repetition')) {
@@ -104,7 +119,7 @@ class ExerciseController extends Controller
 
         $user = Auth::user();
         $user->increaseExperience($results['rightAnsersCount']);
-        Exercise::whereIn('word_id', $rightWordsId)->update([$exerciseName => 100]);
+        Exercise::whereIn('word_id', $rightWordsId)->update([$exerciseName => 100, 'repeated_at' => date("Y-m-d H:i:s")]);
 
         return view('exercises.exerciseResults', compact('user', 'results', 'exerciseName'));
     }
@@ -140,5 +155,15 @@ class ExerciseController extends Controller
         ]);
 
         return view('exercises.exerciseResults', compact('user', 'results', 'exerciseName'));
+    }
+
+
+    public function getResultsPuzzle(Request $request)
+    {
+        $count = count($request->words_id);
+        $user = Auth::user();
+        $user->increaseExperience($count);
+        Exercise::whereIn('word_id', $request->words_id)->update(['puzzle' => 100, 'repeated_at' => date("Y-m-d H:i:s")]);
+        return redirect('/exercises');
     }
 }
