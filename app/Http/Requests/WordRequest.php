@@ -24,7 +24,7 @@ class WordRequest extends FormRequest
     public function rules()
     {
         return [
-            'english' => ['required', 'max:25', 'regex:/^[a-zA-Z,.\-\s]+$/u'],
+            'english' => ['required', 'max:25', 'regex:/^[a-zA-ZÄäÖöẞßÜü,.\-\s]+$/u'],
             'russian' => ['required', 'max:25', 'regex:/^[а-яА-ЯёЁ,.\-\s]+$/u'],
         ];
     }

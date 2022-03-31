@@ -15,9 +15,9 @@
 <div id="profileInfo">
     <div id="profileImage">
         @if ($userProfile->image)
-            <img src="/storage{{ $userProfile->image }}" alt="Avatar">
+            <img src="{{ Storage::url($userProfile->image)}}" alt="Avatar">
         @else
-            <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+            <img src="{{ Storage::url('avatar.png')}}" alt="Avatar">
         @endif
     </div>
     <div id="profileContent">
@@ -60,9 +60,9 @@
                 <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
                     <div class="UserAvatar">
                         @if ($friend->image)
-                            <img src="/storage{{ $friend->image }}" alt="Avatar">
+                            <img src="{{ Storage::url($friend->image)}}" alt="Avatar">
                         @else
-                            <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                            <img src="{{ Storage::url('avatar.png')}}" alt="Avatar">
                         @endif
                     </div>
                     <div class="UserItem-info">
@@ -105,9 +105,9 @@
                     <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
                         <div class="UserAvatar">
                             @if ($friend->image)
-                                <img src="/storage{{ $friend->image }}" alt="Avatar">
+                                <img src="{{ Storage::url($friend->image)}}" alt="Avatar">
                             @else
-                                <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                                <img src="{{ Storage::url('avatar.png')}}" alt="Avatar">
                             @endif
                         </div>
                         <div class="UserItem-info">
@@ -139,9 +139,9 @@
                     <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
                         <div class="UserAvatar">
                             @if ($friend->image)
-                                <img src="/storage{{ $friend->image }}" alt="Avatar">
+                                <img src="{{ Storage::url($friend->image)}}" alt="Avatar">
                             @else
-                                <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                                <img src="{{ Storage::url('avatar.png')}}" alt="Avatar">
                             @endif
                         </div>
                         <div class="UserItem-info">

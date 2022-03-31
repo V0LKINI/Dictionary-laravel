@@ -22,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_dark_theme'
+        'is_dark_theme',
+        'banned_until'
     ];
 
     /**
@@ -165,7 +166,7 @@ class User extends Authenticatable
      */
     public function addFriend(User $user)
     {
-        $this->friendsOfMine()->attach($user->id);
+        $this->friendsOfMine()->attach($user->id, ['accepted' => false]);
     }
 
     /**

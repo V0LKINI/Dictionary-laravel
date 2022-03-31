@@ -6,11 +6,10 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    use UploadTrait;
 
     public function main(int $id)
     {
@@ -42,13 +41,13 @@ class ProfileController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
 
-        if ($request->has('image')) {
+        if ($request->has('image')){
             $image = $request->file('image');
-            $name = $user->id;
-            $folder = '/avatars/';
-            $filePath = $folder.$name.'.'.$image->getClientOriginalExtension();
-            $this->uploadOne($image, $folder, 'public', $name);
-            $user->image = $filePath;
+            Storage::delete($user->image);
+            $path = $image->storeAs(
+                'avatars', $user->id.'.'.$image->getClientOriginalExtension()
+            );
+            $user->image = $path;
         }
 
         $user->save();

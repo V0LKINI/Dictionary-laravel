@@ -14,7 +14,7 @@
 
 
 </head>
-<body class="hero-anime {{ $user->is_dark_theme ? 'dark' : '' }}">
+<body class="hero-anime {{ isset($user) && $user->is_dark_theme ? 'dark' : '' }}">
 
     <div class="navigation-wrap bg-light start-header start-style">
         <div class="container">
@@ -30,12 +30,16 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto py-4 py-md-0">
+
+                                @auth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                     <a class="nav-link" href="{{ route('dictionary') }}">Dictionary</a>
                                 </li>
+                                @endauth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                     <a class="nav-link" href="{{ route('grammar') }}">Grammar</a>
                                 </li>
+                                @auth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ route('exercises') }}" role="button">Training</a>
                                     <div class="dropdown-menu">
@@ -45,11 +49,12 @@
                                         <a class="dropdown-item" href="{{ route('repetition') }}">Повторение</a>
                                     </div>
                                 </li>
+                                @endauth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                     <a class="nav-link" href="{{ route('leaderboard') }}">Leaderboard</a>
                                 </li>
 
-                                @if ($user->isAdmin())
+                                @if (isset($user) && $user->isAdmin())
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                     <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
                                 </li>
@@ -64,10 +69,10 @@
                             </span>
                             <div class="dropdown">
                                 @if ($user->image)
-                                    <img src="/storage{{ $user->image }}"
+                                    <img src="{{ Storage::url($user->image)}}"
                                          alt="Avatar" class="avatar dropbtn" onclick="dropDownFunction()">
                                 @else
-                                    <img src="{{ asset('storage/avatar.png') }}"
+                                    <img src="{{ Storage::url('avatar.png')}}"
                                          alt="Avatar" class="avatar dropbtn" onclick="dropDownFunction()">
                                 @endif
 

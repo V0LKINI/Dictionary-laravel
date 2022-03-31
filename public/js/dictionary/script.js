@@ -274,7 +274,7 @@ function validateFormDate() {
         wrapperEng.addClass('form-has-error');
         errorBlockEng.html('Не передано слово');
         isError = true;
-    } else if (englishText.match('^[a-zA-Z,.-\\s]+$') == null) {
+    } else if (englishText.match('^[a-zA-ZÄäÖöẞßÜü,.-\\s]+$') == null) {
         wrapperEng.addClass('form-has-error');
         errorBlockEng.html('Слово должно состоять из букв латиницы');
         isError = true;

@@ -148,6 +148,7 @@ class ExerciseController extends Controller
         Exercise::whereIn('word_id', $toRepeatWordsId)->update([
             'russian_english' => 0,
             'english_russian' => 0,
+            'puzzle' => 0,
             'repeated_at' => date("Y-m-d H:i:s"),
         ]);
         Exercise::whereIn('word_id', $dontRepeatWordsId)->update([

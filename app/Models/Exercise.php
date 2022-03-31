@@ -209,11 +209,11 @@ class Exercise extends Model
             $wordsArray[$i]['id'] = $word->id;
             $wordsArray[$i]['word'] = $word->russian;
             $wordsArray[$i]['translate'] = $word->english;
-            $wordsArray[$i]['length'] = strlen($word->english);
+            $wordsArray[$i]['length'] = mb_strlen($word->english);
 
-            $properLettersArr = str_split(strtolower ($word->english));
+            $properLettersArr = mb_str_split(mb_strtolower ($word->english));
             $extraLettersArr = [];
-            for ($j=0; $j<(20-strlen($word->english)); $j++){
+            for ($j=0; $j<(20-mb_strlen($word->english)); $j++){
                 $extraLettersArr[$j] = substr('abcdefghijklmnopqrstuvwxyz,-.', rand(0,28), 1);
             }
             $wordsArray[$i]['letters'] =array_merge($properLettersArr, $extraLettersArr);

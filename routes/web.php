@@ -18,21 +18,24 @@ Auth::routes([
 ]);
 
 
-
+Route::get('/', [MainController::class, 'main'])->name('main');
 Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
+Route::get('leaderboard/', [LeaderboardController::class, 'main'])->name('leaderboard');
+Route::get('news/{id}', [NewsController::class, 'show'])->whereNumber('id')->name('news-detail');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['prefix' => 'grammar'], function () {
+    Route::get('/', [GrammarController::class, 'main'])->name('grammar');
+});
 
-    Route::get('/', [MainController::class, 'main'])->name('main');
+Route::group(['middleware' => ['auth', 'is_not_banned']], function () {
+
     Route::post('/changetheme', [MainController::class, 'changeTheme'])->name('changeTheme');
-    Route::get('/test', [MainController::class, 'test'])->name('test');
 
     Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/admin', [MainController::class, 'admin'])->name('admin');
-
-        Route::group(['prefix' => 'news'], function () {
-            Route::post('/add', [NewsController::class, 'add'])->name('addNews');
-        });
+        Route::resource('/admin/news', NewsController::class)->except('show');
+        Route::put('/admin/{id}/block', [MainController::class, 'blockUser'])->name('user-block');
+        Route::put('/admin/{id}/unblock', [MainController::class, 'unblockUser'])->name('user-unblock');
 
         Route::group(['prefix' => 'leaderboard'], function () {
             Route::put('/reset/daily', [LeaderboardController::class, 'resetDaily'])->name('resetDaily');
@@ -42,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-    Route::get('leaderboard/', [LeaderboardController::class, 'main'])->name('leaderboard');
+
 
     Route::group(['prefix' => 'dictionary'], function () {
         Route::get('/', [DictionaryController::class, 'main'])->name('dictionary');
@@ -52,11 +55,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/edit/{id}', [DictionaryController::class, 'editWord'])->name('editWord');
         Route::put('/reset/{id}', [DictionaryController::class, 'resetWordProgress'])->name('resetWordProgress');
     });
-
-    Route::group(['prefix' => 'grammar'], function () {
-        Route::get('/', [GrammarController::class, 'main'])->name('grammar');
-    });
-
 
 
     Route::group(['prefix' => 'profile'], function () {
@@ -89,6 +87,3 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 });
-
-
-

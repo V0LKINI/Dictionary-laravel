@@ -19,7 +19,7 @@
    @foreach($userRatingList as $experienceRow)
     <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $experienceRow->user->name }}</td>
+        <td><a href="{{ route('profile.main', $experienceRow->user->id) }}">{{ $experienceRow->user->name }}</a></td>
         <td>{{  $experienceRow->daily_experience }}</td>
         <td>{{  $experienceRow->weekly_experience }}</td>
         <td>{{  $experienceRow->monthly_experience }}</td>

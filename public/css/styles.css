@@ -1,4 +1,22 @@
 @charset "utf-8";
+
+
+.button-danger {
+    background-color: #fdb7b7 !important;
+}
+
+.button-danger:hover {
+    background-color: #faa0a0 !important;
+}
+
+.button-success {
+    background-color: #99f6b2 !important;
+}
+
+.button-success:hover {
+    background-color: #6ae88e !important;
+}
+
 .content {
     min-height: 80vh;
     max-width: 1170px;
@@ -550,8 +568,16 @@
 
 
 /*-------------- СТРАНИЦА С УПРАЖНЕНИЯМИ ----------------*/
-.card {
+.exercise__card {
     background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
     width: 32.3%;
     height: 140px;
     padding: 20px;
@@ -1466,7 +1492,74 @@ body {
 }
 
 .admin__newsSection {
-    padding: 10px;
+    padding: 20px;
+}
+
+.admin__news-allNews {
+    margin-bottom: 40px;
+}
+
+.admin__news-wrapper {
+    display: flex;
+    max-width: 1000px;
+    margin: 20px 0;
+    padding: 5px;
+    border: 1px solid #bababa;
+    background-color: #fafafa;
+}
+
+.admin__news-title-wrapper {
+    float:left;
+    margin-left: 10px;
+    width: 40%;
+}
+
+.admin__news-buttonsWrapper {
+    display: inline;
+    display: -webkit-inline-box;
+    margin-left: auto;
+}
+
+.admin__button-addNews {
+    display:block;
+    width: 1000px;
+    height: 100px;
+    padding: 20px 9px;
+    margin: 10px 0 20px 0;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.25;
+    color: #353A3A;
+    background-color: #FAFAFA;
+    border: 1px solid #909090;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration:none;
+    letter-spacing: -.02em;
+}
+
+.admin__button-addNews:hover {
+    background-color: #ebeeee;
+}
+
+.admin__news-image {
+    float:left;
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.admin__news-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.admin__news-form-wrapper {
+    max-width: 1100px;
+    width: 100%;
+    margin: 10vh auto;
 }
 
 .admin__input-wrapper {
@@ -1474,29 +1567,22 @@ body {
     -ms-flex-positive: 1;
     flex-grow: 1;
     width: auto;
-    margin: 0 0 0 1rem;
 }
 
 .admin__input{
     width: 100%;
     height: 100%;
 
-    --color: #1b2559;
-    --color-placeholder: #b0bbd5;
-    --border-color: #b0bbd5;
-    --border-color-hover: #875cff;
-    --border-color-focus: #875cff;
-    --background-color: #fff;
     padding: .625em 1em;
-    margin: 5px;
+    margin: 5px 0;
     overflow: hidden;
     font-family: DMSans;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.3;
-    color: var(--color);
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
+    color: #1b2559;
+    background-color: #fff;
+    border: 1px solid #b0bbd5;
     border-radius: 8px;
     outline: transparent;
     -webkit-appearance: none;
@@ -1505,7 +1591,7 @@ body {
 }
 
 .admin__textarea {
-    height: 100px;
+    height: 200px;
 }
 
 .admin__button-wrapper {
@@ -1532,17 +1618,16 @@ body {
     min-width: var(--min-width);
     padding: var(--padding);
     margin: 5px;
-    font-family: DMSans;
     font-size: var(--font-size);
     font-weight: 700;
     line-height: 1.25;
-    color: #1B2559FF;
+    color: #353A3A;
     background-color: white;
     border: 1px solid #909090;
     text-align: center;
     text-decoration: none;
     letter-spacing: -.02em;
-    border-radius: 50px;
+    border-radius: 10px;
     outline: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;

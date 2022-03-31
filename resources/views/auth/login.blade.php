@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -8,6 +8,11 @@
                 <div class="card-header">{{ __('Вход') }}</div>
 
                 <div class="card-body">
+
+                    @if (session('message'))
+                        <div class="alert alert-danger">{{ session('message') }}</div>
+                    @endif
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

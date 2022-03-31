@@ -15,9 +15,9 @@
                     <a href="{{ route('profile.main', $foundUser->id) }}" class="UserItem UserItemList-item">
                         <div class="UserAvatar">
                             @if ($foundUser->image)
-                                <img src="/storage{{ $foundUser->image }}" alt="Avatar">
+                                <img src="{{ Storage::url($foundUser->image)}}" alt="Avatar">
                             @else
-                                <img src="{{ asset('storage/avatar.png') }}" alt="Avatar">
+                                <img src="{{ Storage::url('avatar.png')}}" alt="Avatar">
                             @endif
                         </div>
                         <div class="UserItem-info">
