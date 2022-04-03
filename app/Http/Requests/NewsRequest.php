@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class NewsRequest extends FormRequest
 {
@@ -24,8 +25,8 @@ class NewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'max:20', 'string'],
-            'code' => ['required', 'max:20', 'string'],
+            'title' => ['required', 'max:100', 'string'],
+            'code' => ['required', 'max:100', 'string', Rule::unique('news')->ignore($this->route()->parameter('news'))],
             'description' => ['required', 'string'],
             'image' => ['image'],
         ];
@@ -39,10 +40,10 @@ class NewsRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Не передано имя',
-            'title.max' => 'Имя должно быть не длиннее 20 символов',
-            'code.required' => 'Не передан email',
-            'code.unique' => 'Email уже используется',
+            'required' => 'Не передано поле :attribute',
+            'max' => 'Поле :attribute должно быть не длиннее :max символов',
+            'string' => 'Поле :attribute должно быть строкой',
+            'unique' => 'Поле :attribute должно быть уникальным',
             'image' => 'Неверный формат изображения',
         ];
     }

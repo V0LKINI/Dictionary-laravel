@@ -39,7 +39,7 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
         $params = $request->all();
 
@@ -65,7 +65,9 @@ class NewsController extends Controller
     {
         $user = Auth::user();
         $news = News::where('id', $id)->first();
-        return view('news.show', compact('user', 'news'));
+        $otherNews = News::where('id','!=', $id)->orderByDesc('id')->take(5)->get();
+
+        return view('news.show', compact('user', 'news', 'otherNews'));
     }
 
     /**
@@ -87,7 +89,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, $id)
     {
         $news = News::find($id);
         $params = $request->all();

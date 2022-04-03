@@ -6,18 +6,25 @@
 
 <div class="admin__news-form-wrapper">
     <h2 id="formHead">Редактировать новость</h2>
+
+    @foreach ($errors->all() as $message)
+    <div class="alert alert-danger" role="alert">
+        {{ $message }}
+    </div>
+    @endforeach
+
     <form id="newsForm" action="{{ route('news.update', $news->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('put')
 
         <div class="admin__input-wrapper">
-            <input id="news_title" class="admin__input" type="text" name="title" placeholder="Title" value="{{ $news->title }}">
+            <input id="news_title" class="admin__input" type="text" name="title" placeholder="Title" value="{{ old('title')??$news->title }}">
         </div>
         <div class="admin__input-wrapper">
-            <input id="news_code" class="admin__input" type="text" name="code" placeholder="Code"  value="{{ $news->code }}">
+            <input id="news_code" class="admin__input" type="text" name="code" placeholder="Code"  value="{{ old('code')??$news->code }}">
         </div>
         <div class="admin__input-wrapper">
-            <textarea id="news_description" class="admin__input admin__textarea" name="description" placeholder="Description"> {{ $news->description }}</textarea>
+            <textarea id="news_description" class="admin__input admin__textarea" name="description" placeholder="Description">{{ old('description')??$news->description }}</textarea>
         </div>
         <div class="admin__news-buttonsWrapper">
             <div class="admin__button-wrapper">

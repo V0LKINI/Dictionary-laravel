@@ -13,7 +13,7 @@
 
                 <div class="admin__news-title-wrapper">
                     <h3 class="admin__news-title">{{$news->title}}</h3>
-                    <p class="admin__news-text">{{substr($news->description,0,550)}}</p>
+                    <p class="admin__news-text">{{$news->description}}</p>
                 </div>
 
 

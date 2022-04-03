@@ -62,6 +62,19 @@ body{
 .navbar{
     padding: 0;
 }
+
+.navbar-brand {
+    font-family: auto;
+}
+
+body.dark .navbar-brand {
+    color: white !important;
+}
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
+     color: white;
+}
+
 .navbar-brand img{
     height: 28px;
     width: auto;
