@@ -13,6 +13,7 @@
         <li class="admin__menu-back"><a href="/">Вернуться к сайту</a>
         <li class="admin__menu-item" data-sectionId="usersSection"><a href="#">Пользователи</a>
         <li class="admin__menu-item" data-sectionId="newsSection"><a href="#">Новости</a>
+        <li class="admin__menu-item" data-sectionId="grammarSection"><a href="#">Грамматика</a>
         <li class="admin__menu-item" data-sectionId="resetExperienceSection"><a href="#">Сброс опыта</a>
     </ul>
 
@@ -25,7 +26,10 @@
 
     @include('admin.newsSection')
 
+    @include('admin.grammarSection')
+
     @include('admin.resetExperienceSection')
+
 
 </main>
 

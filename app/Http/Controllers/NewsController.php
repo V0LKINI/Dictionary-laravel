@@ -49,36 +49,31 @@ class NewsController extends Controller
         }
 
         News::create($params);
-
-//        session()->flash('success', 'Настройки профиля сохранены');
         return redirect()->route('admin');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  News  $news
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
         $user = Auth::user();
-        $news = News::where('id', $id)->first();
-        $otherNews = News::where('id','!=', $id)->orderByDesc('id')->take(5)->get();
-
+        $otherNews = News::where('id','!=', $news->id)->orderByDesc('id')->take(5)->get();
         return view('news.show', compact('user', 'news', 'otherNews'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  News  $news
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        $news = News::find($id);
         return view('news.edit', compact('news'));
     }
 
@@ -86,12 +81,11 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  News  $news
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(NewsRequest $request, $id)
+    public function update(NewsRequest $request, News $news)
     {
-        $news = News::find($id);
         $params = $request->all();
 
         if ($request->has('image')){
@@ -101,22 +95,19 @@ class NewsController extends Controller
         }
 
         $news->update($params);
-
         return redirect()->route('admin');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  News  $news
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(News $news)
     {
-        $news = News::where('id', $id)->first();
         Storage::delete($news->image);
         $news->delete();
-
         return redirect()->route('admin');
     }
 }

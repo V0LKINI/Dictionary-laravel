@@ -28,10 +28,6 @@
                             VOLKOFF
                         </a>
 
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto py-4 py-md-0">
 
@@ -41,7 +37,7 @@
                                 </li>
                                 @endauth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                    <a class="nav-link" href="{{ route('grammar') }}">Grammar</a>
+                                    <a class="nav-link" href="{{ route('grammar.index') }}">Grammar</a>
                                 </li>
                                 @auth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
@@ -58,11 +54,11 @@
                                     <a class="nav-link" href="{{ route('leaderboard') }}">Leaderboard</a>
                                 </li>
 
-                                @if (isset($user) && $user->isAdmin())
+                                @admin
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                     <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
                                 </li>
-                                @endif
+                                @endadmin
 
                             </ul>
                         </div>
@@ -97,8 +93,6 @@
                                 <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
                             </span>
                         @endguest
-
-
                     </nav>
                 </div>
             </div>
@@ -122,7 +116,7 @@
                             </li>
                         @endauth
                         <li class="footer__item">
-                            <a class="footer__link" href="{{ route('grammar') }}">Grammar</a>
+                            <a class="footer__link" href="{{ route('grammar.index') }}">Grammar</a>
                         </li>
                         @auth
                             <li class="footer__item">
@@ -133,11 +127,11 @@
                             <a class="footer__link" href="{{ route('leaderboard') }}">Leaderboard</a>
                         </li>
 
-                        @if (isset($user) && $user->isAdmin())
+                        @admin
                             <li class="footer__item">
                                 <a class="footer__link" href="{{ route('admin') }}">Admin Panel</a>
                             </li>
-                        @endif
+                        @endadmin
                     </ul>
                 </nav>
 

@@ -1,8 +1,8 @@
-<section id="newsSection" class="admin__newsSection" hidden>
+<section id="newsSection" class="admin__section" hidden>
 
-    <a class="admin__button-addNews" href="{{ route('news.create') }}">Добавить новость</a>
+    <a class="admin__button-add" href="{{ route('news.create') }}">Добавить новость</a>
 
-    <div class="admin__news-allNews">
+    <div class="admin__allElements">
         <h2>Список новостей</h2>
         @foreach($allNews as $news)
             <div class="admin__news-wrapper">
@@ -12,18 +12,17 @@
                 </div>
 
                 <div class="admin__news-title-wrapper">
-                    <h3 class="admin__news-title">{{$news->title}}</h3>
-                    <p class="admin__news-text">{{$news->description}}</p>
+                    <h3>{{$news->title}}</h3>
+                    <p>{{$news->description}}</p>
                 </div>
 
 
-                <div class="admin__news-buttonsWrapper">
-                    <a class="admin__button button-success" href="{{ route('news.edit', $news->id) }}">Редактировать</a>
+                <div class="admin__buttonsWrapper">
+                    <a class="admin__button button-success" href="{{ route('news.edit', $news) }}">Редактировать</a>
 
-                    <form action="{{ route('news.destroy', $news->id) }}" method="post">
+                    <form action="{{ route('news.destroy', $news) }}" method="post">
                         @csrf
                         @method('delete')
-                        <input type="hidden" name="id" value="{{ $news->id }}">
                         <input type="submit" class="admin__button button-danger" value="Удалить">
                     </form>
                 </div>

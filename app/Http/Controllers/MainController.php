@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grammar;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\News;
@@ -18,10 +19,11 @@ class MainController extends Controller
 
     public function admin()
     {
-        $allUsers = User::get();
         $user = Auth::user();
+        $allUsers = User::get();
         $allNews = News::orderByDesc('id')->get();
-        return view('admin/main', compact('allUsers', 'user', 'allNews'));
+        $allRules = Grammar::get()->groupBy(function($data){ return $data->level; });
+        return view('admin/main', compact('allUsers', 'user', 'allNews', 'allRules'));
     }
 
     public function blockUser(Request $request, $id)

@@ -13,7 +13,7 @@
     </div>
     @endforeach
 
-    <form id="newsForm" action="{{ route('news.update', $news->id) }}" method="post" enctype="multipart/form-data">
+    <form id="newsForm" action="{{ route('news.update', $news) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('put')
 

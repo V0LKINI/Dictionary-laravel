@@ -28,7 +28,7 @@
     @if($news->count())
     <section class="mainpage__news">
         <div class="mainpage__news-wrapper">
-            <h2 class="mainpage__news-title">Новости</h2>
+            <h2 class="mainpage__news-title title">Новости</h2>
 
             <div class="news__block">
                 <a href="{{ route('news-detail', $news[0]->id) }}" class="news__block-big">
@@ -48,7 +48,7 @@
                                 $count++;
                                 continue;
                               }?>
-                            <a href="{{ route('news-detail', $one_news->id )}}" class="news__block-item">
+                            <a href="{{ route('news-detail', $one_news)}}" class="news__block-item">
                                 <div class="news__block-img">
                                     <img class="news__block-pict" src="{{ Storage::url( $one_news->image) }}" alt="{{ $one_news->title }}" title="{{ $one_news->title }}">
                                     <div class="news__block-text">{{ $one_news->title }}</div>
@@ -63,14 +63,20 @@
     </section>
     @endif
 
+
     <section class="mainpage__about">
-        <h2 class="mainpage__about-title">О нас</h2>
-        <p class="mainpage__about-text">
-            Volkoff - сервис для удобного изучение английского языка. Вы можете добавлять любое количество слов в
-            ваш собственный словарь и изучать их, используя огромное количество упражнений. Доступны правила грамматики
-            и возможность для их изучения, а добавление в друзья пользователей позволит соревноваться с друзьями,
-            ведь так намного интересней и увлекательней!
-        </p>
+        <h2 class="mainpage__about-title title">О нас</h2>
+        <div class="mainpage__about-bottom">
+            <p class="description_sm">
+                Volkoff - веб-сервис для удобного изучение английского языка, который развивается невероятными темпами!
+                Уже сейчас вы можете добавлять негограниченное количество слов в
+                ваш собственный словарь и изучать их, используя огромное количество упражнений. Доступны правила грамматики
+                и возможность для их изучения, а добавление в друзья пользователей позволит соревноваться с друзьями,
+                ведь так намного интересней и увлекательней!
+            </p>
+            <img src="/img/about.jpg" alt="">
+        </div>
+       
     </section>
 
 @endsection
