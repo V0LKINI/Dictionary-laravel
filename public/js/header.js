@@ -1,8 +1,15 @@
 
 $(document).ready(function () {
     ChangeTheme();
+    onClickBurger();
+
 });
 
+function onClickBurger() {
+    $('#topMenu__burger').click(function(){
+        $('#navbarSupportedContent').toggleClass('navbar-open');
+    });
+}
 
 (function($) { "use strict";
 

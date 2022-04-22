@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@yield('title')</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/header.css">
@@ -27,6 +30,10 @@
 {{--                            <img src="https://assets.codepen.io/1462889/fcy.png" alt="">--}}
                             VOLKOFF
                         </a>
+
+                        <button id="topMenu__burger" class="navbar-toggler">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto py-4 py-md-0">
@@ -60,6 +67,11 @@
                                 </li>
                                 @endadmin
 
+                                @auth
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.main', $user->id) }}">Profile</a></li>
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.edit') }}">Edit</a></li>
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('get-logout') }}">Logout</a></li>
+                                @endauth
                             </ul>
                         </div>
 
@@ -77,9 +89,9 @@
                                 @endif
 
                                 <div id="myDropdown" class="dropdown-content">
-                                    <a href="{{ route('profile.main', $user->id) }}">Профиль</a>
-                                    <a href="{{ route('profile.edit') }}">Редактировать</a>
-                                    <a href="{{ route('get-logout') }}">Выйти</a>
+                                    <a href="{{ route('profile.main', $user->id) }}">Profile</a>
+                                    <a href="{{ route('profile.edit') }}">Edit</a>
+                                    <a href="{{ route('get-logout') }}">Logout</a>
                                     <div id="switch"><div id="circle"></div> </div>
                                 </div>
                             </div>

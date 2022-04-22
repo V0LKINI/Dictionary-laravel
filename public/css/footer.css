@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.wrapper {
+.footer .wrapper {
     max-width: 1170px;
     margin: 0 auto;
 }
@@ -196,4 +196,36 @@
 
 body.dark .footer{
     background-color: #14151a !important;
+}
+
+@media screen and (max-width: 640px) {
+    .footer .wrapper {
+        padding: 0 10px;
+    }
+
+    .footer__contacts {
+        justify-content: unset;
+        align-items: flex-start;
+    }
+
+    .footer__socials {
+        flex-wrap: wrap;
+        width: 190px;
+    }
+
+    .footer__email {
+        width: 40%;
+        margin-top: 36px;
+        margin-left: 10px;
+        text-align: center;
+    }
+
+    .footer__phone {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
+    .header__list {
+        flex-direction: column;
+    }
 }

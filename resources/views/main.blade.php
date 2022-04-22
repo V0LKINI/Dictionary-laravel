@@ -11,13 +11,13 @@
             <div class="swiper-wrapper">
 
                 <div class="promo__banner swiper-slide">
-                    <img  class="promo-pict" src="/img/MainSlider/wall.jpg"/>
+                    <img  class="promo-pict" src="{{asset('img/MainSlider/wall.jpg')}}"/>
                 </div>
                 <div class="promo__banner swiper-slide">
-                    <img  class="promo-pict" src="/img/MainSlider/scale_1200.jpg"/>
+                    <img  class="promo-pict" src="{{asset('img/MainSlider/scale_1200.jpg')}}"/>
                 </div>
                 <div class="promo__banner swiper-slide">
-                    <img  class="promo-pict" src="/img/MainSlider/girl.jpg"/>
+                    <img  class="promo-pict" src="{{asset('img/MainSlider/girl.jpg')}}"/>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
             </p>
             <img src="/img/about.jpg" alt="">
         </div>
-       
+
     </section>
 
 @endsection

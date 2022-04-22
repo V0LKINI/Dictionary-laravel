@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grammar;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\News;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {

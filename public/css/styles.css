@@ -218,8 +218,9 @@
 
 @media screen and (max-width: 980px) {
     .mainSlider{
-        height: 100px;
-        width: 100%;
+        height: 200px;
+        width: calc(100% + 20px);
+        margin: -10px;
     }
 }
 
@@ -395,6 +396,37 @@
 .mainpage__about-bottom img {
     max-width: 560px;
     width: 100%;
+}
+
+@media screen and (max-width: 640px) {
+    .news__block {
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .news__block-big {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .news__block-small {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .news__block-item {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .news__block-small__wrapper {
+        flex-direction: column;
+    }
+
+    .mainpage__about-bottom {
+        flex-direction: column;
+    }
 }
 
 /*-------------- ПОДРОБНАЯ СТРАНИЦА НОВОСТИ ----------------*/
@@ -665,6 +697,10 @@ body.dark .details__other-link {
     min-width: 780px;
 }
 
+.dictionary__table-wrapper {
+    overflow: auto;
+}
+
 .simple-little-table {
     font-family: Arial, Helvetica, sans-serif;
     color: #666;
@@ -780,8 +816,32 @@ body.dark .details__other-link {
     text-decoration: underline;
 }
 
+@media screen and (max-width: 640px) {
+    .simple-little-table th {
+        padding: 15px;
+    }
+
+    .simple-little-table {
+        font-size: 12px;
+    }
+    .simple-little-table tr td {
+        padding: 15px !important;
+    }
+    .tableColumn .material-icons {
+        font-size: 16px;
+    }
+}
 
 /*-------------- СТРАНИЦА С УПРАЖНЕНИЯМИ ----------------*/
+
+.exercise__card-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
 .exercise__card {
     background-color: white;
     position: relative;
@@ -869,6 +929,18 @@ body.dark .details__other-link {
 #dontRemember {
     width: 200px;
     margin: 5px;
+}
+
+@media screen and (max-width: 640px) {
+
+    .exercise__card-wrapper {
+        flex-direction: column;
+    }
+
+    .exercise__card {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
 
 /*-------------- ТАБЛИЦА С РЕЗУЛЬТАТАМИ УПРАЖНЕНИЯ ----------------*/
