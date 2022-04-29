@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
+use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,7 @@ class ExerciseController extends Controller
         return view('exercises.exercise',
             compact('user', 'wordsArray', 'count', 'exerciseName'));
     }
+
 
     public function englishRussian()
     {
@@ -97,7 +99,7 @@ class ExerciseController extends Controller
 
     public function getResultsExercise(Request $request)
     {
-        $userAswers = $request->word;
+        $userAnswers = $request->word;
         $exerciseName = $request->exerciseName;
         $results = ['rightAnsersCount' => 0];
         $words = session()->get($exerciseName.'.words');
@@ -105,7 +107,7 @@ class ExerciseController extends Controller
         $index = 1;
 
         foreach ($words as $word) {
-            if ($word['correct_translation'] == $userAswers[$index]) {
+            if ($word['correct_translation'] == $userAnswers[$index]) {
                 $rightWordsId[] = $word['id'];
                 $results['words'][$word['word']] = [$word['correct_translation'], true];
                 $results['rightAnsersCount']++;
@@ -126,14 +128,14 @@ class ExerciseController extends Controller
 
     public function getResultsRepetition(Request $request)
     {
-        $userAswers = $request->word;
+        $userAnswers = $request->word;
         $exerciseName = 'repetition';
         $toRepeatWordsId = [];
         $dontRepeatWordsId = [];
         $results = ['rightAnsersCount' => 0];
 
         foreach (session()->get('repetition.words') as $index => $word) {
-            if ($userAswers[$index + 1] === 'Не помню') {
+            if ($userAnswers[$index + 1] === 'Не помню') {
                 $results['words'][$word->english] = [$word->russian, false];
                 $toRepeatWordsId[] = $word->id;
             } else {

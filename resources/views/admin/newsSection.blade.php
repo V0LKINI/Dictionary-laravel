@@ -31,7 +31,7 @@
 
         @endforeach
     </div>
-    
+
 </section>
 
 @section('scripts')

@@ -6,7 +6,8 @@
     font-family: 'Roboto',Arial,sans-serif;
     font-weight: 600;
     color: #000;
-    text-align: center;
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 .description {
@@ -396,6 +397,50 @@
 .mainpage__about-bottom img {
     max-width: 560px;
     width: 100%;
+}
+
+.mainpage__contacts {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    justify-content: space-between;
+}
+
+.mainpage__contacts-head {
+    width: 100%;
+}
+
+.mainpage__contacts-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 560px;
+    justify-content: space-between;
+}
+
+.mainpage__contacts-map {
+    width: 100%;
+    max-width: 560px;
+}
+
+.mainpage__contacts-el {
+    max-width: 280px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.mainpage__contacts-bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.mainpage__contacts-bottom img {
+    margin-right: 20px;
 }
 
 @media screen and (max-width: 640px) {

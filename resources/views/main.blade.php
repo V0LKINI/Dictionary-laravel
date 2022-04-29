@@ -28,7 +28,7 @@
     @if($news->count())
     <section class="mainpage__news">
         <div class="mainpage__news-wrapper">
-            <h2 class="mainpage__news-title title">Новости</h2>
+            <h2 class="title">Новости</h2>
 
             <div class="news__block">
                 <a href="{{ route('news-detail', $news[0]->id) }}" class="news__block-big">
@@ -65,7 +65,7 @@
 
 
     <section class="mainpage__about">
-        <h2 class="mainpage__about-title title">О нас</h2>
+        <h2 class="title">О нас</h2>
         <div class="mainpage__about-bottom">
             <p class="description_sm">
                 Volkoff - веб-сервис для удобного изучение английского языка, который развивается невероятными темпами!
@@ -77,6 +77,60 @@
             <img src="/img/about.jpg" alt="">
         </div>
 
+    </section>
+
+    <section class="mainpage__contacts">
+        <h2 class="mainpage__contacts-head title">Контакты</h2>
+
+        <div class="mainpage__contacts-wrapper">
+            <div class="mainpage__contacts-el">
+                <div class="description">
+                    Телефон
+                </div>
+                <div class="mainpage__contacts-bottom">
+                    <img src="{{asset('img/contacts_icons/phone.png')}}" alt="">
+                    <a href="tel:+79231748399" class="tel" > +7 (923) 174-83-99</a>
+                </div>
+            </div>
+            <div class="mainpage__contacts-el">
+                <div class="description">
+                    E-mail
+                </div>
+                <div class="mainpage__contacts-bottom">
+                    <img src="{{asset('img/contacts_icons/mail.png')}}" alt="">
+                    <a href="mailto:k.volkov.n@gmail.com" class="email">k.volkov.n@gmail.com</a>
+                </div>
+            </div>
+            <div class="mainpage__contacts-el">
+                <div class="description">
+                    Адрес
+                </div>
+                <div class="mainpage__contacts-bottom">
+                    <img src="{{asset('img/contacts_icons/address.png')}}" alt="">
+                    <div class="text_sm">
+                        г.Новосибирск <br>
+                        ул. Блюхера 32/1
+                    </div>
+                </div>
+            </div>
+            <div class="mainpage__contacts-el">
+                <div class="description">
+                    Режим работы
+                </div>
+                <div class="mainpage__contacts-bottom">
+                    <img src="{{asset('img/contacts_icons/time.png')}}" alt="">
+                    <div class="text_sm">
+                        Пн-Пт: с 10:00 до 19:00
+                        <br>
+                        Сб-Вс: Выходной
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainpage__contacts-map">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0d589b88274774d3bd1f89e7eb8c4bb5e17dbe22737f2aaeb2fbd46e33a55b80&amp;source=constructor" width="560" height="370" frameborder="0"></iframe>
+        </div>
     </section>
 
 @endsection
