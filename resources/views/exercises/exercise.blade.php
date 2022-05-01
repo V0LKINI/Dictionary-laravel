@@ -21,7 +21,7 @@
                            for="exerciseWordButton-{{ $loop->iteration }}-{{ $word[$i] }}">{{ $word[$i] }}
                     </label><br>
                 @endfor
-                <p class="fs-4">Слово {{ $loop->iteration }} из {{ $count }}</p>
+                <p class="fs-4">{{__('exercises.word')}} {{ $loop->iteration }} {{__('exercises.out')}} {{ $count }}</p>
             </div>
         @endforeach
         <div id="nextWordDiv"></div>

@@ -40,36 +40,38 @@
 
                                 @auth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                    <a class="nav-link" href="{{ route('dictionary') }}">Dictionary</a>
+                                    <a class="nav-link" href="{{ route('dictionary') }}">{{ __('master.dictionary') }}</a>
                                 </li>
                                 @endauth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                    <a class="nav-link" href="{{ route('grammar.index') }}">Grammar</a>
+                                    <a class="nav-link" href="{{ route('grammar.index') }}">{{ __('master.grammar') }}</a>
                                 </li>
                                 @auth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ route('exercises') }}" role="button">Training</a>
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ route('exercises') }}" role="button">{{ __('master.training.title') }}</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('russian-english') }}">Russian-English</a>
-                                        <a class="dropdown-item" href="{{ route('english-russian') }}">English-Russian</a>
-                                        <a class="dropdown-item" href="{{ route('puzzle') }}">Puzzle</a>
-                                        <a class="dropdown-item" href="{{ route('repetition') }}">Повторение</a>
+                                        <a class="dropdown-item" href="{{ route('russian-english') }}">{{ __('master.training.russian_english') }}</a>
+                                        <a class="dropdown-item" href="{{ route('english-russian') }}">{{ __('master.training.english_russian') }}</a>
+                                        <a class="dropdown-item" href="{{ route('puzzle') }}">{{ __('master.training.puzzle') }}</a>
+                                        <a class="dropdown-item" href="{{ route('repetition') }}">{{ __('master.training.repetition') }}</a>
                                     </div>
                                 </li>
                                 @endauth
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                    <a class="nav-link" href="{{ route('leaderboard') }}">Leaderboard</a>
+                                    <a class="nav-link" href="{{ route('leaderboard') }}">{{ __('master.leaderboard') }}</a>
                                 </li>
 
                                 @admin
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                    <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
+                                    <a class="nav-link" href="{{ route('admin') }}">{{ __('master.admin_panel') }}</a>
                                 </li>
                                 @endadmin
 
+
+
                                 @auth
-                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.main', $user->id) }}">Profile</a></li>
-                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.edit') }}">Edit</a></li>
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.main', $user->id) }}">{{ __('master.profile') }}</a></li>
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.edit') }}">{{ __('master.edit') }}</a></li>
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('get-logout') }}">Logout</a></li>
                                 @endauth
                             </ul>
@@ -77,7 +79,7 @@
 
                         @auth
                             <span class="navbar-text">
-                                {{ $user->name}} | Опыт: <span id="userExperience">{{ $user->experience->total_experience }}</span>
+                                {{ $user->name}} | {{ __('master.experience') }}: <span id="userExperience">{{ $user->experience->total_experience }}</span>
                             </span>
                             <div class="dropdown">
                                 @if ($user->image)
@@ -89,9 +91,9 @@
                                 @endif
 
                                 <div id="myDropdown" class="dropdown-content">
-                                    <a href="{{ route('profile.main', $user->id) }}">Profile</a>
-                                    <a href="{{ route('profile.edit') }}">Edit</a>
-                                    <a href="{{ route('get-logout') }}">Logout</a>
+                                    <a href="{{ route('profile.main', $user->id) }}">{{ __('master.profile') }}</a>
+                                    <a href="{{ route('profile.edit') }}">{{ __('master.edit') }}</a>
+                                    <a href="{{ route('get-logout') }}">{{ __('master.logout') }}</a>
                                     <div id="switch"><div id="circle"></div> </div>
                                 </div>
                             </div>
@@ -100,11 +102,24 @@
                             <span class="material-icons dropbtn" onclick="dropDownFunction()">arrow_drop_down</span>
 
                         @endauth
+
                         @guest
                             <span class="navbar-text">
-                                <a href="{{ route('login') }}">ВОЙТИ</a> | <a href="{{ route('register') }}">РЕГИСТРАЦИЯ</a>
+                                <a href="{{ route('login') }}">{{ __('master.login') }}</a> | <a href="{{ route('register') }}">{{ __('master.sign_in') }}</a>
                             </span>
                         @endguest
+
+                        <div class="locale__dropdown">
+                            @if(Cookie::get('locale') === 'en')
+                                <div class="locale__dropbtn" style="background: url('https://icons.iconarchive.com/icons/fatcow/farm-fresh/16/flag-usa-icon.png') no-repeat left center;">EN</div>
+                            @else
+                                <div class="locale__dropbtn">RU</div>
+                            @endif
+                            <div class="locale__dropdown-content">
+                                <a href="{{route('locale', 'ru')}}">RU</a>
+                                <a href="{{route('locale', 'en')}}">EN</a>
+                            </div>
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -124,31 +139,31 @@
 
                         @auth
                             <li class="footer__item">
-                                <a class="footer__link" href="{{ route('dictionary') }}">Dictionary</a>
+                                <a class="footer__link" href="{{ route('dictionary') }}">{{ __('master.dictionary') }}</a>
                             </li>
                         @endauth
                         <li class="footer__item">
-                            <a class="footer__link" href="{{ route('grammar.index') }}">Grammar</a>
+                            <a class="footer__link" href="{{ route('grammar.index') }}">{{ __('master.grammar') }}</a>
                         </li>
                         @auth
                             <li class="footer__item">
-                                <a class="footer__link" href="{{ route('exercises') }}">Training</a>
+                                <a class="footer__link" href="{{ route('exercises') }}">{{ __('master.training.title') }}</a>
                             </li>
                         @endauth
                         <li class="footer__item">
-                            <a class="footer__link" href="{{ route('leaderboard') }}">Leaderboard</a>
+                            <a class="footer__link" href="{{ route('leaderboard') }}">{{ __('master.leaderboard') }}</a>
                         </li>
 
                         @admin
                             <li class="footer__item">
-                                <a class="footer__link" href="{{ route('admin') }}">Admin Panel</a>
+                                <a class="footer__link" href="{{ route('admin') }}">{{ __('master.admin_panel') }}</a>
                             </li>
                         @endadmin
                     </ul>
                 </nav>
 
                 <button class="footer__btn">
-                    Наверх
+                    {{ __('master.up_button') }}
                     <span>
                         <svg width="17" height="14" viewBox="0 0 17 14" fill="white" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.5 1L15.5 7M15.5 7L9.5 13M15.5 7L-2.62268e-07 7" stroke="#53627E"/>
@@ -186,12 +201,12 @@
 
 
                 <div class="footer__email">
-                    По вопросам и предложениям <a href="mailto:support@dragonleague.info">k.volkov.n@gmail.com</a>
+                    {{ __('master.questions') }} <a href="mailto:support@dragonleague.info">k.volkov.n@gmail.com</a>
                 </div>
             </div>
             <div class="footer__copyright">
                 <div class="footer__copyright-item">Copyright ©2021-<?=date("Y")?> Volkoff</div>
-                <a href="#" class="footer__dev">Разработано в Volkoff</a>
+                <a href="#" class="footer__dev">{{ __('master.developed') }}</a>
             </div>
         </div>
     </footer>
@@ -206,6 +221,13 @@
 <script src="/js/header.js"></script>
 
 @yield('scripts')
+
+{{--  Глобальная JS перменная locale, содержая json с ларавель локалью  --}}
+<script>
+    window.locale = {!! $locale !!};
+</script>
+
+
 
 </body>
 </html>

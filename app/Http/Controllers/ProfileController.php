@@ -51,7 +51,7 @@ class ProfileController extends Controller
         }
 
         $user->save();
-        session()->flash('success', 'Настройки профиля сохранены');
+        session()->flash('success', __('profile.profile_save'));
 
         return redirect()->route('profile.edit');
     }

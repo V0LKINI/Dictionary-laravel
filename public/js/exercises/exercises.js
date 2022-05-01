@@ -3,11 +3,11 @@ function checkAnswer(correct_translation, chosen_translation, word_id, word_inde
     //Добавление кнопки "Далее" или "Завершить"
     if (word_index === count) {
         $('#nextWordDiv').append('<input type="submit" class="btn btn-primary fs-5" id="completeExerciseButton" ' +
-            'value="Завершить">');
+            'value="'+locale.exercises.finish+'">');
     } else {
         $('#nextWordDiv').append('<input type="button" class="btn btn-primary fs-5"' +
             ' onclick="nextWord(' + word_index + ')"' +
-            ' id="nextWordButton" name="chosenWord" value="Далее">');
+            ' id="nextWordButton" name="chosenWord" value="'+locale.exercises.next+'">');
     }
 
     //Подсвечиваем правильный ответ зелёным, неправильный красным

@@ -7,7 +7,9 @@ use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\News;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
@@ -51,6 +53,13 @@ class MainController extends Controller
     public function changeTheme(Request $request)
     {
         Auth::user()->changeTheme($request->isDark);
+    }
+
+    public function changeLocale($locale)
+    {
+        Cookie::queue("locale", $locale, time() + 3600*24*365);
+        App::setLocale($locale);
+        return redirect()->back();
     }
 
 }

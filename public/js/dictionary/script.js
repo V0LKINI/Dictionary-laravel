@@ -72,7 +72,7 @@ function onClickAddButton() {
                     resetForm();
 
                     Toast.add({
-                        text: "Слово добавлено в словарь",
+                        text: locale.dictionary.word_added_to_dict,
                         color: "#28a745",
                         autohide: true,
                         delay: 3000
@@ -106,7 +106,7 @@ function onClickEditButton() {
             resetForm();
 
             Toast.add({
-                text: "Слово успешно изменено",
+                text: locale.dictionary.word_successfully_changed,
                 color: "#28a745",
                 autohide: true,
                 delay: 3000
@@ -146,7 +146,8 @@ function resetForm(){
     let wrapperEng = $('#englishInputWrapper');
     let wrapperRu = $('#russianInputWrapper');
 
-    $("#formName").text('Добавить слово');
+    $("#formNameAdd").attr('hidden', false);
+    $("#formNameEdit").attr('hidden', true);
 
     $('#addWordForm input[name="english"]').val('');
     $('#addWordForm input[name="russian"]').val('');
@@ -173,7 +174,9 @@ function onClickEditPen() {
         let arr = $(this).closest('tr').find('td'); //1 элемент-слово на русском, 2 элемент - перевод на английском
         let id = $(this).closest('tr').attr('id').match(/\d+/);
 
-        $("#formName").text('Изменить слово');
+        $("#formNameAdd").attr('hidden', true);
+        $("#formNameEdit").attr('hidden', false);
+
         $("#addWordForm input[name='english']").val(arr.get(0).innerHTML).addClass('hasValue');
         $("#addWordForm input[name='russian']").val(arr.get(1).innerHTML).addClass('hasValue').focus();
 
@@ -268,15 +271,15 @@ function validateFormDate() {
     //validate english input
     if(englishText.length > 25){
         wrapperEng.addClass('form-has-error');
-        errorBlockEng.html('Слово слишком длинное');
+        errorBlockEng.html(locale.dictionary.validation.word_too_long);
         isError = true;
     } else if (englishText.length === 0) {
         wrapperEng.addClass('form-has-error');
-        errorBlockEng.html('Не передано слово');
+        errorBlockEng.html(locale.dictionary.validation.word_wasnt_entered);
         isError = true;
     } else if (englishText.match('^[a-zA-ZÄäÖöẞßÜü,.-\\s]+$') == null) {
         wrapperEng.addClass('form-has-error');
-        errorBlockEng.html('Слово должно состоять из букв латиницы');
+        errorBlockEng.html(locale.dictionary.validation.word_must_be_latin);
         isError = true;
     } else {
         wrapperEng.removeClass('form-has-error');
@@ -286,15 +289,15 @@ function validateFormDate() {
     //validate russian input
     if (russianText.length > 25) {
         wrapperRu.addClass('form-has-error');
-        errorBlockRu.html('Перевод слишком длинный');
+        errorBlockRu.html(locale.dictionary.validation.translation_too_long);
         isError = true;
     } else if (russianText.length === 0) {
         wrapperRu.addClass('form-has-error');
-        errorBlockRu.html('Не передан перевод слова');
+        errorBlockRu.html(locale.dictionary.validation.translation_wasnt_entered);
         isError = true;
     } else if (russianText.match('^[а-яА-ЯёЁ,.-\\s]+$') == null) {
         wrapperRu.addClass('form-has-error');
-        errorBlockRu.html('Перевод должен состоять из букв кириллицы');
+        errorBlockRu.html(locale.dictionary.validation.translation_must_be_cyrillic);
         isError = true;
     } else {
         wrapperRu.removeClass('form-has-error');

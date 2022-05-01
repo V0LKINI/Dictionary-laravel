@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Профиль')
+@section('title', __('profile.title'))
 
 @section('content')
 
@@ -25,26 +25,26 @@
             {{ $userProfile->name }}
         </h1>
         @if ($user->isFriendWithMe($userProfile))
-            <p>Пользователь у вас в друзьях</p>
+            <p>{{__('profile.user_is_friend')}}</p>
         @elseif($user->hasFriendRequestPending($userProfile))
-            <p>Заявка в друзья отправлена</p>
+            <p>{{__('profile.application_to_friends_send')}}</p>
         @elseif ($user->hasFriendRequestReceived($userProfile))
-            <p>Пользователь отправил вам заявку в друзья</p>
-            <a class="accept-or-reject" href="{{ route('friends.accept', $userProfile->id) }}">Принять</a>
-            <a class="accept-or-reject" href="{{ route('friends.reject', $userProfile->id) }}">Отклонить</a>
+            <p>{{__('profile.application_to_friends_came')}}</p>
+            <a class="accept-or-reject" href="{{ route('friends.accept', $userProfile->id) }}">{{__('profile.accept')}}</a>
+            <a class="accept-or-reject" href="{{ route('friends.reject', $userProfile->id) }}">{{__('profile.reject')}}</a>
         @elseif($user->id !== $userProfile->id)
-            <a href="{{ route('friends.add', $userProfile->id) }}">Добавить в друзья</a>
+            <a href="{{ route('friends.add', $userProfile->id) }}">{{__('profile.add_to_friend')}}</a>
         @endif
     </div>
 
 
 </div>
 
-<h1 class="friends-title">Друзья</h1>
+<h1 class="friends-title">{{__('profile.friends')}}</h1>
 
 <form action="{{ route('profile.search') }}" method='GET'>
-    <input type="search" name="query"0 placeholder="Кого ищем?">
-    <input type="submit" value="Найти">
+    <input type="search" name="query" placeholder="{{__('profile.who_is_searching')}}">
+    <input type="submit" value="{{__('profile.search')}}">
 </form>
 
 <br>
@@ -52,9 +52,9 @@
 <div class="Friends-List">
     <div class="UserItemList">
         @if(!$friends->count() && $user->id === $userProfile->id)
-            <p>У вас нет друзей</p>
+            <p>{{__('profile.you_dont_have_friends')}}</p>
         @elseif (!$friends->count())
-            <p>У пользователя нет друзей</p>
+            <p>{{__('profile.user_doest_have_friends')}}</p>
         @else
             @foreach($friends as $friend)
                 <a href="{{ route('profile.main', $friend->id) }}" class="UserItem UserItemList-item">
@@ -83,7 +83,7 @@
                             @endif
                         </div>
                         <div class="UserItem-experience">
-                            <p>Опыт: {{ $friend->experience->total_experience }}</p>
+                            <p>{{__('profile.experience')}}: {{ $friend->experience->total_experience }}</p>
                         </div>
                     </div>
 
@@ -94,10 +94,10 @@
 </div>
 
 @if($user->id === $userProfile->id AND ($friendRequests->count() OR $friendsPending->count()))
-    <h1 class="friends-requests">Заявки в друзья</h1>
+    <h1 class="friends-requests">{{__('profile.friends_requests')}}</h1>
 
     @if($friendRequests->count())
-        <p class="friends-requests-title">Входящие</p>
+        <p class="friends-requests-title">{{__('profile.incoming')}}</p>
         <div class="Friends-List">
             <div class="UserItemList">
 
@@ -115,13 +115,13 @@
                                 {{ $friend->name }}
                             </div>
                             <div class="UserItem-experience">
-                                Опыт: {{ $friend->experience->total_experience }}
+                                {{__('profile.experience')}}: {{ $friend->experience->total_experience }}
                             </div>
                             <object>
                                 <a class="accept-or-reject"
-                                   href="{{ route('friends.accept', $friend->id) }}">Принять</a>
+                                   href="{{ route('friends.accept', $friend->id) }}">{{__('profile.accept')}}</a>
                                 <a class="accept-or-reject"
-                                   href="{{ route('friends.reject', $friend->id) }}">Отклонить</a>
+                                   href="{{ route('friends.reject', $friend->id) }}">{{__('profile.reject')}}</a>
                             </object>
                         </div>
                     </a>
@@ -131,7 +131,7 @@
     @endif
 
     @if($friendsPending->count())
-        <p class="friends-requests-title">Исходящие</p>
+        <p class="friends-requests-title">{{__('profile.outgoing')}}</p>
         <div class="Friends-List">
             <div class="UserItemList">
 
@@ -149,11 +149,11 @@
                                 {{ $friend->name }}
                             </div>
                             <div class="UserItem-experience">
-                                Опыт: {{ $friend->experience->total_experience }}
+                                {{__('profile.experience')}}: {{ $friend->experience->total_experience }}
                             </div>
                             <object>
                                 <a class="accept-or-reject"
-                                   href="{{ route('friends.cancel', $friend->id) }}">Отменить</a>
+                                   href="{{ route('friends.cancel', $friend->id) }}">{{__('profile.cancel')}}</a>
                             </object>
                         </div>
                     </a>

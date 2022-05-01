@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Редактировать профиль')
+@section('title', __('profile.edit_title'))
 
 
 @section('content')
@@ -23,19 +23,19 @@
 <form class="my-form" id="editProfileForm" action="{{ route('profile.save') }}" method="POST" enctype="multipart/form-data">
     <input name="_method" type="hidden" value="PUT">
     @csrf
-    Ваше имя:<br>
+    {{__('profile.edit.your_name')}}:<br>
     <input name="name" type="text" value="{{ $user->name }}" required><br>
-    Ваш email:<br>
+    {{__('profile.edit.your_email')}}:<br>
     <input name="email" type="email" value="{{ $user->email }}" required><br><br>
 
     <div id="drop-area">
-        <p>Загрузите изображение с помощью кнопки или перетащив его в выделенную область</p>
+        <p>{{__('profile.edit.load_img')}}</p>
         <input type="file" id="fileElem" name="image" accept="image/*" onchange="handleFiles(this.files)">
-        <label class="button" for="fileElem">Выбрать фото</label>
+        <label class="button" for="fileElem">{{__('profile.edit.choose_img')}}</label>
         <div id="gallery"></div>
     </div><br>
 
-    <input type="submit"  class="btn btn-dark" value="Сохранить">
+    <input type="submit"  class="btn btn-dark" value="{{__('profile.edit.save')}}">
 </form>
 
 <script src="/js/dragAndDrop.js"></script>

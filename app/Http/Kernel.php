@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'is_admin' => \App\Http\Middleware\CheckIsAdmin::class,
         'is_not_banned' => \App\Http\Middleware\CheckBanned::class,
+        'set_locale' => \App\Http\Middleware\SetLocale::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

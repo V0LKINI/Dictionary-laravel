@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Упражнения')
+@section('title', __('exercises.title'))
 
 @section('content')
 
@@ -11,27 +11,27 @@
 
     <div class="exercise__card-wrapper">
         <div class="exercise__card">
-            <h4>Russian-English</h4>
-            <p>Осталось слов: {{ $wordsCount['ruEng'] }}</p>
-            <a class="exerciseLink" href="{{ route('russian-english') }}">Начать</a>
+            <h4>{{ __('exercises.titles.russian_english') }}</h4>
+            <p>{{ __('exercises.words_left') }}: {{ $wordsCount['ruEng'] }}</p>
+            <a class="exerciseLink" href="{{ route('russian-english') }}">{{ __('exercises.start') }}</a>
         </div>
 
         <div class="exercise__card">
-            <h4>English-Russian</h4>
-            <p>Осталось слов: {{ $wordsCount['engRu'] }}</p>
-            <a class="exerciseLink" href="{{ route('english-russian') }}">Начать</a>
+            <h4>{{ __('exercises.titles.english_russian') }}</h4>
+            <p>{{ __('exercises.words_left') }}: {{ $wordsCount['engRu'] }}</p>
+            <a class="exerciseLink" href="{{ route('english-russian') }}">{{ __('exercises.start') }}</a>
         </div>
 
         <div class="exercise__card">
-            <h4>Puzzle</h4>
-            <p>Всего слов: {{ $wordsCount['puzzle'] }}</p>
-            <a class="exerciseLink" href="{{ route('puzzle') }}">Начать</a>
+            <h4>{{ __('exercises.titles.puzzle') }}</h4>
+            <p>{{ __('exercises.words_left') }}: {{ $wordsCount['puzzle'] }}</p>
+            <a class="exerciseLink" href="{{ route('puzzle') }}">{{ __('exercises.start') }}</a>
         </div>
 
         <div class="exercise__card">
-            <h4>Повторение</h4>
-            <p>Всего слов: {{ $wordsCount['repetition'] }}</p>
-            <a class="exerciseLink" href="{{ route('repetition') }}">Начать</a>
+            <h4>{{ __('exercises.titles.repetition') }}</h4>
+            <p>{{ __('exercises.total_words') }}: {{ $wordsCount['repetition'] }}</p>
+            <a class="exerciseLink" href="{{ route('repetition') }}">{{ __('exercises.start') }}</a>
         </div>
     </div>
 

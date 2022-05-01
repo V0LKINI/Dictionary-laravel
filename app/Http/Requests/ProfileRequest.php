@@ -40,11 +40,11 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Не передано имя',
-            'name.max' => 'Имя должно быть не длиннее 20 символов',
-            'email.required' => 'Не передан email',
-            'email.unique' => 'Email уже используется',
-            'image' => 'Неверный формат изображения',
+            'name.required' => __('profile.validation.name_required'),
+            'name.max' =>  __('profile.validation.name_max'),
+            'email.required' =>  __('profile.validation.email_required'),
+            'email.unique' =>  __('profile.validation.email_unique'),
+            'image' =>  __('profile.validation.image'),
         ];
     }
 }

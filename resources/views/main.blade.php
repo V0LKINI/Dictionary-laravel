@@ -28,13 +28,13 @@
     @if($news->count())
     <section class="mainpage__news">
         <div class="mainpage__news-wrapper">
-            <h2 class="title">Новости</h2>
+            <h2 class="title">{{ __('main.news') }}</h2>
 
             <div class="news__block">
                 <a href="{{ route('news-detail', $news[0]->id) }}" class="news__block-big">
                     <div class="news__block-big__img">
-                        <img class="news__block-big__pict" src="{{ Storage::url($news[0]->image) }}" alt="{{ $news[0]->title }}" title="{{ $news[0]->title }}">
-                        <div class="news__block-big__text">{{ $news[0]->title }}</div>
+                        <img class="news__block-big__pict" src="{{ Storage::url($news[0]->image) }}" alt="{{ $news[0]->__('title') }}" title="{{ $news[0]->__('title') }}">
+                        <div class="news__block-big__text">{{ $news[0]->__('title') }}</div>
                     </div>
                 </a>
 
@@ -50,8 +50,8 @@
                               }?>
                             <a href="{{ route('news-detail', $one_news)}}" class="news__block-item">
                                 <div class="news__block-img">
-                                    <img class="news__block-pict" src="{{ Storage::url( $one_news->image) }}" alt="{{ $one_news->title }}" title="{{ $one_news->title }}">
-                                    <div class="news__block-text">{{ $one_news->title }}</div>
+                                    <img class="news__block-pict" src="{{ Storage::url( $one_news->image) }}" alt="{{ $one_news->__('title') }}" title="{{ $one_news->__('title') }}">
+                                    <div class="news__block-text">{{ $one_news->__('title') }}</div>
                                 </div>
                             </a>
                         <? } ?>
@@ -65,14 +65,10 @@
 
 
     <section class="mainpage__about">
-        <h2 class="title">О нас</h2>
+        <h2 class="title">{{ __('main.about.title') }}</h2>
         <div class="mainpage__about-bottom">
             <p class="description_sm">
-                Volkoff - веб-сервис для удобного изучение английского языка, который развивается невероятными темпами!
-                Уже сейчас вы можете добавлять негограниченное количество слов в
-                ваш собственный словарь и изучать их, используя огромное количество упражнений. Доступны правила грамматики
-                и возможность для их изучения, а добавление в друзья пользователей позволит соревноваться с друзьями,
-                ведь так намного интересней и увлекательней!
+                {{ __('main.about.text') }}
             </p>
             <img src="/img/about.jpg" alt="">
         </div>
@@ -80,12 +76,12 @@
     </section>
 
     <section class="mainpage__contacts">
-        <h2 class="mainpage__contacts-head title">Контакты</h2>
+        <h2 class="mainpage__contacts-head title">{{ __('main.contacts.title') }}</h2>
 
         <div class="mainpage__contacts-wrapper">
             <div class="mainpage__contacts-el">
                 <div class="description">
-                    Телефон
+                    {{ __('main.contacts.phone') }}
                 </div>
                 <div class="mainpage__contacts-bottom">
                     <img src="{{asset('img/contacts_icons/phone.png')}}" alt="">
@@ -103,26 +99,23 @@
             </div>
             <div class="mainpage__contacts-el">
                 <div class="description">
-                    Адрес
+                    {{ __('main.contacts.address_title') }}
                 </div>
                 <div class="mainpage__contacts-bottom">
                     <img src="{{asset('img/contacts_icons/address.png')}}" alt="">
                     <div class="text_sm">
-                        г.Новосибирск <br>
-                        ул. Блюхера 32/1
+                        {!! __('main.contacts.address_text') !!}
                     </div>
                 </div>
             </div>
             <div class="mainpage__contacts-el">
                 <div class="description">
-                    Режим работы
+                    {{ __('main.contacts.work_regime') }}
                 </div>
                 <div class="mainpage__contacts-bottom">
                     <img src="{{asset('img/contacts_icons/time.png')}}" alt="">
                     <div class="text_sm">
-                        Пн-Пт: с 10:00 до 19:00
-                        <br>
-                        Сб-Вс: Выходной
+                        {!! __('main.contacts.work_regime_time') !!}
                     </div>
                 </div>
             </div>

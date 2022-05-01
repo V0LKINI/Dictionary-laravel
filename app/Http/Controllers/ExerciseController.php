@@ -101,7 +101,7 @@ class ExerciseController extends Controller
     {
         $userAnswers = $request->word;
         $exerciseName = $request->exerciseName;
-        $results = ['rightAnsersCount' => 0];
+        $results = ['rightAnswersCount' => 0];
         $words = session()->get($exerciseName.'.words');
         $rightWordsId = [];
         $index = 1;
@@ -110,7 +110,7 @@ class ExerciseController extends Controller
             if ($word['correct_translation'] == $userAnswers[$index]) {
                 $rightWordsId[] = $word['id'];
                 $results['words'][$word['word']] = [$word['correct_translation'], true];
-                $results['rightAnsersCount']++;
+                $results['rightAnswersCount']++;
             } else {
                 $results['words'][$word['word']] = [$word['correct_translation'], false];
             }
@@ -120,7 +120,7 @@ class ExerciseController extends Controller
         session()->forget($exerciseName);
 
         $user = Auth::user();
-        $user->increaseExperience($results['rightAnsersCount']);
+        $user->increaseExperience($results['rightAnswersCount']);
         Exercise::whereIn('word_id', $rightWordsId)->update([$exerciseName => 100, 'repeated_at' => date("Y-m-d H:i:s")]);
 
         return view('exercises.exerciseResults', compact('user', 'results', 'exerciseName'));
@@ -132,7 +132,7 @@ class ExerciseController extends Controller
         $exerciseName = 'repetition';
         $toRepeatWordsId = [];
         $dontRepeatWordsId = [];
-        $results = ['rightAnsersCount' => 0];
+        $results = ['rightAnswersCount' => 0];
 
         foreach (session()->get('repetition.words') as $index => $word) {
             if ($userAnswers[$index + 1] === 'Не помню') {
@@ -141,12 +141,12 @@ class ExerciseController extends Controller
             } else {
                 $results['words'][$word->english] = [$word->russian, true];
                 $dontRepeatWordsId[] = $word->id;
-                $results['rightAnsersCount']++;
+                $results['rightAnswersCount']++;
             }
         }
 
         $user = Auth::user();
-        $user->increaseExperience($results['rightAnsersCount']);
+        $user->increaseExperience($results['rightAnswersCount']);
         Exercise::whereIn('word_id', $toRepeatWordsId)->update([
             'russian_english' => 0,
             'english_russian' => 0,

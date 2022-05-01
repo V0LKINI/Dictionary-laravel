@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Словарик')
+@section('title', __('dictionary.title'))
 
 @section('content')
     <div class="dictionary-wrapper">
@@ -9,30 +9,31 @@
             <div class="alert alert-warning" role="alert">{{ session()->get('warning') }}</div>
         @endif
 
-        <h4 id="formName" class="formName">Добавить слово</h4>
+        <h4 id="formNameAdd" class="formName">{{ __('dictionary.add_word') }}</h4>
+        <h4 id="formNameEdit" hidden class="formName">{{ __('dictionary.edit_word') }}</h4>
 
         <form id="addWordForm" class="wrapper">
              @csrf
 
             <!--  Regular text input  -->
             <div id="englishInputWrapper" class="form-input">
-                <input id="english" class="form-element-input" type="text" name="english" placeholder="Введите слово" autocomplete="off" value=''/>
+                <input id="english" class="form-element-input" type="text" name="english" placeholder="{{__('dictionary.placeholder_word')}}" autocomplete="off" value=''/>
                 <div class="form-element-bar"></div>
-                <label class="form-element-label" for="english">Слово</label>
+                <label class="form-element-label" for="english">{{ __('dictionary.table.word') }}</label>
                 <small class="form-element-hint"></small>
             </div>
 
             <!--  Text input with an error  -->
             <div id="russianInputWrapper" class="form-input">
-                <input id="russian" class="form-element-input" type="text" placeholder="Введите перевод" name="russian" autocomplete="off" value=''/>
+                <input id="russian" class="form-element-input" type="text" placeholder="{{__('dictionary.placeholder_translation')}}" name="russian" autocomplete="off" value=''/>
                 <div class="form-element-bar"></div>
-                <label class="form-element-label" for="russian">Перевод</label>
+                <label class="form-element-label" for="russian">{{ __('dictionary.table.translation') }}</label>
                 <small class="form-element-hint"></small>
             </div>
 
-             <input id="addButton" class="btn btn-success mainFormButton" type="button" value="Добавить">
-             <input id="editButton" class="btn btn-success mainFormButton" style="display: none;" type="button" value="Изменить">
-             <input id="resetButton" class="btn btn-danger mainFormButton"  type="reset" value="Сбросить">
+             <input id="addButton" class="btn btn-success mainFormButton" type="button" value="{{__('dictionary.add_button')}}">
+             <input id="editButton" class="btn btn-success mainFormButton" style="display: none;" type="button" value="{{__('dictionary.edit_button')}}">
+             <input id="resetButton" class="btn btn-danger mainFormButton"  type="reset" value="{{__('dictionary.reset_button')}}">
 
         </form>
 
@@ -41,10 +42,10 @@
         <div class="dictionary__table-wrapper">
             <table class="simple-little-table">
                 <tr id="tableHead">
-                    <th style="width: 20%;">Слово</th>
-                    <th style="width: 45%;">Перевод</th>
-                    <th style="width: 20%;">Взаимодействие</th>
-                    <th style="width: 15%;">Прогресс</th>
+                    <th style="width: 20%;">{{ __('dictionary.table.word') }}</th>
+                    <th style="width: 45%;">{{ __('dictionary.table.translation') }}</th>
+                    <th style="width: 20%;">{{ __('dictionary.table.interaction') }}</th>
+                    <th style="width: 15%;">{{ __('dictionary.table.progress') }}</th>
                 </tr>
                 @foreach($words as $word)
                     <tr class="tableRow" id="tableRow-{{ $word->id }}">

@@ -37,12 +37,12 @@ class WordRequest extends FormRequest
     public function messages()
     {
         return [
-            'english.required' => 'Не передано слово',
-            'russian.required' => 'Не передан перевод слова',
-            'english.max' => 'Слово слишком длинное',
-            'russian.max' => 'Перевод слишком длинный',
-            'english.regex' => 'Слово должно состоять из букв латиницы',
-            'russian.regex' => 'Перевод должен состоять из букв кириллицы',
+            'english.required' => __('dictionary.validation.word_too_long'),
+            'russian.required' => __('dictionary.validation.word_wasnt_entered'),
+            'english.max' => __('dictionary.validation.word_must_be_latin'),
+            'russian.max' => __('dictionary.validation.translation_too_long'),
+            'english.regex' => __('dictionary.validation.translation_wasnt_entered'),
+            'russian.regex' => __('dictionary.validation.translation_must_be_cyrillic'),
         ];
     }
 }

@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'Лидеры')
+@section('title', __('leaderboard.title'))
 
 @section('content')
 
 <table class="table_sort">
     <thead>
         <tr>
-            <th>Рейтинг</th>
-            <th>Имя</th>
-            <th>Опыт за день</th>
-            <th>Опыт за неделю</th>
-            <th>Опыт за месяц</th>
-            <th>Всего опыта</th>
+            <th>{{ __('leaderboard.table.rating') }}</th>
+            <th>{{ __('leaderboard.table.name') }}</th>
+            <th>{{ __('leaderboard.table.daily') }}</th>
+            <th>{{ __('leaderboard.table.weekly') }}</th>
+            <th>{{ __('leaderboard.table.monthly') }}</th>
+            <th>{{ __('leaderboard.table.total') }}</th>
         </tr>
     </thead>
     <tbody>
