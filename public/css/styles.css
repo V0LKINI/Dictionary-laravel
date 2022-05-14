@@ -34,6 +34,13 @@
     color: #000;
 }
 
+body.dark .title,
+body.dark .description,
+body.dark .description_sm,
+body.dark .text_sm {
+    color: #fff;
+}
+
 @media screen and (max-width: 960px) {
     .title {
         font-size: 38px;
@@ -103,6 +110,10 @@
     background-color: #F5F6FC;
     border-radius: 15px;
     box-shadow: 0 0 5px rgb(0 0 0 / 50%);
+}
+
+body.dark .dictionary-wrapper {
+    background-color: #1c1c1c;
 }
 
 .penIcon, .binIcon, .resetIcon {
@@ -860,6 +871,29 @@ body.dark .details__other-link {
     color: #bd5a35;
     text-decoration: underline;
 }
+body.dark .simple-little-table {
+    color: #fff;
+    background: #5e5e5e;
+    text-shadow: 1px 1px 0px #000;
+    border: #5e5e5e 1px solid;
+}
+
+body.dark .simple-little-table th{
+    background: -webkit-gradient(linear, left top, left bottom, from(#282828), to(#262626));
+    border-top: 1px solid #282828;
+    border-bottom: 1px solid #262626;
+}
+
+body.dark .simple-little-table tr td{
+    background: -webkit-gradient(linear, left top, left bottom, from(#282828), to(#262626));
+    border-top: 1px solid #282828;
+    border-bottom: 1px solid #262626;
+    border-left: 1px solid #262626;
+}
+
+body.dark .simple-little-table tr:nth-child(even) td{
+    background: -webkit-gradient(linear, left top, left bottom, from(#14151A), to(#000));
+}
 
 @media screen and (max-width: 640px) {
     .simple-little-table th {
@@ -902,6 +936,10 @@ body.dark .details__other-link {
     padding: 20px;
     margin: 20px 5px 5px 5px;
     float: left;
+}
+
+body.dark .exercise__card {
+    background-color: #1c1c1c;
 }
 
 .exerciseForm {

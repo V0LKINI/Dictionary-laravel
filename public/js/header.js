@@ -62,8 +62,6 @@ function ChangeTheme(){
             $("#switch").addClass("switched");
         }
 
-        console.log(isDark);
-
         $.ajax({
             url: '/changetheme',
             type: "POST",

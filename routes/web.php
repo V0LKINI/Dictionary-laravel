@@ -51,6 +51,7 @@ Route::group(['middleware' => ['set_locale']], function () {
             Route::get('/', [DictionaryController::class, 'main'])->name('dictionary');
             Route::post('/load', [DictionaryController::class, 'loadWords'])->name('loadWords');
             Route::post('/add', [DictionaryController::class, 'addWord'])->name('addWord');
+            Route::post('/addtest', [DictionaryController::class, 'addTestData'])->name('addTestData');
             Route::delete('/delete/{id}', [DictionaryController::class, 'deleteWord'])->name('deleteWord');
             Route::put('/edit/{id}', [DictionaryController::class, 'editWord'])->name('editWord');
             Route::put('/reset/{id}', [DictionaryController::class, 'resetWordProgress'])->name('resetWordProgress');

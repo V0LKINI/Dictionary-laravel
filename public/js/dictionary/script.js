@@ -27,8 +27,7 @@ function scrolling() {
     if (block_show) {
         return false;
     }
-    let currentHeight = $("#content").height();
-
+    let currentHeight = $(".content").height();
     //проверка достижения конца прокрутки
     if ($(this).scrollTop() >= (currentHeight - $(this).height() - 2000)) {
         //функция реализующая загрузку контента
@@ -61,7 +60,7 @@ function onClickAddButton() {
 
         if(validateFormDate()){
             $.ajax({
-                url: '/dictionary/add',
+                url: '/dictionary/addtest',
                 type: "post",
                 dataType: "json",
                 data: $("#addWordForm").serialize(),
