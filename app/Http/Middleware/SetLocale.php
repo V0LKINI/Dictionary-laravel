@@ -20,15 +20,7 @@ class SetLocale
     public function handle(Request $request, Closure $next)
     {
         $localeFromCookie = $request->cookie('locale');
-        $langPath = resource_path('lang/' . $localeFromCookie);
-
         App::setLocale($localeFromCookie);
-
-        View::share('locale', collect(File::allFiles($langPath))->flatMap(function ($file) {
-            return [
-                ($locale = $file->getBasename('.php')) => trans($locale),
-            ];
-        })->toJson());
 
         return $next($request);
     }

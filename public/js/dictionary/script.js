@@ -56,29 +56,25 @@ function loadWords() {
 }
 
 function onClickAddButton() {
+
     $('#addButton').click(function (){
 
         if(validateFormDate()){
             $.ajax({
-                url: '/dictionary/addtest',
+                url: '/dictionary/add',
                 type: "post",
                 dataType: "json",
                 data: $("#addWordForm").serialize(),
-
                 success: function (data) { //Слово добавлено в словарь
-
                     $('#tableHead').after(data);
                     resetForm();
-
                     Toast.add({
                         text: locale.dictionary.word_added_to_dict,
                         color: "#28a745",
                         autohide: true,
                         delay: 3000
                     });
-
                     onWordAddingEditing();
-
                 }, error: function (xhr) {
                     if (xhr.status === 422) {
                         let errors = Object.entries(xhr.responseJSON.errors);
@@ -316,6 +312,5 @@ function onChangeFormInput(){
         }
     });
 }
-
 
 

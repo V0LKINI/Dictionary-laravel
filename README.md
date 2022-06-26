@@ -15,8 +15,8 @@ php 7.4, MySQL 8.0
   autoload.php
 - Переименовать .env.example в .env и обновить его с вашими учетными данными базы данных
 - Сгенерировать ключ приложения командой php artisan key:generate
-- Запустить миграции базы данных командой php artisan migrate
-- Наполнить базу данных содержимым php artisan db:seed
+- Запустить миграции и сиды базы данных командой php artisan migrate --seed
+- Создать симлинк php artisan storage:link
 - Запустить проект при помощи php artisan serve, либо используя Open Server
 - Войти на сайт, используя email: admin@example.com и пароль: admin
 

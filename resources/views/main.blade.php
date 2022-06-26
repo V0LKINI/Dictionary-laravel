@@ -1,9 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'Antondzaki')
+@section('title', 'Главная')
 
 @section('content')
-
     <section class="promo">
         <!-- Общий контейнер -->
         <div class="swiper-container mainSlider">
@@ -38,23 +37,19 @@
                     </div>
                 </a>
 
-
-
                 <div class="news__block-small">
                     <div class="news__block-small__wrapper">
-                        <? $count=0 ?>
-                        <? foreach($news as $one_news) {
-                            if($count === 0){
-                                $count++;
-                                continue;
-                              }?>
+                        @foreach($news as $one_news)
+                            @if ($loop->first)
+                                @continue
+                            @endif
                             <a href="{{ route('news-detail', $one_news)}}" class="news__block-item">
                                 <div class="news__block-img">
                                     <img class="news__block-pict" src="{{ Storage::url( $one_news->image) }}" alt="{{ $one_news->__('title') }}" title="{{ $one_news->__('title') }}">
                                     <div class="news__block-text">{{ $one_news->__('title') }}</div>
                                 </div>
                             </a>
-                        <? } ?>
+                        @endforeach
                     </div>
                 </div>
 

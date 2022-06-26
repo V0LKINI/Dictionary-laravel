@@ -58,7 +58,7 @@ class ExerciseController extends Controller
             session()->flash('error', 'У вас нет слов для изучения');
             return redirect()->route('exercises');
         }
-
+        
         session(['english_russian.words' => $wordsArray]);
 
         return view('exercises.exercise', compact('user', 'wordsArray', 'count', 'exerciseName'));

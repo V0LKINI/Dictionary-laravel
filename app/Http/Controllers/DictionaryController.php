@@ -19,19 +19,6 @@ class DictionaryController extends Controller
         return view('dictionary/main', compact('user', 'words'));
     }
 
-    public function addTestData(Request $request)
-    {
-        try {
-            for ($i=0; $i<1000; $i++){
-                Word::addWord(Auth::id(), ($request->english)."$i", $request->russian);
-            }
-        } catch (BadRequestException $e) {
-            http_response_code(400);
-            echo $e->getMessage();
-        }
-    }
-
-
     public function addWord(WordRequest $request)
     {
         try {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\NewsRequest;
 use App\Models\News;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
@@ -59,11 +59,14 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show($news_id)
     {
-        $user = Auth::user();
-        $otherNews = News::where('id','!=', $news->id)->orderByDesc('id')->take(5)->get();
-        return view('news.show', compact('user', 'news', 'otherNews'));
+        $news = Cache::rememberForever('news_'.$news_id, function () use ($news_id) {
+            return News::findOrFail($news_id);
+        });
+
+        $otherNews = News::where('id','!=', $news_id)->orderByDesc('id')->take(5)->get();
+        return view('news.show', compact('news', 'otherNews'));
     }
 
     /**

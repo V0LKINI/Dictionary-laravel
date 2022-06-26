@@ -74,6 +74,18 @@
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('profile.edit') }}">{{ __('master.edit') }}</a></li>
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 nav-link-mobile"><a class="nav-link" href="{{ route('get-logout') }}">Logout</a></li>
                                 @endauth
+
+                                <div class="locale__dropdown locale__dropdown-mobile">
+                                    @if(Cookie::get('locale') === 'en')
+                                        <div class="locale__dropbtn" style="background: url('https://icons.iconarchive.com/icons/fatcow/farm-fresh/16/flag-usa-icon.png') no-repeat left center;">EN</div>
+                                    @else
+                                        <div class="locale__dropbtn">RU</div>
+                                    @endif
+                                    <div class="locale__dropdown-content">
+                                        <a href="{{route('locale', 'ru')}}">RU</a>
+                                        <a href="{{route('locale', 'en')}}">EN</a>
+                                    </div>
+                                </div>
                             </ul>
                         </div>
 
@@ -127,6 +139,8 @@
     </div>
 
     <div class="content">
+        {{  Request::has('name') }}
+
         @yield('content')
     </div>
 
@@ -222,7 +236,8 @@
 
 @yield('scripts')
 
-{{--  Глобальная JS перменная locale, содержая json с ларавель локалью  --}}
+{{--    PHP переменная $locale инициализируется в ViewComposer/LocaleComposer--}}
+{{--    Глобальная JS перменная locale, содержаящая json с ларавель локалью--}}
 <script>
     window.locale = {!! $locale !!};
 </script>

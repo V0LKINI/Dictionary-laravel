@@ -11,10 +11,9 @@ class LeaderboardController extends Controller
 {
     public function main()
     {
-        $user = Auth::user();
         $userRatingList = Experience::with('user')->orderByDesc('total_experience')
             ->take(100)->get();
-        return view('leaderboard.leaderboard', compact('user', 'userRatingList'));
+        return view('leaderboard.leaderboard', compact('userRatingList'));
     }
 
     public function resetDaily()

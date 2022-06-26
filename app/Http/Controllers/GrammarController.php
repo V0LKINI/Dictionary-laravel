@@ -15,9 +15,8 @@ class GrammarController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $basic = Grammar::where('level', 'basic')->get();
-        return view('grammar/main', compact('user', 'basic'));
+        return view('grammar/main', compact('basic'));
     }
 
     /**

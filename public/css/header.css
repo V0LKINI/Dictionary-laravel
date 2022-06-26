@@ -476,3 +476,17 @@ body.dark .logo img {
 .locale__dropdown:hover .locale__dropdown-content {
     display: block;
 }
+
+.locale__dropdown-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .locale__dropdown {
+        display: none;
+    }
+
+    .locale__dropdown-mobile {
+        display: block;
+    }
+}

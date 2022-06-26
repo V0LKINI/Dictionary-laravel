@@ -710,6 +710,10 @@ body.dark .details__other-link {
     pointer-events: auto;
 }
 
+body.dark .form-element-input {
+    color: #f9f9f9;
+}
+
 
 .form-is-success .form-element-input,
 .form-is-success .form-element-label,
@@ -1309,15 +1313,16 @@ th.sorted[data-order="1"]::after {
 
 #profileImage{
     float: left;
-    width: 25%;
+    width: 250px;
+    height: 250px;
     margin-right: 1%;
     display: block;
 }
 
 #profileImage img {
+    height: 100%;
     width: 100%;
-    margin:auto;
-    height: 250px;
+    object-fit: cover;
     padding: 5px;
     border: 1px solid rgba(225, 225, 225, 0.7);
 }

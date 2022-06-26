@@ -99,7 +99,7 @@ class Word extends Model
      */
     public static function addWord(int $user_id, string $english, string $russian): Word
     {
-        $word = self::where([['user_id', $user_id], ['english', $english]])->first();
+        $word = self::where(['user_id' => $user_id, 'english' => $english])->first();
         if ($word === null) {
             $word = self::create([
                 'user_id' => $user_id,

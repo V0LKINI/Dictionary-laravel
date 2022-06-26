@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grammar;
-use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\News;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
     public function main()
     {
-        $user = Auth::user();
-        $news = News::orderByDesc('id')->take(5)->get();
-        return view('main', compact('user', 'news'));
+        $news = Cache::rememberForever('news_main', function () {
+            return News::orderByDesc('id')->take(5)->get();
+        });
+
+        return view('main', compact('news'));
     }
 
     public function admin()
