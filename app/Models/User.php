@@ -232,7 +232,6 @@ class User extends Authenticatable
      */
     public function changeTheme($isDark): void
     {
-        $this->is_dark_theme = $isDark;
-        $this->save();
+        $this->update(['is_dark_theme' => $isDark]);
     }
 }

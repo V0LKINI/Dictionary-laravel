@@ -28,6 +28,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'is_admin' => 0,
+            'is_dark_theme' => 0,
         ];
     }
 
@@ -44,4 +46,23 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_admin' => 1,
+            ];
+        });
+    }
+
+    public function dark()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_dark_theme' => 1,
+            ];
+        });
+    }
+
 }
